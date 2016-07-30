@@ -1,11 +1,18 @@
 'use strict';
 
-module.exports = roles => creep => {
+var roles = {
+  builder: require('./creep.role.builder'),
+  transferer: require('./creep.role.transferer'),
+  upgrader: require('./creep.role.upgrader')
+};
+
+module.exports = creep => {
   if (!roles[creep.memory.role]) {
+    creep.memory.role = 'upgrader';
     return;
   }
 
-  var activities = roles[creep.memory.role].activities;
+  var activities = roles[creep.memory.role];
 
   if (creep.memory.activity && !activities[creep.memory.activity]) {
     delete creep.memory.activity;
