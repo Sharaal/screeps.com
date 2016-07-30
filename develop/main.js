@@ -12,6 +12,6 @@ var roles = {
 
 module.exports.loop = () => {
   memory();
-  spawnController(roles);
+  _.each(Game.spawns, spawnController(roles));
   _.each(Game.creeps, creepController(roles));
 };
