@@ -5,7 +5,7 @@ var levels = [
   require('./spawn.level-2'),
 ];
 
-module.exports = roles => spawn => {
+module.exports = spawn => {
   var priorities;
   _.each(levels, level => {
     if (level.conditions) {
