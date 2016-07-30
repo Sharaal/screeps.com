@@ -18,7 +18,7 @@ module.exports.priorities = [
   },
   {
     role: 'transferer',
-    amount: 3,
+    amount: 2,
     body: [WORK, WORK,  WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
   },
   {
