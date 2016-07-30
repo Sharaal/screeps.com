@@ -1,19 +1,14 @@
 'use strict';
 
+var memoryRandomSelect = require('./util.memory-random-select');
+
 module.exports = creep => {
   var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
-  if (!constructionSites.length) {
+
+  var constructionSite = memoryRandomSelect(creep, 'constructionSite', constructionSites);
+  if (!constructionSite) {
     return true;
   }
-
-  if (creep.memory.constructionSite && !constructionSites[creep.memory.constructionSite]) {
-    delete creep.memory.constructionSite;
-  }
-  if (!creep.memory.constructionSite) {
-    creep.memory.constructionSite = _.sample(_.keys(constructionSites));
-  }
-
-  var constructionSite = constructionSites[creep.memory.constructionSite];
 
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);

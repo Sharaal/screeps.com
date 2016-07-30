@@ -2,6 +2,7 @@
 
 module.exports = roles => creep => {
   if (!roles[creep.memory.role]) {
+    //TODO: what should happen if the role of a creep is not anymore known?
     return;
   }
 
