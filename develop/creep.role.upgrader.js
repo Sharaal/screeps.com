@@ -13,5 +13,5 @@ module.exports.activities = {
 
 module.exports.spawn = {
   amount: 1,
-  body: [WORK, CARRY, MOVE, MOVE]
+  body: [WORK, WORK, CARRY, MOVE]
 };
