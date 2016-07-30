@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.activities = {
+module.exports = {
   harvest: {
     do: require('./creep.activity.harvest'),
     next: 'transfer'
@@ -18,9 +18,4 @@ module.exports.activities = {
     do: require('./creep.activity.upgrade'),
     next: 'harvest'
   },
-};
-
-module.exports.spawn = {
-  amount: 3,
-  body: [WORK, WORK,  WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
 };

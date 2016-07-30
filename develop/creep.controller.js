@@ -2,11 +2,11 @@
 
 module.exports = roles => creep => {
   if (!roles[creep.memory.role]) {
-    //TODO: what should happen if the role of a creep is not anymore known?
+    creep.memory.role = 'upgrader';
     return;
   }
 
-  var activities = roles[creep.memory.role].activities;
+  var activities = roles[creep.memory.role];
 
   if (creep.memory.activity && !activities[creep.memory.activity]) {
     delete creep.memory.activity;
