@@ -22,7 +22,7 @@ module.exports.priorities = [
   },
   {
     role: 'builder',
-    amount: 3,
+    amount: 2,
     body: [WORK, WORK, CARRY, MOVE]
   },
 ];
