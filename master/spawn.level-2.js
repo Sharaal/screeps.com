@@ -18,12 +18,12 @@ module.exports.priorities = [
   },
   {
     role: 'transferer',
-    amount: 3,
+    amount: 4,
     body: [WORK, WORK,  WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
   },
   {
     role: 'builder',
-    amount: 1,
+    amount: 2,
     body: [WORK, WORK,  WORK, CARRY, CARRY, CARRY, MOVE, MOVE]
   },
 ];
