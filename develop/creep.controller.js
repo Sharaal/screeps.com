@@ -9,7 +9,6 @@ var roles = {
 module.exports = creep => {
   if (!roles[creep.memory.role]) {
     creep.memory.role = 'upgrader';
-    return;
   }
 
   var activities = roles[creep.memory.role];
