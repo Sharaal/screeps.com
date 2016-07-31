@@ -1,9 +1,7 @@
 'use strict';
 
-var memoryRandomSelect = require('./util.memory-random-select');
-
 module.exports = creep => {
-  var transferTargets = creep.room.find(FIND_STRUCTURES, {
+  var transferTarget = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure =>
     (
       structure.structureType == STRUCTURE_EXTENSION ||
@@ -12,8 +10,6 @@ module.exports = creep => {
     )
     && structure.energy < structure.energyCapacity
   });
-
-  var transferTarget = memoryRandomSelect(creep, 'transferTarget', transferTargets);
   if (!transferTarget) {
     return true;
   }
