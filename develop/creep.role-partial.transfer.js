@@ -3,7 +3,7 @@
 module.exports = next => {
   return {
     'find-transferStructure': {
-      do: require('./creep.activity.find-transferStructure'),
+      run: require('./creep.activity.find-transferStructure'),
       next: creep => {
         if (creep.memory.transferStructure) {
           return 'move-to transferStructure';
@@ -12,17 +12,17 @@ module.exports = next => {
       }
     },
     'move-to transferStructure': {
-      do: require('./creep.activity.move-to'),
+      run: require('./creep.activity.move-to'),
       next: 'transfer'
     },
     transfer: {
-      do: require('./creep.activity.transfer'),
+      run: require('./creep.activity.transferStructure'),
       next: creep => {
         if (creep.carry.energy) {
           creep.memory.target = 'roomController';
           return next;
         }
-        return 'move-to source';
+        return 'target-source';
       }
     },
   }

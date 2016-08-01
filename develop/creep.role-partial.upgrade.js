@@ -2,17 +2,15 @@
 
 module.exports = {
   'target-roomController': {
-    do: creep => {
-      creep.memory.target = 'roomController';
-    },
+    run: require('./creep.activity.target-roomController'),
     next: 'move-to roomController'
   },
   'move-to roomController': {
-    do: require('./creep.activity.move-to'),
+    run: require('./creep.activity.move-to'),
     next: 'upgrade'
   },
   upgrade: {
-    do: require('./creep.activity.upgrade'),
-    next: 'move-to source'
+    run: require('./creep.activity.upgrade'),
+    next: 'target-source'
   },
 };

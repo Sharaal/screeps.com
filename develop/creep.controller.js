@@ -7,7 +7,7 @@ module.exports = roles => creep => {
   var activities = roles[creep.memory.role].activities;
   do {
     var activity = activities[creep.memory.activity];
-    var isFinished = activity.do(creep);
+    var isFinished = activity.run(creep);
     if (isFinished) {
       if (typeof activity.next === 'function') {
         creep.memory.activity = activity.next(creep);
