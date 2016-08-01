@@ -24,6 +24,6 @@ module.exports = next => {
         }
         return 'move-to source';
       }
-    }
+    },
   }
 };

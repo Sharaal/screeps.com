@@ -13,6 +13,6 @@ module.exports = next => {
     harvest: {
       do: require('./creep.activity.harvest'),
       next
-    }
+    },
   }
 };

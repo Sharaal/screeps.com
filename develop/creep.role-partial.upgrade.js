@@ -14,5 +14,5 @@ module.exports = {
   upgrade: {
     do: require('./creep.activity.upgrade'),
     next: 'move-to source'
-  }
+  },
 };
