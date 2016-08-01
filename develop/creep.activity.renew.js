@@ -15,3 +15,7 @@ module.exports = (creep, structureSpawn) => {
   }
   structureSpawn.renewCreep(creep);
 };
+
+// TODO
+// creeps in rooms which are larger (body parts costs >
+// room.energyCapacityAvailable) should proactive go to renew
