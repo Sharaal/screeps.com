@@ -6,6 +6,7 @@ module.exports = creep => {
     return true;
   }
   creep.memory.target = 'constructionSite';
+  creep.memory.range = 3;
   creep.memory.constructionSite = constructionSite.id;
   return true;
 };
