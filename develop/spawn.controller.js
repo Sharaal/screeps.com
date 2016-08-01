@@ -5,7 +5,7 @@ var levels = [
   require('./spawn.level-2'),
 ];
 
-module.exports = spawn => {
+module.exports = roles => spawn => {
   var priorities;
   _.each(levels, level => {
     if (level.conditions) {
@@ -34,9 +34,13 @@ module.exports = spawn => {
       order = priority;
     }
   });
+  
   if (!order) {
     return;
   }
 
-  spawn.createCreep(order.body, undefined, { role: order.role });
+  spawn.createCreep(order.body, undefined, {
+    role: order.role,
+    activity: roles[order.role].startActivity
+  });
 };

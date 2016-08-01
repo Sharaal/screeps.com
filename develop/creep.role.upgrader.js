@@ -1,12 +1,10 @@
 'use strict';
 
 module.exports = {
-  harvest: {
-    do: require('./creep.activity.harvest'),
-    next: 'upgrade'
-  },
-  upgrade: {
-    do: require('./creep.activity.upgrade'),
-    next: 'harvest'
-  },
+  startActivity: 'find-source',
+  activities: _.merge(
+    {},
+    require('./creep.role-partial.harvest')('find-constructionSite'),
+    require('./creep.role-partial.upgrade')
+  )
 };
