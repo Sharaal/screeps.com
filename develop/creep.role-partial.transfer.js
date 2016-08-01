@@ -19,8 +19,7 @@ module.exports = next => {
       run: require('./creep.activity.transferStructure'),
       next: creep => {
         if (creep.carry.energy) {
-          creep.memory.target = 'roomController';
-          return next;
+          return 'find-transferStructure';
         }
         return 'target-source';
       }
