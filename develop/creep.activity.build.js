@@ -5,9 +5,9 @@ module.exports = creep => {
   var energy = creep.carry.energy;
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
-  } else {
-    if (creep.carry.energy === energy || creep.carry.energy === 0) {
-      return true;
-    }
+    return;
+  }
+  if (creep.carry.energy === energy || creep.carry.energy === 0) {
+    return true;
   }
 };

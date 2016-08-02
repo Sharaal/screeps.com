@@ -13,9 +13,8 @@ module.exports = creep => {
       &&
       structure.energy < structure.energyCapacity
   });
-  if (!transferStructure) {
-    return true;
+  if (transferStructure) {
+    creep.memory.transferStructure = transferStructure.id;
   }
-  creep.memory.transferStructure = transferStructure.id;
   return true;
 };

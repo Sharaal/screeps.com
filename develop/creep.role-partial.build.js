@@ -15,7 +15,7 @@ module.exports = next => {
       run: require('./creep.activity.build'),
       next: creep => {
         if (creep.carry.energy) {
-          return next;
+          return 'find-constructionSite';
         }
         return 'harvest';
       }

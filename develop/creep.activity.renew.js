@@ -19,3 +19,7 @@ module.exports = (creep, structureSpawn) => {
 // TODO
 // creeps in rooms which are larger (body parts costs >
 // room.energyCapacityAvailable) should proactive go to renew
+
+// TODO
+// creeps which are near the spawn controller can easily get renewed, but this
+// shouldn't block the workflow of the creeps
