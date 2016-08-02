@@ -2,9 +2,12 @@
 
 module.exports = creep => {
   var constructionSite = Game.getObjectById(creep.memory.constructionSite);
-  var before = creep.carry.energy;
-  creep.build(constructionSite);
-  if (creep.carry.energy === before || creep.carry.energy === 0) {
-    return true;
+  var energy = creep.carry.energy;
+  if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
+    creep.moveTo(constructionSite);
+  } else {
+    if (creep.carry.energy === energy || creep.carry.energy === 0) {
+      return true;
+    }
   }
 };

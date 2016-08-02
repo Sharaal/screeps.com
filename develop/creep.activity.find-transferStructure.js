@@ -16,7 +16,6 @@ module.exports = creep => {
   if (!transferStructure) {
     return true;
   }
-  creep.memory.target = 'transferStructure';
   creep.memory.transferStructure = transferStructure.id;
   return true;
 };

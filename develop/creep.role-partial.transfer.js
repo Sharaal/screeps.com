@@ -6,14 +6,10 @@ module.exports = next => {
       run: require('./creep.activity.find-transferStructure'),
       next: creep => {
         if (creep.memory.transferStructure) {
-          return 'move-to transferStructure';
+          return 'transfer';
         }
         return next;
       }
-    },
-    'move-to transferStructure': {
-      run: require('./creep.activity.move-to'),
-      next: 'transfer'
     },
     transfer: {
       run: require('./creep.activity.transferStructure'),
@@ -21,7 +17,7 @@ module.exports = next => {
         if (creep.carry.energy) {
           return 'find-transferStructure';
         }
-        return 'target-source';
+        return 'harvest';
       }
     },
   }

@@ -6,7 +6,6 @@ module.exports = creep => {
     creep.say('missing source');
     return;
   }
-  creep.memory.target = 'source';
   creep.memory.source = _.sample(sources).id;
   return true;
 };

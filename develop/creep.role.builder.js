@@ -6,7 +6,7 @@ module.exports = {
       {},
       require('./creep.role-partial.harvest')('find-constructionSite'),
       require('./creep.role-partial.build')('find-transferStructure'),
-      require('./creep.role-partial.transfer')('target-roomController'),
+      require('./creep.role-partial.transfer')('upgrade'),
       require('./creep.role-partial.upgrade')
     )
 };

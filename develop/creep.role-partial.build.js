@@ -6,14 +6,10 @@ module.exports = next => {
       run: require('./creep.activity.find-constructionSite'),
       next: creep => {
         if (creep.memory.constructionSite) {
-          return 'move-to constructionSite';
+          return 'build';
         }
         return next;
       }
-    },
-    'move-to constructionSite': {
-      run: require('./creep.activity.move-to'),
-      next: 'build'
     },
     build: {
       run: require('./creep.activity.build'),
@@ -21,7 +17,7 @@ module.exports = next => {
         if (creep.carry.energy) {
           return next;
         }
-        return 'move-to source';
+        return 'harvest';
       }
     },
   }
