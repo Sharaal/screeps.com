@@ -3,6 +3,6 @@
 module.exports = {
   upgrade: {
     run: require('./creep.activity.upgrade'),
-    next: 'harvest'
+    next: 'harvestSource'
   },
 };

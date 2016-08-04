@@ -17,7 +17,7 @@ module.exports = next => {
         if (creep.carry.energy) {
           return 'find-storeStructure';
         }
-        return 'harvest';
+        return 'harvestSource';
       }
     },
   }
