@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = next => {
+module.exports = (next, harvest) => {
   return {
     'find-transferStructure': {
       run: require('./creep.activity.find-transferStructure'),
@@ -17,7 +17,7 @@ module.exports = next => {
         if (creep.carry.energy) {
           return 'find-transferStructure';
         }
-        return 'harvestSource';
+        return harvest || 'harvestSource';
       }
     },
   };

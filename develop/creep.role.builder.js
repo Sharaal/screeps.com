@@ -9,6 +9,6 @@ module.exports = {
       require('./creep.role-partial.build')('find-transferStructure'),
       require('./creep.role-partial.transfer')('find-storeStructure'),
       require('./creep.role-partial.store')('upgrade'),
-      require('./creep.role-partial.upgrade')
+      require('./creep.role-partial.upgrade')()
     )
 };

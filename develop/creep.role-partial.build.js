@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = next => {
+module.exports = (next, harvest) => {
   return {
     'find-constructionSite': {
       run: require('./creep.activity.find-constructionSite'),
@@ -17,7 +17,7 @@ module.exports = next => {
         if (creep.carry.energy) {
           return 'find-constructionSite';
         }
-        return 'harvestSource';
+        return harvest || 'harvestSource';
       }
     },
   };
