@@ -2,6 +2,10 @@
 
 module.exports = (creep, results) => {
   var constructionSite = Game.getObjectById(creep.memory.constructionSite);
+  if (!constructionSite) {
+    delete creep.memory.constructionSite;
+    return results.FINISHED;
+  }
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
   } else {
