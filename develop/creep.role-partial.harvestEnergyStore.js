@@ -20,5 +20,5 @@ module.exports = (next, fallback) => {
         return fallback;
       }
     },
-  }
+  };
 };
