@@ -6,7 +6,7 @@ module.exports = (creep, results) => {
     creep.moveTo(constructionSite);
   } else {
     if (creep.carry.energy === 0) {
-      return results.FINISHED | results.NEXTTICK;
+      return results.FINISHED;
     }
   }
   return results.NEXTTICK;
