@@ -6,5 +6,6 @@ module.exports = (creep, results) => {
     creep.moveTo(transferStructure);
     return results.NEXTTICK;
   }
+  delete creep.memory.transferStructure;
   return results.FINISHED | results.NEXTTICK;
 };
