@@ -14,10 +14,16 @@ module.exports = roles => creep => {
     var activity = activities[creep.memory.activity];
     var result = activity.run(creep, results);
     if (result & results.FINISHED) {
+      var next;
       if (typeof activity.next === 'function') {
-        creep.memory.activity = activity.next(creep);
+        next = activity.next(creep);
       } else {
-        creep.memory.activity = activity.next;
+        next = activity.next;
+      }
+      if (typeof next === 'string') {
+        creep.memory.activity = next;
+      } else {
+        break;
       }
     }
   } while (!(result & results.NEXTTICK))

@@ -8,7 +8,12 @@ module.exports = (next, fallback) => {
     },
     harvestSource: {
       run: require('./creep.activity.harvestSource'),
-      next
+      next: creep => {
+        if (creep.carry.energy === creep.carryCapacity) {
+          return next;
+        }
+        return fallback;
+      }
     },
   }
 };
