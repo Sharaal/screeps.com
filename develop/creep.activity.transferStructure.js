@@ -1,7 +1,5 @@
 'use strict';
 
-var renew = require('./creep.activity.renew');
-
 module.exports = (creep, results) => {
   var transferStructure = Game.getObjectById(creep.memory.transferStructure);
   if (creep.transfer(transferStructure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
