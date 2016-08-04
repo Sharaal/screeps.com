@@ -1,12 +1,13 @@
 'use strict';
 
-module.exports = creep => {
+module.exports = (creep, results) => {
   var source = Game.getObjectById(creep.memory.source);
   if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
-    return;
+  } else {
+    if (creep.carry.energy === creep.carryCapacity) {
+      return results.FINISHED;
+    }
   }
-  if (creep.carry.energy === creep.carryCapacity) {
-    return true;
-  }
+  return results.NEXTTICK;
 };

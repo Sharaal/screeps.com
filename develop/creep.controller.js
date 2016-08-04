@@ -1,5 +1,10 @@
 'use strict';
 
+var results = {
+  FINISHED: 1,
+  NEXTTICK: 2
+};
+
 module.exports = roles => creep => {
   if (creep.spawning) {
     return;
@@ -7,13 +12,13 @@ module.exports = roles => creep => {
   var activities = roles[creep.memory.role].activities;
   do {
     var activity = activities[creep.memory.activity];
-    var isFinished = activity.run(creep);
-    if (isFinished) {
+    var result = activity.run(creep, results);
+    if (result & results.FINISHED) {
       if (typeof activity.next === 'function') {
         creep.memory.activity = activity.next(creep);
       } else {
         creep.memory.activity = activity.next;
       }
     }
-  } while (isFinished)
+  } while (!(result & results.NEXTTICK))
 };

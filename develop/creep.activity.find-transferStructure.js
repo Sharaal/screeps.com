@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = creep => {
+module.exports = (creep, results) => {
   var transferStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure =>
       (
@@ -16,5 +16,5 @@ module.exports = creep => {
   if (transferStructure) {
     creep.memory.transferStructure = transferStructure.id;
   }
-  return true;
+  return results.FINISHED;
 };

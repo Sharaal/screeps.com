@@ -6,14 +6,15 @@ function needRenew(creep) {
   return missing >= renew;
 }
 
-module.exports = (creep, structureSpawn) => {
+module.exports = (creep, results, structureSpawn) => {
   if (creep.body.indexOf(CLAIM) !== -1) {
-    return true;
+    return results.FINISHED;
   }
   if (!needRenew(creep)) {
-    return true;
+    return results.FINISHED;
   }
   structureSpawn.renewCreep(creep);
+  return results.FINISHED | results.NEXTTICK;
 };
 
 // TODO
