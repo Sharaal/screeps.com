@@ -8,13 +8,8 @@ var levels = [
 module.exports = roles => spawn => {
   var priorities;
   _.each(levels, level => {
-    if (level.conditions) {
-      if (level.conditions.level && spawn.room.controller.level < level.conditions.level) {
-        return;
-      }
-      if (level.conditions.energyCapacityAvailable && spawn.room.energyCapacityAvailable < level.conditions.energyCapacityAvailable) {
-        return;
-      }
+    if (!level.conditions(spawn)) {
+      return;
     }
     priorities = level.priorities;
   });
@@ -34,7 +29,6 @@ module.exports = roles => spawn => {
       order = priority;
     }
   });
-  
   if (!order) {
     return;
   }

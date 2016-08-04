@@ -2,8 +2,8 @@
 
 const body = require('util.body');
 
-module.exports.conditions = {
-  level: 1,
+module.exports.conditions = spawn => {
+  return spawn.room.controller.level >= 1;
 };
 
 module.exports.priorities = [

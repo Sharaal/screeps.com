@@ -2,9 +2,9 @@
 
 const body = require('util.body');
 
-module.exports.conditions = {
-  level: 2,
-  energyCapacityAvailable: 550,
+module.exports.conditions = spawn => {
+  return spawn.room.controller.level >= 2 &&
+         spawn.room.energyCapacityAvailable >= 550;
 };
 
 module.exports.priorities = [
