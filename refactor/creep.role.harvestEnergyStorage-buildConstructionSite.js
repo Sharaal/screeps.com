@@ -9,6 +9,6 @@ module.exports = {
       require('./creep.activity.harvestEnergyStorage') ('buildConstructionSite', harvest),
       require('./creep.activity.buildConstructionSite')('buildConstructionSite', harvest)
     ),
-    spawnConditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
+    roomConditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
   }
 };

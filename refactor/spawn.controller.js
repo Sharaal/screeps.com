@@ -23,7 +23,7 @@ module.exports = roles => spawn => {
     if (order) {
       return;
     }
-    if (roles[priority.role].spawnConditions && !roles[priority.role].spawnConditions(spawn.room)) {
+    if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(spawn.room)) {
       return;
     }
     var creeps = spawn.room.find(FIND_CREEPS, {
