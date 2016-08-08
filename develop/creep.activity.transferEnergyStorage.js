@@ -12,10 +12,10 @@ function run(creep) {
       filter: structure =>
         structure.structureType == STRUCTURE_STORAGE
         &&
-        (structure.store.energy + structure.store.L) < structure.storeCapacity
+        ((structure.store.energy || 0) + (structure.store.L || 0)) < structure.storeCapacity
     });
   }
-  if (!transferEnergyStorage || (transferEnergyStorage.store.energy + transferEnergyStorage.store.L) === transferEnergyStorage.storeCapacity) {
+  if (!transferEnergyStorage || ((transferEnergyStorage.store.energy || 0) + (transferEnergyStorage.store.L || 0)) === transferEnergyStorage.storeCapacity) {
     delete creep.memory.transferEnergyStorage;
     return true;
   }
