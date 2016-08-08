@@ -25,16 +25,14 @@ function run(creep) {
   }
 }
 
-module.exports = (next, harvest) => {
-  return {
-    buildConstructionSite: {
-      run,
-      next: creep => {
-        if (creep.carry.energy) {
-          return next;
-        }
-        return harvest;
+module.exports = {
+  activity: (next, harvest) => {
+    return {
+      buildConstructionSite: {
+        run,
+        next: creep => creep.carry.energy > 0 ? next : harvest
       }
-    }
-  };
+    };
+  },
+  conditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
 };

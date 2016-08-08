@@ -5,7 +5,7 @@ module.exports = {
   startActivity: harvest,
   activities: _.merge(
     {},
-    require('./creep.activity.harvestEnergyStorage')('transferStructure', harvest),
-    require('./creep.activity.transferStructure')   ('transferStructure', harvest)
+    require('./creep.activity.harvestEnergyStorage').activities('transferStructure', harvest),
+    require('./creep.activity.transferStructure')   .activities('transferStructure', harvest)
   )
 };

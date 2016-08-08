@@ -30,16 +30,14 @@ function run(creep) {
   }
 }
 
-module.exports = (next, harvest) => {
-  return {
-    harvestSource: {
-      run,
-      next: creep => {
-        if (creep.carry.energy === creep.carryCapacity) {
-          return next;
-        }
-        return harvest;
+module.exports = {
+  activity: (next, harvest) => {
+    return {
+      harvestSource: {
+        run,
+        next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
       }
-    }
-  };
+    };
+  },
+  conditions: room => room.find(FIND_SOURCES).length > 0
 };

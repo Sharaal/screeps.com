@@ -23,6 +23,9 @@ module.exports = roles => spawn => {
     if (order) {
       return;
     }
+    if (roles[priority.role].conditions && !roles[priority.role].conditions(spawn.room)) {
+      return;
+    }
     var creeps = spawn.room.find(FIND_CREEPS, {
       filter: creep => creep.my && creep.memory.role === priority.role
     });
