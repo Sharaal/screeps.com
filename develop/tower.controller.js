@@ -1,13 +1,21 @@
 'use strict';
 
 var attack = require('./tower.attack');
-var repair = require('./tower.repair');
+var repairStructure = require('./tower.repairStructure');
+var repairWall = require('./tower.repairWall');
 
 module.exports = tower => {
   if (attack(tower)) {
     return;
   }
   if (tower.energy / tower.energyCapacity > 0.5) {
-    repair(tower);
+    if (repairStructure(tower)) {
+      return;
+    }
+    if (tower.energy / tower.energyCapacity > 0.75) {
+      if (repairWall(tower)) {
+        return;
+      }
+    }
   }
 };

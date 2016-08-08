@@ -1,5 +1,8 @@
 'use strict';
 
+// TODO
+// finish implementation
+
 function needRenew(creep) {
   var missing = 1500 - creep.ticksToLive;
   var renew = Math.floor(600 / creep.body.length);
@@ -8,13 +11,12 @@ function needRenew(creep) {
 
 module.exports = (creep, results, structureSpawn) => {
   if (creep.body.indexOf(CLAIM) !== -1) {
-    return results.FINISHED;
+    return true;
   }
   if (!needRenew(creep)) {
-    return results.FINISHED;
+    return true;
   }
   structureSpawn.renewCreep(creep);
-  return results.FINISHED | results.NEXTTICK;
 };
 
 // TODO

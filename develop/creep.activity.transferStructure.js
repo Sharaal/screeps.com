@@ -1,18 +1,53 @@
 'use strict';
 
-module.exports = (creep, results) => {
+function findExtensionOrSpawn(creep) {
+  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: structure =>
+    (
+      structure.structureType == STRUCTURE_EXTENSION
+      ||
+      structure.structureType == STRUCTURE_SPAWN
+    )
+    &&
+    structure.energy < structure.energyCapacity
+  });
+}
+
+function findTower(creep) {
+  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: structure =>
+    structure.structureType == STRUCTURE_TOWER
+    &&
+    structure.energy < structure.energyCapacity
+  });
+}
+
+function run(creep) {
   if (creep.carry.energy === 0) {
-    return results.FINISHED;
+    delete creep.memory.transferStructure;
+    return true;
   }
-  var transferStructure = Game.getObjectById(creep.memory.transferStructure);
+  var transferStructure;
+  if (!creep.memory.transferStructure ||
+    !(transferStructure = Game.getObjectById(creep.memory.transferStructure)) ||
+    transferStructure.energy === transferStructure.energyCapacity) {
+    transferStructure = findExtensionOrSpawn(creep) || findTower(creep);
+  }
+  if (!transferStructure) {
+    delete creep.memory.transferStructure;
+    return true;
+  }
   if (creep.transfer(transferStructure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (transferStructure.energy === transferStructure.energyCapacity) {
-      delete creep.memory.transferStructure;
-      return results.FINISHED;
-    }
     creep.moveTo(transferStructure);
-    return results.NEXTTICK;
   }
-  delete creep.memory.transferStructure;
-  return results.FINISHED | results.NEXTTICK;
+  creep.memory.transferStructure = transferStructure.id;
+}
+
+module.exports = (next, harvest) => {
+  return {
+    transferStructure: {
+      run,
+      next: creep => creep.carry.energy > 0 ? next : harvest
+    }
+  };
 };

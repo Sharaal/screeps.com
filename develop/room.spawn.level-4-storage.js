@@ -16,21 +16,21 @@ module.exports.priorities = [
   {
     role: 'harvestSource-upgradeController',
     amount: 1,
-    body: body({ CARRY: 1, MOVE: 1, WORK: 1 })
+    body: body({ carry: 1, move: 1, work: 1 })
   },
   {
     role: 'harvestSource-transferEnergyStorage',
     amount: 1,
-    body: body({ CARRY: 1, MOVE: 1, WORK: 12 })
+    body: body({ carry: 1, move: 1, work: 12 })
   },
   {
     role: 'harvestEnergyStorage-transferStructure',
     amount: 1,
-    body: body({ CARRY: 10, MOVE: 10 })
+    body: body({ carry: 10, move: 10 })
   },
   {
     role: 'harvestEnergyStorage-buildConstructionSite',
     amount: 1,
-    body: body({ CARRY: 4, MOVE: 4, WORK: 4 })
+    body: body({ carry: 4, move: 4, work: 4 })
   }
 ];
