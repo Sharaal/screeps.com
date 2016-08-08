@@ -1,17 +1,13 @@
 'use strict';
 
-function find(creep) {
-  var sources = creep.room.find(FIND_SOURCES);
-  if (sources.length > 0) {
-    return _.sample(sources);
-  }
-}
-
 function run(creep) {
   var source;
   if (!creep.memory.source ||
       !(source = Game.getObjectById(creep.memory.source))) {
-    source = find(creep);
+    var sources = creep.room.find(FIND_SOURCES);
+    if (sources.length > 0) {
+      source = _.sample(sources);
+    }
   }
   if (!source) {
     delete creep.memory.source;
@@ -30,14 +26,11 @@ function run(creep) {
   }
 }
 
-module.exports = {
-  activity: (next, harvest) => {
-    return {
-      harvestSource: {
-        run,
-        next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
-      }
-    };
-  },
-  conditions: room => room.find(FIND_SOURCES).length > 0
+module.exports = (next, harvest) => {
+  return {
+    harvestSource: {
+      run,
+      next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
+    }
+  };
 };

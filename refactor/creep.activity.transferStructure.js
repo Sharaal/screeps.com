@@ -43,13 +43,11 @@ function run(creep) => {
   }
 }
 
-module.exports = {
-  activity: (next, harvest) => {
-    return {
-      transferStructure: {
-        run,
-        next: creep => creep.carry.energy > 0 ? next : harvest
-      }
-    };
-  }
+module.exports = (next, harvest) => {
+  return {
+    transferStructure: {
+      run,
+      next: creep => creep.carry.energy > 0 ? next : harvest
+    }
+  };
 };

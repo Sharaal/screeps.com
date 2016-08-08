@@ -1,14 +1,10 @@
 'use strict';
 
-function find(creep) {
-  return creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-}
-
 function run(creep) {
   var constructionSite;
   if (!creep.memory.constructionSite ||
       !(constructionSite = Game.getObjectById(creep.memory.constructionSite))) {
-    constructionSite = find(creep);
+    constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
   }
   if (!constructionSite) {
     delete creep.memory.constructionSite;
@@ -25,14 +21,11 @@ function run(creep) {
   }
 }
 
-module.exports = {
-  activity: (next, harvest) => {
-    return {
-      buildConstructionSite: {
-        run,
-        next: creep => creep.carry.energy > 0 ? next : harvest
-      }
-    };
-  },
-  conditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
+module.exports = (next, harvest) => {
+  return {
+    buildConstructionSite: {
+      run,
+      next: creep => creep.carry.energy > 0 ? next : harvest
+    }
+  };
 };

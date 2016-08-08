@@ -5,8 +5,8 @@ module.exports = {
   startActivity: harvest,
   activities: _.merge(
     {},
-    require('./creep.activity.harvestEnergyStorage') .activities('buildConstructionSite', harvest),
-    require('./creep.activity.buildConstructionSite').activities('buildConstructionSite', harvest)
+    require('./creep.activity.harvestEnergyStorage') ('buildConstructionSite', harvest),
+    require('./creep.activity.buildConstructionSite')('buildConstructionSite', harvest)
   ),
-  conditions: require('./creep.activity.buildConstructionSite').conditions
+  conditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
 };

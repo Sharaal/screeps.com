@@ -1,14 +1,5 @@
 'use strict';
 
-function find(creep) {
-  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
-    filter: structure =>
-      structure.structureType == STRUCTURE_STORAGE
-      &&
-      structure.store.energy > 0
-  });
-}
-
 function run(creep) {
   if (creep.carry.energy === creep.carryCapacity) {
     delete creep.memory.energyStorage;
@@ -18,7 +9,12 @@ function run(creep) {
   if (!creep.memory.energyStorage ||
       !(energyStorage = Game.getObjectById(creep.memory.energyStorage)) ||
       !(energyStorage.store.energy > 0)) {
-    energyStorage = find(creep);
+    energyStorage = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+      filter: structure =>
+        structure.structureType == STRUCTURE_STORAGE
+        &&
+        structure.store.energy > 0
+    });
   }
   if (!energyStorage) {
     delete creep.memory.energyStorage;
@@ -30,13 +26,11 @@ function run(creep) {
   }
 }
 
-module.exports = {
-  activity: (next, harvest) => {
-    return {
-      harvestEnergyStore: {
-        run,
-        next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
-      }
-    };
-  }
+module.exports = (next, harvest) => {
+  return {
+    harvestEnergyStore: {
+      run,
+      next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
+    }
+  };
 };
