@@ -21,12 +21,12 @@ module.exports.priorities = [
   {
     role: 'harvestSource-transferEnergyStorage',
     amount: 1,
-    body: body({ carry: 1, move: 1, work: 12 })
+    body: body({ carry: 1, move: 1, work: 8 })
   },
   {
     role: 'harvestEnergyStorage-transferStructure',
     amount: 1,
-    body: body({ carry: 10, move: 10 })
+    body: body({ carry: 8, move: 8 })
   },
   {
     role: 'harvestEnergyStorage-buildConstructionSite',
