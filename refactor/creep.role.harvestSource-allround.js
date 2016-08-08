@@ -10,7 +10,6 @@ module.exports = {
       require('./creep.activity.transferStructure')('buildConstructionSite', harvest),
       require('./creep.activity.buildConstructionSite')('upgradeController', harvest),
       require('./creep.activity.upgradeController')('upgradeController', harvest)
-    ),
-    spawnConditions: room => room.find(FIND_SOURCES).length > 0
+    )
   }
 };

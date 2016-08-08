@@ -8,7 +8,6 @@ module.exports = {
       {},
       require('./creep.activity.harvestSource')    ('upgradeController', harvest),
       require('./creep.activity.upgradeController')('upgradeController', harvest)
-    ),
-    spawnConditions: room => room.find(FIND_SOURCES).length > 0
+    )
   }
 };

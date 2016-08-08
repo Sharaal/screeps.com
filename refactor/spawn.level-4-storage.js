@@ -4,8 +4,10 @@ const body = require('util.body');
 
 module.exports.conditions = spawn => {
   return spawn.room.controller.level >= 4 &&
-         spawn.room.energyCapacityAvailable >= 1300;
-  // TODO: check also if there is a storage
+         spawn.room.energyCapacityAvailable >= 1300 &&
+         spawn.room
+           .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
+           .length > 0;
 };
 
 module.exports.priorities = [
