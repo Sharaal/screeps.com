@@ -26,7 +26,7 @@ module.exports.priorities = [
   {
     role: 'harvestEnergyStorage-transferStructure',
     amount: 1,
-    body: body({ carry: 8, move: 8 })
+    body: body({ carry: 4, move: 4 })
   },
   {
     role: 'harvestEnergyStorage-buildConstructionSite',
