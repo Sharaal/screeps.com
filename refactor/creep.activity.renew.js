@@ -1,5 +1,8 @@
 'use strict';
 
+// TODO
+// finish implementation
+
 function needRenew(creep) {
   var missing = 1500 - creep.ticksToLive;
   var renew = Math.floor(600 / creep.body.length);

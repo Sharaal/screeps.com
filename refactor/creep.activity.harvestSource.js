@@ -1,40 +1,45 @@
 'use strict';
 
-function findSource(creep) {
+function find(creep) {
   var sources = creep.room.find(FIND_SOURCES);
-  if (sources.length === 0) {
-    return;
+  if (sources.length > 0) {
+    return _.sample(sources);
   }
-  return _.sample(sources);
 }
 
-function getSource(creep) {
+function run(creep) {
   var source;
-  if (!creep.memory.source
-      || !(source = Game.getObjectById(creep.memory.source))) {
-    source = findSource(creep);
+  if (!creep.memory.source ||
+      !(source = Game.getObjectById(creep.memory.source))) {
+    source = find(creep);
   }
   if (!source) {
     delete creep.memory.source;
-    return;
+    return true;
   }
   creep.memory.source = source.id;
   if (source.energy === 0) {
-    return;
-  }
-  return source;
-}
-
-module.exports = creep => {
-  var source = getSource(creep);
-  if (!source) {
     return true;
   }
   if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
-    return;
+  } else {
+    if (creep.carry.energy === creep.carryCapacity) {
+      return true;
+    }
   }
-  if (creep.carry.energy === creep.carryCapacity) {
-    return true;
-  }
+}
+
+module.exports = (next, harvest) => {
+  return {
+    harvestSource: {
+      run,
+      next: creep => {
+        if (creep.carry.energy === creep.carryCapacity) {
+          return next;
+        }
+        return harvest;
+      }
+    }
+  };
 };

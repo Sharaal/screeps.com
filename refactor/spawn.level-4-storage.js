@@ -5,27 +5,28 @@ const body = require('util.body');
 module.exports.conditions = spawn => {
   return spawn.room.controller.level >= 4 &&
          spawn.room.energyCapacityAvailable >= 1300;
+  // TODO: check also if there is a storage
 };
 
 module.exports.priorities = [
   {
-    role: 'storeUpgrader',
+    role: 'harvestSource-upgradeController',
     amount: 1,
     body: body({ CARRY: 1, MOVE: 1, WORK: 1 })
   },
   {
-    role: 'miner',
+    role: 'harvestSource-transferEnergyStorage',
     amount: 1,
     body: body({ CARRY: 1, MOVE: 1, WORK: 12 })
   },
   {
-    role: 'storeTransferer',
+    role: 'harvestEnergyStorage-transferStructure',
     amount: 1,
     body: body({ CARRY: 10, MOVE: 10 })
   },
   {
-    role: 'storeBuilder',
+    role: 'harvestEnergyStorage-buildConstructionSite',
     amount: 1,
     body: body({ CARRY: 4, MOVE: 4, WORK: 4 })
-  },
+  }
 ];

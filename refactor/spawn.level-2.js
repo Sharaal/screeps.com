@@ -1,31 +1,25 @@
 'use strict';
 
-const body = require('util.body');
-
 module.exports.conditions = spawn => {
   return spawn.room.controller.level >= 2 &&
          spawn.room.energyCapacityAvailable >= 550;
 };
 
+var body = require('util.body');
 module.exports.priorities = [
   {
-    role: 'transferer',
+    role: 'harvestSource-allround',
     amount: 1,
     body: body({ CARRY: 3, MOVE: 2, WORK: 3 })
   },
   {
-    role: 'upgrader',
+    role: 'harvestSource-upgradeController',
     amount: 1,
-    body: body({ CARRY: 3, MOVE: 2, WORK: 3 })
+    body: body({ CARRY: 1, MOVE: 1, WORK: 1 })
   },
   {
-    role: 'transferer',
-    amount: 4,
+    role: 'harvestSource-allround',
+    amount: 5,
     body: body({ CARRY: 3, MOVE: 2, WORK: 3 })
-  },
-  {
-    role: 'builder',
-    amount: 2,
-    body: body({ CARRY: 3, MOVE: 2, WORK: 3 })
-  },
+  }
 ];

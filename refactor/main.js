@@ -7,12 +7,12 @@ var towerController = require('./tower.controller');
 var time = require('./util.time');
 
 var roles = {
-  builder: require('./creep.role.builder'),
-  miner: require('./creep.role.miner'),
-  storeBuilder: require('./creep.role.storeBuilder'),
-  storeTransferer: require('./creep.role.storeTransferer'),
-  transferer: require('./creep.role.transferer'),
-  upgrader: require('./creep.role.upgrader')
+  'harvestEnergyStorage-buildConstructionSite': require('./creep.role.harvestEnergyStorage-buildConstructionSite'),
+  'harvestEnergyStorage-transferStructure': require('./creep.role.harvestEnergyStorage-transferStructure'),
+  'harvestEnergyStorage-upgradeController': require('./creep.role.harvestEnergyStorage-upgradeController'),
+  'harvestSource-allround': require('./creep.role.harvestSource-allround'),
+  'harvestSource-transferEnergyStorage': require('./creep.role.harvestSource-transferEnergyStorage'),
+  'harvestSource-upgradeController': require('./creep.role.harvestSource-upgradeController')
 };
 
 module.exports.loop = () => {

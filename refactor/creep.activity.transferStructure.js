@@ -22,32 +22,37 @@ function findTower(creep) {
   });
 }
 
-function findTransferStructure(creep) {
-  return findExtensionOrSpawn(creep) || findTower(creep);
-}
-
-module.exports = (creep, results) => {
+function run(creep) => {
   if (creep.carry.energy === 0) {
-    return results.FINISHED;
+    delete creep.memory.transferStructure;
+    return true;
   }
   var transferStructure;
-  if (!creep.memory.transferStructure
-    || !(transferStructure = Game.getObjectById(creep.memory.transferStructure))) {
-    transferStructure = findTransferStructure(creep);
-    if (!transferStructure) {
-      delete creep.memory.transferStructure;
-      return results.FINISHED;
-    }
-    creep.memory.transferStructure = transferStructure.id;
+  if (!creep.memory.transferStructure ||
+      !(transferStructure = Game.getObjectById(creep.memory.transferStructure)) ||
+      transferStructure.energy === transferStructure.energyCapacity) {
+    transferStructure = findExtensionOrSpawn(creep) || findTower(creep);
   }
+  if (!transferStructure) {
+    delete creep.memory.transferStructure;
+    return true;
+  }
+  creep.memory.transferStructure = transferStructure.id;
   if (creep.transfer(transferStructure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    if (transferStructure.energy === transferStructure.energyCapacity) {
-      delete creep.memory.transferStructure;
-      return results.FINISHED;
-    }
     creep.moveTo(transferStructure);
-    return results.NEXTTICK;
   }
-  delete creep.memory.transferStructure;
-  return results.FINISHED | results.NEXTTICK;
+}
+
+module.exports = (next, harvest) => {
+  return {
+    transferStructure: {
+      run,
+      next: creep => {
+        if (creep.carry.energy) {
+          return next;
+        }
+        return harvest;
+      }
+    }
+  };
 };

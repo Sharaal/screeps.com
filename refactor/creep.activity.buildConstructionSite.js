@@ -1,34 +1,40 @@
 'use strict';
 
-function findConstructionSite(creep) {
+function find(creep) {
   return creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
 }
 
-function getConstructionSite(creep) {
+function run(creep) {
   var constructionSite;
-  if (!creep.memory.constructionSite
-      || !(constructionSite = Game.getObjectById(creep.memory.constructionSite))) {
-    constructionSite = findConstructionSite(creep);
+  if (!creep.memory.constructionSite ||
+      !(constructionSite = Game.getObjectById(creep.memory.constructionSite))) {
+    constructionSite = find(creep);
   }
   if (!constructionSite) {
     delete creep.memory.constructionSite;
-    return;
+    return true;
   }
   creep.memory.constructionSite = constructionSite.id;
-  return constructionSite;
-}
-
-module.exports = creep => {
-  var constructionSite = getConstructionSite(creep);
-  if (!constructionSite) {
-    return true;
-  }
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
-    return;
+  } else {
+    if (creep.carry.energy === 0) {
+      delete creep.memory.constructionSite;
+      return true;
+    }
   }
-  if (creep.carry.energy === 0) {
-    delete creep.memory.constructionSite;
-    return true;
-  }
+}
+
+module.exports = (next, harvest) => {
+  return {
+    buildConstructionSite: {
+      run,
+      next: creep => {
+        if (creep.carry.energy) {
+          return next;
+        }
+        return harvest;
+      }
+    }
+  };
 };
