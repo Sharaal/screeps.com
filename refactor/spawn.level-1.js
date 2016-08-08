@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports.conditions = spawn => {
-  return spawn.room.controller.level >= 1;
+module.exports.conditions = room => {
+  return room.controller.level >= 1;
 };
 
 var body = require('util.body');

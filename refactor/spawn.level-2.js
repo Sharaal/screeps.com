@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports.conditions = spawn => {
-  return spawn.room.controller.level >= 2 &&
-         spawn.room.energyCapacityAvailable >= 550;
+module.exports.conditions = room => {
+  return room.controller.level >= 2 &&
+         room.energyCapacityAvailable >= 550;
 };
 
 var body = require('util.body');

@@ -2,10 +2,10 @@
 
 const body = require('util.body');
 
-module.exports.conditions = spawn => {
-  return spawn.room.controller.level >= 4 &&
-         spawn.room.energyCapacityAvailable >= 1300 &&
-         spawn.room
+module.exports.conditions = room => {
+  return room.controller.level >= 4 &&
+         room.energyCapacityAvailable >= 1300 &&
+         room
            .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
            .length > 0;
 };

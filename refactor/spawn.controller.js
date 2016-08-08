@@ -9,7 +9,7 @@ var levels = [
 module.exports = roles => spawn => {
   var priorities;
   _.each(levels, level => {
-    if (!level.conditions(spawn)) {
+    if (!level.conditions(spawn.room)) {
       return;
     }
     priorities = level.priorities;
