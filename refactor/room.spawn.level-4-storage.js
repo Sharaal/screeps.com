@@ -6,7 +6,9 @@ module.exports.conditions = room => {
   return room.controller.level >= 4 &&
          room.energyCapacityAvailable >= 1300 &&
          room
-           .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
+           .find(FIND_STRUCTURES, {
+             filter: structure => structure.structureType == STRUCTURE_STORAGE
+           })
            .length > 0;
 };
 

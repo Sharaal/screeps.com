@@ -37,7 +37,9 @@ module.exports = roles => room => {
     return;
   }
 
-  var spawns = room.find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_SPAWN });
+  var spawns = room.find(FIND_STRUCTURES, {
+    filter: structure => structure.structureType == STRUCTURE_SPAWN
+  });
   _.each(spawns, spawn => {
     if (!order) {
       return;
