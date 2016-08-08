@@ -37,10 +37,10 @@ function run(creep) => {
     delete creep.memory.transferStructure;
     return true;
   }
-  creep.memory.transferStructure = transferStructure.id;
   if (creep.transfer(transferStructure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.moveTo(transferStructure);
   }
+  creep.memory.transferStructure = transferStructure.id;
 }
 
 module.exports = (next, harvest) => {

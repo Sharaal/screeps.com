@@ -10,7 +10,6 @@ function run(creep) {
     delete creep.memory.constructionSite;
     return true;
   }
-  creep.memory.constructionSite = constructionSite.id;
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
   } else {
@@ -19,6 +18,7 @@ function run(creep) {
       return true;
     }
   }
+  creep.memory.constructionSite = constructionSite.id;
 }
 
 module.exports = (next, harvest) => {

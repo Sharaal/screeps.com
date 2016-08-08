@@ -19,10 +19,10 @@ function run(creep) {
     delete creep.memory.transferEnergyStorage;
     return true;
   }
-  creep.memory.transferEnergyStorage = transferEnergyStorage.id;
   if (creep.transfer(transferEnergyStorage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
     creep.moveTo(transferEnergyStorage);
   }
+  creep.memory.transferEnergyStorage = transferEnergyStorage.id;
 }
 
 module.exports = (next, harvest) => {

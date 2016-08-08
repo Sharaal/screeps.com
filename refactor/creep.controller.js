@@ -6,10 +6,12 @@ module.exports = roles => creep => {
   }
   var role = roles[creep.memory.role];
   if (!role) {
+    creep.say('missing role');
     return;
   }
   var activity = role.activities[creep.memory.activity];
   if (!activity) {
+    creep.say('missing activity');
     return;
   }
   if (!activity.run(creep)) {
