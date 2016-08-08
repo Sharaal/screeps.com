@@ -6,10 +6,10 @@ var levels = [
   require('./room.level-4-storage'),
 ];
 
-module.exports = roles => spawn => {
+module.exports = roles => room => {
   var priorities;
   _.each(levels, level => {
-    if (!level.conditions(spawn.room)) {
+    if (!level.conditions(room)) {
       return;
     }
     priorities = level.priorities;
@@ -23,10 +23,10 @@ module.exports = roles => spawn => {
     if (order) {
       return;
     }
-    if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(spawn.room)) {
+    if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
       return;
     }
-    var creeps = spawn.room.find(FIND_CREEPS, {
+    var creeps = room.find(FIND_CREEPS, {
       filter: creep => creep.my && creep.memory.role === priority.role
     });
     if (creeps.length < priority.amount) {
@@ -37,8 +37,13 @@ module.exports = roles => spawn => {
     return;
   }
 
-  spawn.createCreep(order.body, undefined, {
-    role: order.role,
-    activity: roles[order.role].startActivity
+  var spawns = room.find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_SPAWN });
+  _.each(spawns, spawn => {
+    if (!order) {
+      return;
+    }
+    if (spawn.createCreep(order.body, undefined, { role: order.role, activity: roles[order.role].startActivity }) === OK) {
+      order = undefined;
+    }
   });
 };
