@@ -1,9 +1,9 @@
 'use strict';
 
 var levels = [
-  require('./spawn.level-1'),
-  require('./spawn.level-2'),
-  require('./spawn.level-4-storage'),
+  require('./room.level-1'),
+  require('./room.level-2'),
+  require('./room.level-4-storage'),
 ];
 
 module.exports = roles => spawn => {
