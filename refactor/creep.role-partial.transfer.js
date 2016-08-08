@@ -1,0 +1,24 @@
+'use strict';
+
+module.exports = (next, harvest) => {
+  return {
+    'find-transferStructure': {
+      run: require('./creep.activity.find-transferStructure'),
+      next: creep => {
+        if (creep.memory.transferStructure) {
+          return 'transfer';
+        }
+        return next;
+      }
+    },
+    transfer: {
+      run: require('./creep.activity.transferStructure'),
+      next: creep => {
+        if (creep.carry.energy) {
+          return 'find-transferStructure';
+        }
+        return harvest || 'harvestSource';
+      }
+    },
+  };
+};
