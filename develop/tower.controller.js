@@ -8,14 +8,15 @@ module.exports = tower => {
   if (attack(tower)) {
     return;
   }
-  if (tower.energy / tower.energyCapacity > 0.5) {
+  var percentageEnergy = tower.energy / tower.energyCapacity;
+  if (percentageEnergy > 0.5) {
     if (repairStructure(tower)) {
       return;
     }
-    if (tower.energy / tower.energyCapacity > 0.75) {
-      if (repairWall(tower)) {
-        return;
-      }
+  }
+  if (percentageEnergy > 0.75) {
+    if (repairWall(tower)) {
+      return;
     }
   }
 };
