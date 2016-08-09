@@ -8,18 +8,18 @@ module.exports.conditions = room => {
 var body = require('util.body');
 module.exports.priorities = [
   {
-    role: 'harvestSource-allround',
+    role: 'source-allrounder',
     amount: 1,
     body: body({ carry: 3, move: 2, work: 3 })
   },
   {
-    role: 'harvestSource-upgradeController',
+    role: 'source-upgrader',
     amount: 1,
     body: body({ carry: 1, move: 1, work: 1 })
   },
   {
-    role: 'harvestSource-allround',
-    amount: 5,
+    role: 'source-allrounder',
+    amount: room => room.find(FIND_SOURCES).length * 5,
     body: body({ carry: 3, move: 2, work: 3 })
   }
 ];

@@ -2,7 +2,7 @@
 
 var harvest = 'harvestEnergyStorage';
 module.exports = {
-  'upgrader': {
+  'storage-upgrader': {
     startActivity: harvest,
     activities: _.merge(
       {},

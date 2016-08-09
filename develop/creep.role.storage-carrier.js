@@ -2,7 +2,7 @@
 
 var harvest = 'harvestDroppedEnergy';
 module.exports = {
-  'carrier': {
+  'storage-carrier': {
     startActivity: harvest,
     activities: _.merge(
       {},

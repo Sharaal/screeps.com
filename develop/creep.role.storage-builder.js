@@ -1,15 +1,15 @@
 'use strict';
 
-var harvest = 'harvestSource';
+var harvest = 'harvestEnergyStorage';
 module.exports = {
-  'harvestSource-allround': {
+  'storage-builder': {
     startActivity: harvest,
     activities: _.merge(
       {},
-      require('./creep.activity.harvestSource')        ('transferStructure',     harvest),
-      require('./creep.activity.transferStructure')    ('buildConstructionSite', harvest),
+      require('./creep.activity.harvestEnergyStorage') ('buildConstructionSite', harvest),
       require('./creep.activity.buildConstructionSite')('upgradeController',     harvest),
       require('./creep.activity.upgradeController')    ('upgradeController',     harvest)
-    )
+    ),
+    roomConditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
   }
 };

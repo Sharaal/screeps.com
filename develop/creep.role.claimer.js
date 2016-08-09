@@ -3,7 +3,7 @@
 // TODO finish implementation
 
 module.exports = {
-  'claimNeutralController': {
+  'claimer': {
     startActivity: 'claimNeutralController',
     activities: _.merge(
       {},

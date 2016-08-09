@@ -7,16 +7,14 @@ var time = require('./util.time');
 
 var roles = _.merge(
   {},
-  require('./creep.role.builder'),
-  require('./creep.role.carrier'),
-  require('./creep.role.harvestEnergyStorage-buildConstructionSite'),
-  require('./creep.role.harvestEnergyStorage-transferStructure'),
-  require('./creep.role.harvestEnergyStorage-upgradeController'),
-  require('./creep.role.harvestSource-allround'),
-  require('./creep.role.harvestSource-transferEnergyStorage'),
-  require('./creep.role.harvestSource-upgradeController'),
-  require('./creep.role.sourcer'),
-  require('./creep.role.upgrader')
+
+  require('./creep.role.source-allrounder'),
+  require('./creep.role.source-upgrader'),
+
+  require('./creep.role.storage-builder'),
+  require('./creep.role.storage-carrier'),
+  require('./creep.role.storage-sourcer'),
+  require('./creep.role.storage-upgrader')
 );
 
 module.exports.loop = () => {
