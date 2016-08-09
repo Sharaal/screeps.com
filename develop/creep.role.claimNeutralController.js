@@ -7,7 +7,7 @@ module.exports = {
     startActivity: 'claimNeutralController',
     activities: _.merge(
       {},
-      require('./creep.activity.claimNeutralController')
+      require('./creep.activity.claimNeutralController')('claimNeutralController')
     ),
     roomConditions: room => {
       // TODO only if:
@@ -35,6 +35,8 @@ module.exports = {
       }
 
       // no creep already with this room as target?
+
+      // TODO only if "You cannot claim more than 3 rooms in the Novice Area."
 
       return true;
     }
