@@ -25,7 +25,7 @@ function run(creep) {
   if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
   } else {
-    if (creep.carry.energy === creep.carryCapacity) {
+    if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
       return true;
     }
   }
@@ -35,7 +35,7 @@ module.exports = (next, harvest) => {
   return {
     harvestSource: {
       run,
-      next: creep => creep.carry.energy === creep.carryCapacity ? next : harvest
+      next: creep => creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity ? next : harvest
     }
   };
 };

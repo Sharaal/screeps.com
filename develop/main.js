@@ -13,7 +13,9 @@ var roles = _.merge(
   require('./creep.role.harvestEnergyStorage-upgradeController'),
   require('./creep.role.harvestSource-allround'),
   require('./creep.role.harvestSource-transferEnergyStorage'),
-  require('./creep.role.harvestSource-upgradeController')
+  require('./creep.role.harvestSource-upgradeController'),
+  require('./creep.role.sourcer'),
+  require('./creep.role.upgrader')
 );
 
 module.exports.loop = () => {
