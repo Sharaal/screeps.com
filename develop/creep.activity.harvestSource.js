@@ -6,7 +6,12 @@ function run(creep) {
       !(source = Game.getObjectById(creep.memory.source))) {
     var sources = creep.room.find(FIND_SOURCES);
     if (sources.length > 0) {
-      source = _.sample(sources);
+      sources = _.sortBy(sources,
+        source => creep.room.find(FIND_MY_CREEPS, {
+          filter: creep => creep.memory.source === source.id
+        }).length
+      );
+      source = sources[0];
     }
   }
   if (!source) {
