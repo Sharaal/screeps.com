@@ -14,12 +14,7 @@ module.exports.conditions = room => {
 
 module.exports.priorities = [
   {
-    role: 'harvestSource-upgradeController',
-    amount: 1,
-    body: body({ carry: 1, move: 1, work: 1 })
-  },
-  {
-    role: 'harvestSource-transferEnergyStorage',
+    role: 'sourcer',
     amount: 1,
     body: body({ carry: 1, move: 1, work: 8 })
   },
@@ -29,8 +24,18 @@ module.exports.priorities = [
     body: body({ carry: 4, move: 4 })
   },
   {
-    role: 'harvestEnergyStorage-buildConstructionSite',
+    role: 'upgrader',
     amount: 1,
-    body: body({ carry: 4, move: 4, work: 4 })
+    body: body({ carry: 1, move: 1, work: 1 })
+  },
+  {
+    role: 'sourcer',
+    amount: room => room.find(FIND_SOURCES).length,
+    body: body({ carry: 1, move: 1, work: 8 })
+  },
+  {
+    role: 'carrier',
+    amount: room => room.find(FIND_SOURCES).length,
+    body: body({ carry: 4, move: 4 })
   }
 ];
