@@ -37,5 +37,10 @@ module.exports.priorities = [
     role: 'carrier',
     amount: room => room.find(FIND_SOURCES).length,
     body: body({ carry: 4, move: 4 })
+  },
+  {
+    role: 'builder',
+    amount: 1,
+    body: body({ carry: 4, move: 2, work: 2 })
   }
 ];
