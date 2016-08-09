@@ -29,7 +29,13 @@ module.exports = roles => room => {
     var creeps = room.find(FIND_MY_CREEPS, {
       filter: creep => creep.memory.role === priority.role
     });
-    if (creeps.length < priority.amount) {
+    var amount;
+    if (typeof priority.amount === 'function') {
+      amount = priority.amount(room);
+    } else {
+      amount = priority.amount;
+    }
+    if (creeps.length < amount) {
       order = priority;
     }
   });
