@@ -17,5 +17,9 @@ module.exports = roles => creep => {
   if (!activity.run(creep)) {
     return;
   }
-  creep.memory.activity = activity.next(creep);
+  if (typeof activity.next === 'function') {
+    creep.memory.activity = activity.next(creep);
+  } else {
+    creep.memory.activity = activity.next;
+  }
 };
