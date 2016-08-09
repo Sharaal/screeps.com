@@ -26,8 +26,8 @@ module.exports = roles => room => {
     if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
       return;
     }
-    var creeps = room.find(FIND_CREEPS, {
-      filter: creep => creep.my && creep.memory.role === priority.role
+    var creeps = room.find(FIND_MY_CREEPS, {
+      filter: creep => creep.memory.role === priority.role
     });
     if (creeps.length < priority.amount) {
       order = priority;
