@@ -2,7 +2,7 @@
 
 var harvest = 'harvestEnergyStorage';
 module.exports = {
-  'storage-builder': {
+  'storageBuilder': {
     startActivity: harvest,
     activities: _.merge(
       {},

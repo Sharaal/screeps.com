@@ -27,7 +27,7 @@ function run(creep) {
 
 module.exports = (next, harvest) => {
   return {
-    transferEnergyStorage: {
+    'transferEnergyStorage': {
       run,
       next: creep => creep.carry.energy > 0 ? next : harvest
     }

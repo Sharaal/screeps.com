@@ -2,7 +2,7 @@
 
 var harvest = 'harvestSource';
 module.exports = {
-  'source-allrounder': {
+  'sourceAllrounder': {
     startActivity: harvest,
     activities: _.merge(
       {},

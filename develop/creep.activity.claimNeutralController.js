@@ -24,6 +24,6 @@ function run(creep) {
 
 module.exports = next => {
   return {
-    claimNeutralController: { run, next }
+    'claimNeutralController': { run, next }
   };
 };

@@ -7,7 +7,7 @@ function run(creep) {
 
 module.exports = harvest => {
   return {
-    dropEnergy: {
+    'dropEnergy': {
       run,
       next: harvest
     }

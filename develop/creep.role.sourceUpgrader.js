@@ -2,7 +2,7 @@
 
 var harvest = 'harvestSource';
 module.exports = {
-  'source-upgrader': {
+  'sourceUpgrader': {
     startActivity: harvest,
     activities: _.merge(
       {},

@@ -33,7 +33,7 @@ function run(creep) {
 
 module.exports = (next, harvest) => {
   return {
-    harvestSource: {
+    'harvestSource': {
       run,
       next: creep => creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity ? next : harvest
     }

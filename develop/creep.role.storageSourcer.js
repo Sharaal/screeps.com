@@ -2,7 +2,7 @@
 
 var harvest = 'harvestSource';
 module.exports = {
-  'storage-sourcer': {
+  'storageSourcer': {
     startActivity: harvest,
     activities: _.merge(
       {},
