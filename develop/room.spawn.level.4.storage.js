@@ -35,8 +35,8 @@ module.exports.priorities = [
   },
   {
     role: 'storageCarrier',
-    amount: room => room.find(FIND_SOURCES).length,
-    body: body({ carry: 4, move: 4 })
+    amount: room => room.find(FIND_SOURCES).length * 2,
+    body: body({ carry: 3, move: 3 })
   },
   {
     role: 'storageBuilder',
