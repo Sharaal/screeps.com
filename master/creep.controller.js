@@ -1,31 +1,25 @@
 'use strict';
 
-var roles = {
-  builder: require('./creep.role.builder'),
-  transferer: require('./creep.role.transferer'),
-  upgrader: require('./creep.role.upgrader')
-};
-
-module.exports = creep => {
-  if (!roles[creep.memory.role]) {
-    creep.memory.role = 'upgrader';
+module.exports = roles => creep => {
+  if (creep.spawning) {
+    return;
   }
-
-  var activities = roles[creep.memory.role];
-
-  if (creep.memory.activity && !activities[creep.memory.activity]) {
-    delete creep.memory.activity;
+  var role = roles[creep.memory.role];
+  if (!role) {
+    creep.say('missing role');
+    return;
   }
-  if (!creep.memory.activity) {
-    creep.memory.activity = _.keys(activities)[0];
+  var activity = role.activities[creep.memory.activity];
+  if (!activity) {
+    creep.say('missing activity');
+    return;
   }
-
-  var activity = activities[creep.memory.activity];
-  if (activity.do(creep)) {
-    if (typeof activity.next === 'function') {
-      creep.memory.activity = activity.next(creep);
-    } else {
-      creep.memory.activity = activity.next;
-    }
+  if (!activity.run(creep)) {
+    return;
+  }
+  if (typeof activity.next === 'function') {
+    creep.memory.activity = activity.next(creep);
+  } else {
+    creep.memory.activity = activity.next;
   }
 };
