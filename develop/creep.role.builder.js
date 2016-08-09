@@ -1,12 +1,11 @@
 'use strict';
 
-var harvest = 'harvestDroppedEnergy';
+var harvest = 'harvestEnergyStorage';
 module.exports = {
   'builder': {
     startActivity: harvest,
     activities: _.merge(
       {},
-      require('./creep.activity.harvestDroppedEnergy') ('buildConstructionSite', 'harvestEnergyStorage'),
       require('./creep.activity.harvestEnergyStorage') ('buildConstructionSite', harvest),
       require('./creep.activity.buildConstructionSite')('upgradeController',     harvest),
       require('./creep.activity.upgradeController')    ('upgradeController',     harvest)
