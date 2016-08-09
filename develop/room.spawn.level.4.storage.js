@@ -20,8 +20,8 @@ module.exports.priorities = [
   },
   {
     role: 'storageCarrier',
-    amount: 1,
-    body: body({ carry: 4, move: 4 })
+    amount: 2,
+    body: body({ carry: 3, move: 3 })
   },
   {
     role: 'storageUpgrader',
