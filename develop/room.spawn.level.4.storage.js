@@ -14,32 +14,32 @@ module.exports.conditions = room => {
 
 module.exports.priorities = [
   {
-    role: 'storage-sourcer',
+    role: 'storageSourcer',
     amount: 1,
     body: body({ move: 1, work: 8 })
   },
   {
-    role: 'storage-carrier',
+    role: 'storageCarrier',
     amount: 1,
     body: body({ carry: 4, move: 4 })
   },
   {
-    role: 'storage-upgrader',
+    role: 'storageUpgrader',
     amount: 1,
     body: body({ carry: 1, move: 1, work: 1 })
   },
   {
-    role: 'storage-sourcer',
+    role: 'storageSourcer',
     amount: room => room.find(FIND_SOURCES).length,
     body: body({ move: 1, work: 8 })
   },
   {
-    role: 'storage-carrier',
+    role: 'storageCarrier',
     amount: room => room.find(FIND_SOURCES).length,
     body: body({ carry: 4, move: 4 })
   },
   {
-    role: 'storage-builder',
+    role: 'storageBuilder',
     amount: 1,
     body: body({ carry: 4, move: 2, work: 2 })
   }
