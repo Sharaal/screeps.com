@@ -26,10 +26,27 @@
   and build it
   - next if there is no more construction site
   - harvest if energy of creep is empty
+- buildSpawn: search a construction site which is a spawn, move to and 
+  build it
+  - next if there is no more construction site which is a spawn
+  - harvest if energy of creep is nearly empty
+- dropEnergy: drop all the energy of the creep
+  - harvest after dropping the energy
+- flagClaimNeutralController: search the flag named "claim" move to it
+  and claim the controller of that room
+  - next if the controller is claimed
+- harvestDroppedEnergy: search the next dropped energy, move to it and 
+  pick it up
+  - next if the energy of the creep is full
+  - harvest if there is no more dropped energy
 - harvestEnergyStorage: search the next storage with energy available,
   move to it and draw energy
   - next if the energy of the creep is full
   - harvest if there is no more energy in a storage
+- harvestHomeEnergyStorage: search the next storage with energy available,
+  move to it, draw energy and keep it in memory
+  - next if the energy of the creep is full
+  - harvest if there is no storage
 - harvestSource: search a random source (and save it forever in the 
   creep memory to split the creeps more or less to all sources), move to 
   it and harvest 
@@ -61,16 +78,6 @@
 
 # ToDos
 
-- Add "claim" functionality:
-  - Activity "claim" which selects an adjoining room with a neutral
-    controller and move to / claim it
-  - Role "claim" with condition only to build if the gcl is higher as
-    the amount of own rooms including to count the creeps which are
-    already on the way to claim and only if there is an adjoining room
-    with a neutral controller
-  - Add the role to all room spawn level which have enough energy to
-    build a creep with "claim" and "move" body parts
-
 # Ideas
 
 - Add "renew" functionality:
@@ -91,3 +98,13 @@
   - If there is nothing anymore to build
   - If there is nothing anymore to transfer energy (tower)
   - Maybe only if the storage have a minimum of energy
+  
+- Automatically "claim" functionality:
+  - Activity "claim" which selects an adjoining room with a neutral
+    controller and move to / claim it
+  - Role "claim" with condition only to build if the gcl is higher as
+    the amount of own rooms including to count the creeps which are
+    already on the way to claim and only if there is an adjoining room
+    with a neutral controller
+  - Add the role to all room spawn level which have enough energy to
+    build a creep with "claim" and "move" body parts

@@ -26,6 +26,10 @@
   and build it
   - next if there is no more construction site
   - harvest if energy of creep is empty
+- buildSpawn: search a construction site which is a spawn, move to and 
+  build it
+  - next if there is no more construction site which is a spawn
+  - harvest if energy of creep is nearly empty
 - harvestEnergyStorage: search the next storage with energy available,
   move to it and draw energy
   - next if the energy of the creep is full
