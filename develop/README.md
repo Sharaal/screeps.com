@@ -12,8 +12,8 @@
 - Every room use the highest 'room.spawn.level-*' which fulfill the
   conditions to determine how much and which creeps are needed
   
-- Every role can have also dependencies must be fulfill to be
-  needed (e.g. a builder is only needed if there are construction sites)
+- Every role can have also dependencies must be fulfill to be needed 
+  (e.g. a builder is only needed if there are construction sites)
   
 - If there is a missing creep, one of the spawn structures will build it
 
