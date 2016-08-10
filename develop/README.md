@@ -7,7 +7,7 @@
 - The room controller runs the spawn script only every 10 ticks to save
   CPU usage
 - Every room use the highest 'room.spawn.level-*' which fulfill the
-  conditions to determine how much and which creeps must be available
+  conditions to determine how much and which creeps are needed
 - Every role can have also dependencies must be fulfill to be
   needed (e.g. a builder is only needed if there are construction sites)
 - If there is a missing creep, one of the spawn structures will build it
@@ -96,6 +96,15 @@
   - Attack a hostile creep
   - Repair a structure (only if energy > 50%)
   - Repair a wall (only if energy > 75%)
+  
+## Structures
+
+- The room controller runs the build script only every 10 ticks to save
+  CPU usage
+- Every room use the highest 'room.build.level-*' which fulfill the
+  conditions to determine how much and which structures are needed
+- If there is a missing structures, there will be outputted in the 
+  console
   
 # Ideas
 
