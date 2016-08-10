@@ -20,49 +20,75 @@
   defines some scenarios to decide the next activity. The role describes 
   which is the next actual activity to do in the different scenarios
   
-### Activities
+#### Roles
 
-- buildConstructionSite: search the closest construction site, move to 
+- Controller < 4: 
+    - sourceAllrounder: Harvest a source and use the energy to transfer
+      it to a spawn, extension or tower, build a structure or upgrade
+      the controller
+    - sourceUpgrader: Harvest a source and upgrade the controller
+- Controller >= 4 with an energy storage:
+    - flagClaimer: Move to the "claim" flag and claim the room
+    - storageBuilder: Draw energy from the energy storage and build a
+      structure
+    - storageCarrier: Pick up energy or draw it from the energy storage
+      to transfer it to a spawn, extension, tower or energy storage
+    - storageSourcer: Harvest the source and drop the energy
+    - storageSpawnBuilder: Draw energy from the energy storage, keep it
+      in mind and build the spawn in a room besides the own
+    - storageUpgrader: Draw energy from the energy storage and upgrade
+      the controller
+  
+#### Activities
+
+- buildConstructionSite: Search the closest construction site, move to 
   and build it
   - next if there is no more construction site
   - harvest if energy of creep is empty
-- buildSpawn: search a construction site which is a spawn, move to and 
+- buildSpawn: Search a construction site which is a spawn, move to and 
   build it
   - next if there is no more construction site which is a spawn
   - harvest if energy of creep is nearly empty
-- dropEnergy: drop all the energy of the creep
+- dropEnergy: Drop all the energy of the creep
   - harvest after dropping the energy
-- flagClaimNeutralController: search the flag named "claim" move to it
+- flagClaimNeutralController: Search the flag named "claim" move to it
   and claim the controller of that room
   - next if the controller is claimed
-- harvestDroppedEnergy: search the next dropped energy, move to it and 
+- harvestDroppedEnergy: Search the next dropped energy, move to it and 
   pick it up
   - next if the energy of the creep is full
   - harvest if there is no more dropped energy
-- harvestEnergyStorage: search the next storage with energy available,
+- harvestEnergyStorage: Search the next storage with energy available,
   move to it and draw energy
   - next if the energy of the creep is full
   - harvest if there is no more energy in a storage
-- harvestHomeEnergyStorage: search the next storage with energy available,
-  move to it, draw energy and keep it in memory
+- harvestHomeEnergyStorage: Search the next storage with energy 
+  available, move to it, draw energy and keep it in memory
   - next if the energy of the creep is full
   - harvest if there is no storage
-- harvestSource: search a random source (and save it forever in the 
+- harvestSource: Search a random source (and save it forever in the 
   creep memory to split the creeps more or less to all sources), move to 
   it and harvest 
   - next if the energy of the creep is full
   - harvest if there is no more energy in the source
-- transferEnergyStorage: search the next storage with store capacity 
+- transferEnergyStorage: Search the next storage with store capacity 
   available, move to it and transfer energy 
   - next if there is no more capacity in a storage available
   - harvest if energy of creep is empty
-- transferStructure: search the next structure (spawn/extension > tower) 
+- transferStructure: Search the next structure (spawn/extension > tower) 
   with capacity available, move to it and transfer energy 
   - next if there is no more capacity in a structure available
   - harvest if energy of creep is empty
 - upgradeController: Move to the room controller and upgrade it
   - next after the controller is upgraded one time
   - harvest if energy of creep is empty
+  
+### Claiming
+
+1. Set a flag named "claim" in a neutral room besides an own room able
+   to build a flagClaimer
+2. After claim the room create a spawn in that room besides an own room 
+   able to build a storageSpawnBuilder
   
 ## Towers
 
@@ -71,20 +97,6 @@
   - Repair a structure (only if energy > 50%)
   - Repair a wall (only if energy > 75%)
   
-## Memory
-
-- The memory will be cleaned up every 100 ticks from old creep and spawn
-  data
-
-# ToDos
-
-
-
-# Optimizations
-
-- A spawn builder should always be build in a room next to the spawn 
-  which should be build to select a home energy storage in the near
-
 # Ideas
 
 - Add "renew" functionality:
