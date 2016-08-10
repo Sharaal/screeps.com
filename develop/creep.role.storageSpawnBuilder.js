@@ -17,14 +17,12 @@ module.exports = {
       if (!room.controller.my) {
         return;
       }
-      _.each(room.find(FIND_MY_CONSTRUCTION_SITES), constructionSite => {
-        if (spawn) {
-          return;
-        }
-        if (constructionSite.structureType === STRUCTURE_SPAWN) {
-          spawn = constructionSite;
-        }
+      var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {
+        filter: constructionSite => constructionSite.structureType == STRUCTURE_SPAWN
       });
+      if (spawns.length > 0) {
+        spawn = spawns[0];
+      }
     });
     if (!spawn) {
       return;
