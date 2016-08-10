@@ -7,7 +7,7 @@ function validate(energyStorage) {
 }
 
 function find(creep) {
-  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
       structure.structureType == STRUCTURE_STORAGE
       &&

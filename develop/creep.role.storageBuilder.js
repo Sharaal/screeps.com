@@ -8,5 +8,5 @@ module.exports = {
     'buildConstructionSite': require('./creep.activity.buildConstructionSite')('upgradeController',     harvest),
     'upgradeController':     require('./creep.activity.upgradeController')    ('upgradeController',     harvest)
   },
-  roomConditions: room => room.find(FIND_CONSTRUCTION_SITES).length > 0
+  roomConditions: room => room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
 };

@@ -3,7 +3,7 @@
 var memoryObject = require('util.MemoryObject');
 
 function find(creep) {
-  return creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+  return creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
 }
 
 module.exports = (next, harvest) => creep => {

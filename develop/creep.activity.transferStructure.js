@@ -7,7 +7,7 @@ function validate(structure) {
 }
 
 function findTransferExtensionOrSpawn(creep) {
-  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
       (
         structure.structureType == STRUCTURE_EXTENSION
@@ -20,7 +20,7 @@ function findTransferExtensionOrSpawn(creep) {
 }
 
 function findTransferTower(creep) {
-  return creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
       structure.structureType == STRUCTURE_TOWER
       &&

@@ -11,7 +11,7 @@ function find() {
     if (!room.controller.my) {
       return;
     }
-    _.each(room.find(FIND_CONSTRUCTION_SITES), constructionSite => {
+    _.each(room.find(FIND_MY_CONSTRUCTION_SITES), constructionSite => {
       if (spawn) {
         return;
       }
