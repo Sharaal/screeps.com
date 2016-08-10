@@ -1,6 +1,9 @@
 'use strict';
 
 function run(creep) {
+  if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
+    return true;
+  }
   var source;
   if (!creep.memory.source ||
       !(source = Game.getObjectById(creep.memory.source))) {
@@ -24,10 +27,6 @@ function run(creep) {
   }
   if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
-  } else {
-    if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
-      return true;
-    }
   }
 }
 

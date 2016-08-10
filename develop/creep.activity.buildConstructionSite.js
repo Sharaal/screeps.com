@@ -1,6 +1,10 @@
 'use strict';
 
 function run(creep) {
+  if (creep.carry.energy === 0) {
+    delete creep.memory.constructionSite;
+    return true;
+  }
   var constructionSite;
   if (!creep.memory.constructionSite ||
       !(constructionSite = Game.getObjectById(creep.memory.constructionSite))) {
@@ -12,11 +16,6 @@ function run(creep) {
   }
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
-  } else {
-    if (creep.carry.energy === 0) {
-      delete creep.memory.constructionSite;
-      return true;
-    }
   }
   creep.memory.constructionSite = constructionSite.id;
 }
