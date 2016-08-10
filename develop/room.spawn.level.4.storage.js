@@ -42,5 +42,15 @@ module.exports.priorities = [
     role: 'storageBuilder',
     amount: 1,
     body: body({ carry: 4, move: 2, work: 2 })
+  },
+  {
+    role: 'flagClaimer',
+    amount: 1,
+    body: body({ claim: 1, move: 4 })
+  },
+  {
+    role: 'storageSpawnBuilder',
+    amount: 1,
+    body: body({ carry: 12, move: 6, work: 2 })
   }
 ];

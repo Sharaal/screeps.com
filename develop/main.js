@@ -8,12 +8,15 @@ var time = require('./util.time');
 var roles = _.merge(
   {},
 
+  require('./creep.role.claimer'),
+
   require('./creep.role.sourceAllrounder'),
   require('./creep.role.sourceUpgrader'),
 
   require('./creep.role.storageBuilder'),
   require('./creep.role.storageCarrier'),
   require('./creep.role.storageSourcer'),
+  require('./creep.role.storageSpawnBuilder'),
   require('./creep.role.storageUpgrader')
 );
 
