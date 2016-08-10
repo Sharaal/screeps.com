@@ -1,40 +1,34 @@
 'use strict';
 
-function run(creep) {
-  if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
-    return true;
+var memoryObject = require('util.MemoryObject');
+
+function find(creep) {
+  var sources = creep.room.find(FIND_SOURCES);
+  if (sources.length === 0) {
+    creep.say('!');
+    console.error(`creep "${creep.name}" not found a source`);
+    return;
   }
-  var source;
-  if (!creep.memory.source ||
-      !(source = Game.getObjectById(creep.memory.source))) {
-    var sources = creep.room.find(FIND_SOURCES);
-    if (sources.length > 0) {
-      sources = _.sortBy(sources,
-        source => creep.room.find(FIND_MY_CREEPS, {
-          filter: creep => creep.memory.source === source.id
-        }).length
-      );
-      source = sources[0];
+  sources = _.sortBy(sources,
+    source => {
+      var creeps = creep.room.find(FIND_MY_CREEPS, {
+        filter: creep => creep.memory.source === source.id
+      });
+      return creeps.length;
     }
+  );
+  return sources[0];
+}
+
+module.exports = (next, harvest) => creep => {
+  if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
+    return next;
   }
-  if (!source) {
-    delete creep.memory.source;
-    return true;
-  }
-  creep.memory.source = source.id;
-  if (source.energy === 0) {
-    return true;
+  var source = memoryObject(creep, 'harvestSource', find);
+  if (!source || source.energy === 0) {
+    return harvest;
   }
   if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
   }
-}
-
-module.exports = (next, harvest) => {
-  return {
-    'harvestSource': {
-      run,
-      next: creep => creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity ? next : harvest
-    }
-  };
 };

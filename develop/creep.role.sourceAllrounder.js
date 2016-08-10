@@ -2,14 +2,11 @@
 
 var harvest = 'harvestSource';
 module.exports = {
-  'sourceAllrounder': {
-    startActivity: harvest,
-    activities: _.merge(
-      {},
-      require('./creep.activity.harvestSource')        ('transferStructure',     harvest),
-      require('./creep.activity.transferStructure')    ('buildConstructionSite', harvest),
-      require('./creep.activity.buildConstructionSite')('upgradeController',     harvest),
-      require('./creep.activity.upgradeController')    ('upgradeController',     harvest)
-    )
+  startActivity: harvest,
+  activities: {
+    'harvestSource':         require('./creep.activity.harvestSource')        ('transferStructure',     harvest),
+    'transferStructure':     require('./creep.activity.transferStructure')    ('buildConstructionSite', harvest),
+    'buildConstructionSite': require('./creep.activity.buildConstructionSite')('upgradeController',     harvest),
+    'upgradeController':     require('./creep.activity.upgradeController')    ('upgradeController',     harvest)
   }
 };

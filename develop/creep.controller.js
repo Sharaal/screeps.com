@@ -6,20 +6,15 @@ module.exports = roles => creep => {
   }
   var role = roles[creep.memory.role];
   if (!role) {
-    creep.say('missing role');
+    creep.say('!');
+    console.error(`creep "${creep.name}" has unknown role "${creep.memory.role}"`);
     return;
   }
   var activity = role.activities[creep.memory.activity];
   if (!activity) {
-    creep.say('missing activity');
+    creep.say('!');
+    console.error(`creep "${creep.name}" has unknown activity "${creep.memory.activity}" in the role "${creep.memory.role}"`);
     return;
   }
-  if (!activity.run(creep)) {
-    return;
-  }
-  if (typeof activity.next === 'function') {
-    creep.memory.activity = activity.next(creep);
-  } else {
-    creep.memory.activity = activity.next;
-  }
+  creep.memory.activity = activity(creep) || creep.memory.activity;
 };

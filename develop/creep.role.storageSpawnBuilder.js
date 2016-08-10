@@ -2,39 +2,32 @@
 
 var harvest = 'harvestHomeEnergyStorage';
 module.exports = {
-  'storageSpawnBuilder': {
-    startActivity: harvest,
-    activities: _.merge(
-      {},
-      require('./creep.activity.harvestHomeEnergyStorage')('buildSpawn',        harvest),
-      require('./creep.activity.buildSpawn')              ('upgradeController', harvest),
-      require('./creep.activity.upgradeController')       ('upgradeController', harvest)
-    ),
-    roomConditions: () => {
-      var spawnBuilder = _.filter(Game.creeps, creep => creep.memory.role === 'storageSpawnBuilder').length;
-      if (spawnBuilder > 0) {
-        return false;
+  startActivity: harvest,
+  activities: {
+    'harvestHomeEnergyStorage': require('./creep.activity.harvestHomeEnergyStorage')('buildSpawn',        harvest),
+    'buildSpawn':               require('./creep.activity.buildSpawn')              ('upgradeController', harvest),
+    'upgradeController':        require('./creep.activity.upgradeController')       ('upgradeController', harvest)
+  },
+  roomConditions: () => {
+    var spawn;
+    _.each(Game.rooms, room => {
+      if (spawn) {
+        return;
       }
-      var spawn;
-      _.each(Game.rooms, room => {
+      if (!room.controller.my) {
+        return;
+      }
+      _.each(room.find(FIND_CONSTRUCTION_SITES), constructionSite => {
         if (spawn) {
           return;
         }
-        if (!room.controller.my) {
-          return;
+        if (constructionSite.structureType === STRUCTURE_SPAWN) {
+          spawn = constructionSite;
         }
-        _.each(room.find(FIND_CONSTRUCTION_SITES), constructionSite => {
-          if (spawn) {
-            return;
-          }
-          if (constructionSite.structureType === STRUCTURE_SPAWN) {
-            spawn = constructionSite;
-          }
-        });
       });
-      if (spawn) {
-        return true;
-      }
+    });
+    if (spawn) {
+      return true;
     }
   }
 };

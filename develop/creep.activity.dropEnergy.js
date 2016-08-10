@@ -1,15 +1,6 @@
 'use strict';
 
-function run(creep) {
+module.exports = harvest => creep => {
   creep.drop(RESOURCE_ENERGY);
-  return true;
-}
-
-module.exports = harvest => {
-  return {
-    'dropEnergy': {
-      run,
-      next: harvest
-    }
-  };
+  return harvest;
 };

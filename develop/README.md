@@ -78,6 +78,13 @@
 
 # ToDos
 
+
+
+# Optimizations
+
+- A spawn builder should always be build in a room next to the spawn 
+  which should be build to select a home energy storage in the near
+
 # Ideas
 
 - Add "renew" functionality:

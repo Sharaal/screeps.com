@@ -3,12 +3,12 @@
 const body = require('util.body');
 
 module.exports.conditions = room => {
-  return room.controller.level >= 4 &&
-         room.energyCapacityAvailable >= 1300 &&
+  return room.controller.level >= 4
+         &&
+         room.energyCapacityAvailable >= 1300
+         &&
          room
-           .find(FIND_STRUCTURES, {
-             filter: structure => structure.structureType == STRUCTURE_STORAGE
-           })
+           .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
            .length > 0;
 };
 
@@ -45,12 +45,12 @@ module.exports.priorities = [
   },
   {
     role: 'flagClaimer',
-    amount: 1,
+    globalAmount: 1,
     body: body({ claim: 1, move: 4 })
   },
   {
     role: 'storageSpawnBuilder',
-    amount: 1,
+    globalAmount: 1,
     body: body({ carry: 12, move: 6, work: 2 })
   }
 ];

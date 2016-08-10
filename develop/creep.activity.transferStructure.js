@@ -1,53 +1,46 @@
 'use strict';
 
-function findExtensionOrSpawn(creep) {
+var memoryObject = require('util.MemoryObject');
+
+function validate(structure) {
+  return structure.energy < structure.energyCapacity;
+}
+
+function findTransferExtensionOrSpawn(creep) {
   return creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure =>
-    (
-      structure.structureType == STRUCTURE_EXTENSION
-      ||
-      structure.structureType == STRUCTURE_SPAWN
-    )
-    &&
-    structure.energy < structure.energyCapacity
+      (
+        structure.structureType == STRUCTURE_EXTENSION
+        ||
+        structure.structureType == STRUCTURE_SPAWN
+      )
+      &&
+      structure.energy < structure.energyCapacity
   });
 }
 
-function findTower(creep) {
+function findTransferTower(creep) {
   return creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure =>
-    structure.structureType == STRUCTURE_TOWER
-    &&
-    structure.energy < structure.energyCapacity
+      structure.structureType == STRUCTURE_TOWER
+      &&
+      structure.energy < structure.energyCapacity
   });
 }
 
-function run(creep) {
+function find(creep) {
+  return findTransferExtensionOrSpawn(creep) || findTransferTower(creep);
+}
+
+module.exports = (next, harvest) => creep => {
   if (creep.carry.energy === 0) {
-    delete creep.memory.transferStructure;
-    return true;
+    return harvest;
   }
-  var transferStructure;
-  if (!creep.memory.transferStructure ||
-    !(transferStructure = Game.getObjectById(creep.memory.transferStructure)) ||
-    transferStructure.energy === transferStructure.energyCapacity) {
-    transferStructure = findExtensionOrSpawn(creep) || findTower(creep);
+  var structure = memoryObject(creep, 'transferStructure', validate, find);
+  if (!structure) {
+    return next;
   }
-  if (!transferStructure) {
-    delete creep.memory.transferStructure;
-    return true;
+  if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+    creep.moveTo(structure);
   }
-  if (creep.transfer(transferStructure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(transferStructure);
-  }
-  creep.memory.transferStructure = transferStructure.id;
-}
-
-module.exports = (next, harvest) => {
-  return {
-    'transferStructure': {
-      run,
-      next: creep => creep.carry.energy > 0 ? next : harvest
-    }
-  };
 };

@@ -1,30 +1,20 @@
 'use strict';
 
-function run(creep) {
+var memoryObject = require('util.MemoryObject');
+
+function find(creep) {
+  return creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+}
+
+module.exports = (next, harvest) => creep => {
   if (creep.carry.energy === 0) {
-    delete creep.memory.constructionSite;
-    return true;
+    return harvest;
   }
-  var constructionSite;
-  if (!creep.memory.constructionSite ||
-      !(constructionSite = Game.getObjectById(creep.memory.constructionSite))) {
-    constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-  }
+  var constructionSite = memoryObject(creep, 'buildConstructionSite', find);
   if (!constructionSite) {
-    delete creep.memory.constructionSite;
-    return true;
+    return next;
   }
   if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
     creep.moveTo(constructionSite);
   }
-  creep.memory.constructionSite = constructionSite.id;
-}
-
-module.exports = (next, harvest) => {
-  return {
-    'buildConstructionSite': {
-      run,
-      next: creep => creep.carry.energy > 0 ? next : harvest
-    }
-  };
 };

@@ -2,12 +2,9 @@
 
 var harvest = 'harvestSource';
 module.exports = {
-  'sourceUpgrader': {
-    startActivity: harvest,
-    activities: _.merge(
-      {},
-      require('./creep.activity.harvestSource')    ('upgradeController', harvest),
-      require('./creep.activity.upgradeController')('upgradeController', harvest)
-    )
+  startActivity: harvest,
+  activities: {
+    'harvestSource':     require('./creep.activity.harvestSource')    ('upgradeController', harvest),
+    'upgradeController': require('./creep.activity.upgradeController')('upgradeController', harvest)
   }
 };
