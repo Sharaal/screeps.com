@@ -8,7 +8,7 @@ module.exports = {
     'buildSpawn':               require('./creep.activity.buildSpawn')              ('upgradeController', harvest),
     'upgradeController':        require('./creep.activity.upgradeController')       ('upgradeController', harvest)
   },
-  roomConditions: () => {
+  roomConditions: room => {
     var spawn;
     _.each(Game.rooms, room => {
       if (spawn) {
@@ -26,8 +26,12 @@ module.exports = {
         }
       });
     });
-    if (spawn) {
-      return true;
+    if (!spawn) {
+      return;
     }
+    if (!_.find(Game.map.describeExits(room.name), room => room.name === spawn.room.name)) {
+      return;
+    }
+    return true;
   }
 };
