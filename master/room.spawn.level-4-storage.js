@@ -32,5 +32,15 @@ module.exports.priorities = [
     role: 'harvestEnergyStorage-buildConstructionSite',
     amount: 1,
     body: body({ carry: 4, move: 4, work: 4 })
+  },
+  {
+    role: 'flagClaimer',
+    amount: 1,
+    body: body({ claim: 1, move: 4 })
+  },
+  {
+    role: 'harvestEnergyStorage-buildSpawn',
+    amount: 1,
+    body: body({ carry: 12, move: 6, work: 2 })
   }
 ];

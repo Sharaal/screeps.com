@@ -8,7 +8,9 @@ var time = require('./util.time');
 var roles = _.merge(
   {},
   require('./creep.role.carrier'),
+  require('./creep.role.flagClaimer'),
   require('./creep.role.harvestEnergyStorage-buildConstructionSite'),
+  require('./creep.role.harvestEnergyStorage-buildSpawn'),
   require('./creep.role.harvestEnergyStorage-transferStructure'),
   require('./creep.role.harvestEnergyStorage-upgradeController'),
   require('./creep.role.harvestSource-allround'),
