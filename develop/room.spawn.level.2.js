@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports.conditions = room => {
-  return room.controller.level >= 2 &&
+  return room.controller.level >= 2
+         &&
          room.energyCapacityAvailable >= 550;
 };
 
