@@ -131,18 +131,6 @@
   
 - If there is a missing structures, there will be outputted in the 
   console
-  
-  
-# TODOs
- 
-- Add container to "transferEnergyStorage" and define activity to draw
-  energy from it for the carrier
-
-- Limit the building and distribution of sourcer also by the amount of 
-  available positions besides the sources 
-  
-- Never build a structure from the position directly beside a source to
-  prevent blocking the harvesting
 
   
 # Ideas
