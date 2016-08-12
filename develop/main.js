@@ -2,6 +2,7 @@
 
 var creepController = require('./creep.controller');
 var garbageCollector = require('./garbageCollector');
+var migration = require('./migration');
 var roomController = require('./room.controller');
 var time = require('./util.time');
 
@@ -20,6 +21,7 @@ var roles = {
 };
 
 module.exports.loop = () => {
+  migration();
   if (time(100)) {
     garbageCollector();
   }
