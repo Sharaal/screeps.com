@@ -6,7 +6,7 @@ function find(creep) {
   var sources = creep.room.find(FIND_SOURCES);
   if (sources.length === 0) {
     creep.say('!');
-    console.error(`creep "${creep.name}" not found a source`);
+    console.log(`creep "${creep.name}" not found a source`);
     return;
   }
   sources = _.sortBy(sources,
