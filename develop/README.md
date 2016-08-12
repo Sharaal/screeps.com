@@ -132,8 +132,6 @@
   
   
 # TODOs
-  
-- A sourcer should use a container/storage if there is one (besides him)
  
 - Add container to "transferEnergyStorage" and define activity to draw
   energy from it for the carrier

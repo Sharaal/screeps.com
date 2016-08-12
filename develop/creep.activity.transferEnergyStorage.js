@@ -6,20 +6,25 @@ function validate(energyStorage) {
   return ((energyStorage.store.energy || 0) + (energyStorage.store.L || 0)) < energyStorage.storeCapacity;
 }
 
-function find(creep) {
-  return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+function getFind(range) {
+  var opts = {
     filter: structure =>
       structure.structureType == STRUCTURE_STORAGE
       &&
       ((structure.store.energy || 0) + (structure.store.L || 0)) < structure.storeCapacity
-  });
+  };
+  if (range) {
+    return creep => creep.pos.findInRange(FIND_MY_STRUCTURES, range, opts);
+  }
+  return creep => creep.pos.findClosestByPath(FIND_MY_STRUCTURES, opts);
 }
 
-module.exports = (next, harvest) => creep => {
+module.exports = (next, harvest, opts) => creep => {
+  opts = opts || {};
   if (creep.carry.energy === 0) {
     return harvest;
   }
-  var energyStorage = memoryObject(creep, 'transferEnergyStorage', validate, find);
+  var energyStorage = memoryObject(creep, 'transferEnergyStorage', validate, getFind(opts.range));
   if (!energyStorage) {
     return next;
   }
