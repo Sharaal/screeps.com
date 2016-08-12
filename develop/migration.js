@@ -2,7 +2,7 @@
 
 var currentVersion = 1;
 
-module.exports = () => {
+module.exports = roles => {
   if (!Memory.version) {
     Memory.version = currentVersion;
     return;
@@ -11,6 +11,6 @@ module.exports = () => {
     return;
   }
   for (; Memory.version < currentVersion; ++Memory.version) {
-    require(`./migration.${Memory.version}`)();
+    require(`./migration.${Memory.version}`)(roles);
   }
 };

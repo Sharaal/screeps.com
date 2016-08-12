@@ -21,7 +21,7 @@ var roles = {
 };
 
 module.exports.loop = () => {
-  migration();
+  migration(roles);
   if (time(100)) {
     garbageCollector();
   }
