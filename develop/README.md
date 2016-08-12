@@ -42,7 +42,8 @@
       structure
     - storageCarrier: Pick up energy or draw it from the energy storage
       to transfer it to a spawn, extension, tower or energy storage
-    - storageSourcer: Harvest the source and drop the energy
+    - storageSourcer: Harvest the source, transfer the energy to a near 
+      energy storage or drop it
     - storageSpawnBuilder: Draw energy from the energy storage, keep it
       in mind and build the spawn in a room besides the own
     - storageUpgrader: Draw energy from the energy storage and upgrade
@@ -90,9 +91,10 @@
   - harvest if there is no more energy in the source
   
 - transferEnergyStorage: Search the next storage with store capacity 
-  available, move to it and transfer energy 
+  available, move to it and transfer energy
   - next if there is no more capacity in a storage available
   - harvest if energy of creep is empty
+  - opts.range if only storage in a specific range should be used 
   
 - transferStructure: Search the next structure (spawn/extension > tower) 
   with capacity available, move to it and transfer energy 
