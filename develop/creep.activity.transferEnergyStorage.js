@@ -14,7 +14,12 @@ function getFind(range) {
       ((structure.store.energy || 0) + (structure.store.L || 0)) < structure.storeCapacity
   };
   if (range) {
-    return creep => creep.pos.findInRange(FIND_MY_STRUCTURES, range, opts);
+    return creep => {
+      var energyStorages = creep.pos.findInRange(FIND_MY_STRUCTURES, range, opts);
+      if (energyStorages.length > 0) {
+        return energyStorages[0];
+      }
+    };
   }
   return creep => creep.pos.findClosestByPath(FIND_MY_STRUCTURES, opts);
 }
