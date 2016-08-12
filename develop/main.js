@@ -9,6 +9,7 @@ var roles = {
   'flagClaimer':         require('./creep.role.flagClaimer'),
 
   'sourceAllrounder':    require('./creep.role.sourceAllrounder'),
+  'sourceRescuer':       require('./creep.role.sourceRescuer'),
   'sourceUpgrader':      require('./creep.role.sourceUpgrader'),
 
   'storageBuilder':      require('./creep.role.storageBuilder'),

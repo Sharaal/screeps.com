@@ -3,7 +3,9 @@
 var levels = [
   require('./room.spawn.level.1'),
   require('./room.spawn.level.2'),
-  require('./room.spawn.level.4.storage')
+  require('./room.spawn.level.4.storage'),
+
+  require('./room.spawn.sourceRescuer')
 ];
 
 module.exports = roles => room => {
