@@ -14,6 +14,16 @@ module.exports.conditions = room => {
 
 module.exports.priorities = [
   {
+    role: 'sourceAllrounder',
+    amount: room => (room.find(FIND_MY_CREEPS).length === 0) ? 1 : 0,
+    body: body({ carry: 1, move: 1, work: 2 })
+  },
+  {
+    role: 'storageUpgrader',
+    amount: 1,
+    body: body({ carry: 1, move: 1, work: 1 })
+  },
+  {
     role: 'storageSourcer',
     amount: 1,
     body: body({ move: 1, work: 8 })
@@ -22,11 +32,6 @@ module.exports.priorities = [
     role: 'storageCarrier',
     amount: 2,
     body: body({ carry: 3, move: 3 })
-  },
-  {
-    role: 'storageUpgrader',
-    amount: 1,
-    body: body({ carry: 1, move: 1, work: 1 })
   },
   {
     role: 'storageSourcer',

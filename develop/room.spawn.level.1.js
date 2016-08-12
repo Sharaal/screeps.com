@@ -18,7 +18,7 @@ module.exports.priorities = [
   },
   {
     role: 'sourceAllrounder',
-    amount: room => room.find(FIND_SOURCES).length * 6,
+    amount: room => room.find(FIND_SOURCES).length * 5,
     body: body({ carry: 1, move: 1, work: 2 })
   }
 ];
