@@ -1,6 +1,6 @@
 'use strict';
 
-var memoryObject = require('util.MemoryObject');
+var memoryObject = require('util.memoryObject');
 
 function find() {
   var spawn;
