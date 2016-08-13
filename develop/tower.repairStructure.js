@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = tower => {
-  var structures = tower.room.find(FIND_MY_STRUCTURES, {
+  var structures = tower.room.find(FIND_STRUCTURES, {
     filter: structure =>
       structure.structureType !== STRUCTURE_WALL
       &&
