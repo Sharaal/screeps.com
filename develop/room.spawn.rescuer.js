@@ -4,7 +4,7 @@ module.exports.conditions = room => {
   return room.find(FIND_MY_CREEPS).length === 0;
 };
 
-var body = require('util.body');
+var body = require('./util.body');
 module.exports.priorities = [
   {
     role: 'rescuer',

@@ -6,7 +6,7 @@ module.exports.conditions = room => {
          room.energyCapacityAvailable >= 550;
 };
 
-var body = require('util.body');
+var body = require('./util.body');
 module.exports.priorities = [
   {
     role: 'sourceAllrounder',

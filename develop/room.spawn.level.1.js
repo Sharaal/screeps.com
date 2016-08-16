@@ -4,7 +4,7 @@ module.exports.conditions = room => {
   return room.controller.level >= 1;
 };
 
-var body = require('util.body');
+var body = require('./util.body');
 module.exports.priorities = [
   {
     role: 'sourceAllrounder',

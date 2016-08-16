@@ -1,6 +1,6 @@
 'use strict';
 
-var memoryObject = require('util.memoryObject');
+var memoryObject = require('./util.memoryObject');
 
 function validate(energyContainer) {
   return ((energyContainer.store.energy || 0) + (energyContainer.store.L || 0)) < energyContainer.storeCapacity;

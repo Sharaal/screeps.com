@@ -1,6 +1,6 @@
 'use strict';
 
-var memoryObject = require('util.memoryObject');
+var memoryObject = require('./util.memoryObject');
 
 function validate(structure) {
   return structure.energy < structure.energyCapacity;
