@@ -22,7 +22,7 @@ function find() {
 }
 
 module.exports = next => creep => {
-  var workParts = creep.body.filter(part => part.type === WORK);
+  var workParts = creep.getActiveBodyparts(WORK);
   if (creep.carry.energy <= (workParts.length * 5)) {
     return next;
   }
