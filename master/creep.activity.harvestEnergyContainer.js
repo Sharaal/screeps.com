@@ -2,14 +2,14 @@
 
 var memoryObject = require('./util.memoryObject');
 
-function validate(energyStorage) {
-  return energyStorage.store.energy > 0;
+function validate(energyContainer) {
+  return energyContainer.store.energy > 0;
 }
 
 function find(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
-      structure.structureType == STRUCTURE_STORAGE
+      structure.structureType == STRUCTURE_CONTAINER
       &&
       structure.store.energy > 0
   });
@@ -19,11 +19,11 @@ module.exports = (next, harvest) => creep => {
   if (creep.carry.energy === creep.carryCapacity) {
     return next;
   }
-  var energyStorage = memoryObject(creep, 'harvestEnergyStorage', validate, find);
-  if (!energyStorage) {
+  var energyContainer = memoryObject(creep, 'harvestEnergyContainer', validate, find);
+  if (!energyContainer) {
     return harvest;
   }
-  if (creep.withdraw(energyStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-    creep.moveTo(energyStorage);
+  if (creep.withdraw(energyContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+    creep.moveTo(energyContainer);
   }
 };

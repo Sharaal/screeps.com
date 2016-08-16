@@ -1,6 +1,6 @@
 'use strict';
 
-function memory() {
+module.exports = () => {
   for(var name in Memory.creeps) {
     if(!Game.creeps[name]) {
       delete Memory.creeps[name];
@@ -11,6 +11,4 @@ function memory() {
       delete Memory.spawns[name];
     }
   }
-}
-
-module.exports = memory;
+};

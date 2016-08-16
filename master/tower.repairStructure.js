@@ -8,7 +8,8 @@ module.exports = tower => {
       structure.hits < structure.hitsMax
   });
   if (structures.length > 0) {
-    tower.repair(structures.sort((structureA, structureB) => structureA.hits > structureB.hits)[0]);
+    structures = _.sortBy(structures, structure => structure.hits);
+    tower.repair(structures[0]);
     return true;
   }
 };

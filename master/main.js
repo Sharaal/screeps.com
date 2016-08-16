@@ -1,26 +1,29 @@
 'use strict';
 
-var memory = require('./memory');
 var creepController = require('./creep.controller');
+var garbageCollector = require('./garbageCollector');
+var migration = require('./migration');
 var roomController = require('./room.controller');
 var time = require('./util.time');
 
-var roles = _.merge(
-  {},
-  require('./creep.role.carrier'),
-  require('./creep.role.flagClaimer'),
-  require('./creep.role.harvestEnergyStorage-buildConstructionSite'),
-  require('./creep.role.harvestEnergyStorage-buildSpawn'),
-  require('./creep.role.harvestEnergyStorage-transferStructure'),
-  require('./creep.role.harvestEnergyStorage-upgradeController'),
-  require('./creep.role.harvestSource-allround'),
-  require('./creep.role.harvestSource-transferEnergyStorage'),
-  require('./creep.role.harvestSource-upgradeController')
-);
+var roles = {
+  'flagClaimer':         require('./creep.role.flagClaimer'),
+  'rescuer':             require('./creep.role.rescuer'),
+
+  'sourceAllrounder':    require('./creep.role.sourceAllrounder'),
+  'sourceUpgrader':      require('./creep.role.sourceUpgrader'),
+
+  'storageBuilder':      require('./creep.role.storageBuilder'),
+  'storageCarrier':      require('./creep.role.storageCarrier'),
+  'storageSourcer':      require('./creep.role.storageSourcer'),
+  'storageSpawnBuilder': require('./creep.role.storageSpawnBuilder'),
+  'storageUpgrader':     require('./creep.role.storageUpgrader')
+};
 
 module.exports.loop = () => {
+  migration(roles);
   if (time(100)) {
-    memory();
+    garbageCollector();
   }
   _.each(Game.creeps, creepController(roles));
   _.each(Game.rooms, roomController(roles));

@@ -1,9 +1,11 @@
 'use strict';
 
 var levels = [
-  require('./room.spawn.level-1'),
-  require('./room.spawn.level-2'),
-  require('./room.spawn.level-4-storage'),
+  require('./room.spawn.level.1'),
+  require('./room.spawn.level.2'),
+  require('./room.spawn.level.4.storage'),
+
+  require('./room.spawn.rescuer')
 ];
 
 module.exports = roles => room => {
@@ -26,26 +28,39 @@ module.exports = roles => room => {
     if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
       return;
     }
-    var creeps = room.find(FIND_MY_CREEPS, {
-      filter: creep => creep.memory.role === priority.role
-    });
-    if (creeps.length < priority.amount) {
-      order = priority;
+    if (priority.globalAmount) {
+      var globalCreeps = _.filter(Game.creeps, creep => creep.memory.role === priority.role);
+      if (globalCreeps.length >= priority.globalAmount) {
+        return;
+      }
     }
+    if (priority.amount) {
+      var amount;
+      if (typeof priority.amount === 'function') {
+        amount = priority.amount(room);
+      } else {
+        amount = priority.amount;
+      }
+      var roomCreeps = room.find(FIND_MY_CREEPS, { filter: creep => creep.memory.role === priority.role });
+      if (roomCreeps.length >= amount) {
+        return;
+      }
+    }
+    order = priority;
   });
   if (!order) {
     return;
   }
 
-  var spawns = room.find(FIND_STRUCTURES, {
-    filter: structure => structure.structureType == STRUCTURE_SPAWN
-  });
+  var spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
     if (!order) {
       return;
     }
-    if (spawn.createCreep(order.body, undefined, { role: order.role, activity: roles[order.role].startActivity }) === OK) {
-      order = undefined;
+    var memory = { role: order.role, activity: roles[order.role].startActivity };
+    if (spawn.createCreep(order.body, undefined, memory) !== OK) {
+      return;
     }
+    order = undefined;
   });
 };
