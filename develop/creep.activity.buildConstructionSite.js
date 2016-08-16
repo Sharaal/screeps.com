@@ -1,5 +1,6 @@
 'use strict';
 
+var harvestSourcePositions = require('./memory.harvestSourcePositions');
 var memoryObject = require('./util.memoryObject');
 
 function find(creep) {
@@ -14,7 +15,12 @@ module.exports = (next, harvest) => creep => {
   if (!constructionSite) {
     return next;
   }
-  if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(constructionSite);
+  var source = harvestSourcePositions.getSource(creep.pos);
+  if (source) {
+    creep.moveAwayFrom(source);
+  } else {
+    if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(constructionSite);
+    }
   }
 };

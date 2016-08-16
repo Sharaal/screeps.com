@@ -1,5 +1,7 @@
 'use strict';
 
+var harvestSourcePositions = require('./memory.harvestSourcePositions');
+
 module.exports = () => {
   for(var creepName in Memory.creeps) {
     if(!Game.creeps[creepName]) {
@@ -11,4 +13,5 @@ module.exports = () => {
       delete Memory.spawns[spawnName];
     }
   }
+  harvestSourcePositions.garbageCollector();
 };

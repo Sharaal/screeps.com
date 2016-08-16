@@ -8,9 +8,14 @@ module.exports = (next, harvest, opts) => creep => {
   if (opts.ticksToDowngrade && creep.room.controller.ticksToDowngrade >= opts.ticksToDowngrade) {
     return next;
   }
-  if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-    creep.moveTo(creep.room.controller);
+  var source = harvestSourcePositions.getSource(creep.pos);
+  if (source) {
+    creep.moveAwayFrom(source);
   } else {
-    return next;
+    if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+      creep.moveTo(creep.room.controller);
+    } else {
+      return next;
+    }
   }
 };
