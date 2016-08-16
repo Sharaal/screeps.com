@@ -2,6 +2,7 @@
 
 var harvestSourcePositions = require('./memory.harvestSourcePositions');
 var memoryObject = require('./util.memoryObject');
+var moveAwayFrom = require('./util.moveAwayFrom');
 
 function find(creep) {
   return creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
@@ -17,7 +18,7 @@ module.exports = (next, harvest) => creep => {
   }
   var source = harvestSourcePositions.getSource(creep.pos);
   if (source) {
-    creep.moveAwayFrom(source);
+    moveAwayFrom(creep, source);
   } else {
     if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
       creep.moveTo(constructionSite);

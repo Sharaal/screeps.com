@@ -1,14 +1,14 @@
 'use strict';
 
-Creep.prototype.moveAwayFrom = object => {
+module.exports = (creep, object) => {
   var directionTo;
-  var path = this.pos.findPathTo(object);
+  var path = creep.pos.findPathTo(object);
   if(path.length > 0) {
     directionTo = path[0].direction;
   }
   if (!directionTo) {
-    this.say('!');
-    console.log(`creep "${this.name}" don't find a path to object "${object.id}"`);
+    creep.say('!');
+    console.log(`creep "${creep.name}" don't find a path to object "${object.id}"`);
     return;
   }
 
@@ -32,10 +32,10 @@ Creep.prototype.moveAwayFrom = object => {
       break;
   }
   if (!directionAwayFrom) {
-    this.say('!');
-    console.log(`creep "${this.name}" has unknown directionTo "${directionTo}"`);
+    creep.say('!');
+    console.log(`creep "${creep.name}" has unknown directionTo "${directionTo}"`);
     return;
   }
 
-  this.move(directionAwayFrom);
+  creep.move(directionAwayFrom);
 };
