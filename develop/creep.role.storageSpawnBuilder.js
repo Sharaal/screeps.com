@@ -1,12 +1,13 @@
 'use strict';
 
-var harvest = 'harvestHomeEnergyStorage';
 module.exports = {
-  startActivity: harvest,
+  startActivity: 'harvestEnergyStorage',
   activities: {
-    'harvestHomeEnergyStorage': require('./creep.activity.harvestHomeEnergyStorage')('buildSpawn',        harvest),
-    'buildSpawn':               require('./creep.activity.buildSpawn')              ('upgradeController', harvest),
-    'upgradeController':        require('./creep.activity.upgradeController')       ('upgradeController', harvest)
+    'harvestEnergyStorage': require('./creep.activity.harvestEnergyStorage')('buildSpawn',        'harvestEnergyStorage'),
+    'harvestDroppedEnergy': require('./creep.activity.harvestDroppedEnergy')('buildSpawn',        'harvestSource'),
+    'harvestSource':        require('./creep.activity.harvestSource')       ('buildSpawn',        'harvestDroppedEnergy'),
+    'buildSpawn':           require('./creep.activity.buildSpawn')          ('upgradeController', 'harvestDroppedEnergy'),
+    'upgradeController':    require('./creep.activity.upgradeController')   ('upgradeController', 'harvestDroppedEnergy')
   },
   roomConditions: room => {
     var spawn;

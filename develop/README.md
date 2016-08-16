@@ -53,7 +53,9 @@
       energy storage/container or drop it
       - amount: Sources in the room * 1 
     - storageSpawnBuilder: Draw energy from the energy storage, keep it
-      in mind and build the spawn in a room besides the own
+      in mind and build the spawn in a room besides the own. To harvest
+      new energy the creep will use local dropped energy or harvest 
+      local sources
       - amount: 1 (if there is a spawn to built)
     - storageUpgrader: Draw energy from the energy storage/container and 
       upgrade the controller
@@ -95,16 +97,13 @@
   - next if the energy of the creep is full
   - harvest if there is no more energy in a storage
   
-- harvestHomeEnergyStorage: Search the next storage with energy 
-  available, move to it, draw energy and keep it in memory
-  - next if the energy of the creep is full
-  - harvest if there is no storage
-  
 - harvestSource: Search a random source (and save it forever in the 
   creep memory to split the creeps depending on the amount of creeps and 
   harvest positions), move to it and harvest 
   - next if the energy of the creep is full
   - harvest if there is no more energy in the source
+  
+- suicide: The creep suicide
   
 - transferEnergyContainer: Search the next container with store capacity 
   available, move to it and transfer energy
