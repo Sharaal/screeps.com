@@ -27,19 +27,22 @@ function getHarvestSourcePositions(roomName) {
         var bottom = source.pos.y + 1;
         var right = source.pos.x + 1;
         var objects = room.lookAtArea(top, left, bottom, right);
-        _.each([source.pos.x - 1, source.pos.x, source.pos.x + 1], x => {
-          _.each([source.pos.y - 1, source.pos.y, source.pos.y + 1], y => {
+        _.each([source.pos.y - 1, source.pos.y, source.pos.y + 1], y => {
+          _.each([source.pos.x - 1, source.pos.x, source.pos.x + 1], x => {
+            if (y === source.pos.y && x === source.pos.x) {
+              return;
+            }
             var foundWall = false;
-            _.each(objects[x][y], object => {
+            _.each(objects[y][x], object => {
               if (object.type === 'terrain' && object.terrain === 'wall') {
                 foundWall = true;
               }
             });
             if (!foundWall) {
-              if (!harvestSourcePosition.positions[x]) {
-                harvestSourcePosition.positions[x] = {};
+              if (!harvestSourcePosition.positions[y]) {
+                harvestSourcePosition.positions[y] = {};
               }
-              harvestSourcePosition.positions[x][y] = source.id;
+              harvestSourcePosition.positions[y][x] = source.id;
               ++harvestSourcePosition.roomAmount;
               if (!harvestSourcePosition.sourceAmounts[source.id]) {
                 harvestSourcePosition.sourceAmounts[source.id] = 0;
@@ -65,7 +68,7 @@ module.exports.getAmountBySource = source => {
 
 module.exports.getSource = pos => {
   var positions = getHarvestSourcePositions(pos.roomName).positions;
-  if (positions[pos.x] && positions[pos.x][pos.y]) {
-    return Game.getObjectById(positions[pos.x][pos.y]);
+  if (positions[pos.y] && positions[pos.y][pos.x]) {
+    return Game.getObjectById(positions[pos.y][pos.x]);
   }
 };
