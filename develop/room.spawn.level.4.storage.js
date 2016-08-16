@@ -1,6 +1,6 @@
 'use strict';
 
-const body = require('./util.body');
+var body = require('./util.body');
 
 module.exports.conditions = room => {
   return room.controller.level >= 4

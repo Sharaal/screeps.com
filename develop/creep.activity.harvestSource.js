@@ -1,5 +1,6 @@
 'use strict';
 
+var harvestSourcePositions = require('./memory.harvestSourcePositions');
 var memoryObject = require('./util.memoryObject');
 
 function find(creep) {
@@ -14,7 +15,7 @@ function find(creep) {
       var creeps = creep.room.find(FIND_MY_CREEPS, {
         filter: creep => creep.memory.source === source.id
       });
-      return creeps.length;
+      return creeps.length / harvestSourcePositions.getAmountBySource(source);
     }
   );
   return sources[0];

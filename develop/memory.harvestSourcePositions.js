@@ -14,8 +14,9 @@ function getHarvestSourcePositions(roomName) {
   }
   if (!Memory.harvestSourcePositions[roomName]) {
     var harvestSourcePosition = {
-      amount: 0,
-      positions: {}
+      positions: {},
+      roomAmount: 0,
+      sourceAmounts: {}
     };
     var room = Game.rooms[roomName];
     if (room) {
@@ -35,11 +36,15 @@ function getHarvestSourcePositions(roomName) {
               }
             });
             if (!foundWall) {
-              ++harvestSourcePosition.amount;
               if (!harvestSourcePosition.positions[x]) {
                 harvestSourcePosition.positions[x] = {};
               }
               harvestSourcePosition.positions[x][y] = source.id;
+              ++harvestSourcePosition.roomAmount;
+              if (!harvestSourcePosition.sourceAmounts[source.id]) {
+                harvestSourcePosition.sourceAmounts[source.id] = 0;
+              }
+              ++harvestSourcePosition.sourceAmounts[source.id];
             }
           });
         });
@@ -50,8 +55,12 @@ function getHarvestSourcePositions(roomName) {
   return Memory.harvestSourcePositions[roomName];
 }
 
-module.exports.getAmount = roomName => {
-  return getHarvestSourcePositions(roomName).amount;
+module.exports.getAmountByRoomName = roomName => {
+  return getHarvestSourcePositions(roomName).roomAmount;
+};
+
+module.exports.getAmountBySource = source => {
+  return getHarvestSourcePositions(source.pos.roomName).sourceAmounts[source.id] || 0;
 };
 
 module.exports.getSource = pos => {
