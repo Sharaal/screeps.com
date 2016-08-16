@@ -34,26 +34,36 @@
     - sourceAllrounder: Harvest a source and use the energy to transfer
       it to a spawn, extension or tower, build a structure or upgrade
       the controller
+      - amount: Harvest positions on the room * 2 
     - sourceUpgrader: Harvest a source and upgrade the controller
+      - amount: 1
     
 - Controller >= 4 with an energy storage:
-    - flagClaimer: Move to the "claim" flag and claim the room
+    - flagClaimer: Move to the "claim" flag and claim the room. Only one 
+      will be built if there is a flag 
+      - amount: 1 (if there is a "claim" flag)
     - storageBuilder: Draw energy from the energy storage and build a
-      structure
+      construction site
+      - amount: 1 (if there is a construction site)
     - storageCarrier: Pick up energy or draw it from the energy storage
       to transfer it to a spawn, extension, tower or energy storage
+      - amount: Sources in the room * 2 
     - storageSourcer: Harvest the source, transfer the energy to a near 
       energy storage or drop it
+      - amount: Sources in the room * 1 
     - storageSpawnBuilder: Draw energy from the energy storage, keep it
       in mind and build the spawn in a room besides the own
+      - amount: 1 (if there is a spawn to built)
     - storageUpgrader: Draw energy from the energy storage and upgrade
       the controller
+      - amount: 1
   
   
 #### Activities
 
 - buildConstructionSite: Search the closest construction site, move to 
-  and build it
+  and build it (if the creep stays on a harvest position of a source, it
+  will first go away from it bevor start to build)
   - next if there is no more construction site
   - harvest if energy of creep is empty
   
@@ -74,6 +84,11 @@
   - next if the energy of the creep is full
   - harvest if there is no more dropped energy
   
+- harvestEnergyContainer: Search the next container with energy 
+  available, move to it and draw energy
+  - next if the energy of the creep is full
+  - harvest if there is no more energy in a container
+  
 - harvestEnergyStorage: Search the next storage with energy available,
   move to it and draw energy
   - next if the energy of the creep is full
@@ -85,23 +100,31 @@
   - harvest if there is no storage
   
 - harvestSource: Search a random source (and save it forever in the 
-  creep memory to split the creeps more or less to all sources), move to 
-  it and harvest 
+  creep memory to split the creeps depending on the amount of creeps and 
+  harvest positions), move to it and harvest 
   - next if the energy of the creep is full
   - harvest if there is no more energy in the source
+  
+- transferEnergyContainer: Search the next container with store capacity 
+  available, move to it and transfer energy
+  - next if there is no more capacity in a container available
+  - harvest if energy of creep is empty
+  - opts.range if only containers in a specific range should be used 
   
 - transferEnergyStorage: Search the next storage with store capacity 
   available, move to it and transfer energy
   - next if there is no more capacity in a storage available
   - harvest if energy of creep is empty
-  - opts.range if only storage in a specific range should be used 
+  - opts.range if only storages in a specific range should be used 
   
 - transferStructure: Search the next structure (spawn/extension > tower) 
   with capacity available, move to it and transfer energy 
   - next if there is no more capacity in a structure available
   - harvest if energy of creep is empty
   
-- upgradeController: Move to the room controller and upgrade it
+- upgradeController: Move to the room controller and upgrade it (if the 
+  creep stays on a harvest position of a source, it will first go away 
+  from it bevor start to upgrade)
   - next after the controller is upgraded one time
   - harvest if energy of creep is empty
   
