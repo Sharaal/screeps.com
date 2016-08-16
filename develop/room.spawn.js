@@ -6,6 +6,7 @@ var levels = [
   require('./room.spawn.level.2'),
   require('./room.spawn.level.2-container'),
   require('./room.spawn.level.4-storage'),
+  require('./room.spawn.level.4-storage-full'),
 
   require('./room.spawn.rescuer')
 ];
