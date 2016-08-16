@@ -2,6 +2,13 @@
 
 var levels = [
   require('./room.build.level.1'),
+  require('./room.build.level.2'),
+  require('./room.build.level.3'),
+  require('./room.build.level.4'),
+  require('./room.build.level.5'),
+  require('./room.build.level.6'),
+  require('./room.build.level.7'),
+  require('./room.build.level.8')
 ];
 
 module.exports = room => {
@@ -10,7 +17,7 @@ module.exports = room => {
     if (!level.conditions(room)) {
       return;
     }
-    neededStructures = level.structures;
+    neededStructures = level.structures(room);
   });
   if (!neededStructures) {
     return;
@@ -18,10 +25,10 @@ module.exports = room => {
 
   var orders = [];
   _.each(neededStructures, neededStructure => {
-    var availableStructures = room.find(FIND_MY_STRUCTURES, {
+    var availableStructures = room.find(FIND_STRUCTURES, {
       filter: structure => structure.structureType == neededStructure.structureType
     });
-    var availableConstructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
+    var availableConstructionSites = room.find(FIND_CONSTRUCTION_SITES, {
       filter: constructionSite => constructionSite.structureType == neededStructure.structureType
     });
     var neededAmount = neededStructure.amount - (availableStructures.length + availableConstructionSites.length);

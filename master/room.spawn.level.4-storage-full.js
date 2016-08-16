@@ -1,15 +1,18 @@
 'use strict';
 
-const body = require('./util.body');
+var body = require('./util.body');
 
 module.exports.conditions = room => {
+  var storages = room.find(FIND_MY_STRUCTURES, {
+    filter: structure => structure.structureType == STRUCTURE_STORAGE
+  });
   return room.controller.level >= 4
          &&
          room.energyCapacityAvailable >= 1300
          &&
-         room
-           .find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
-           .length > 0;
+         storages.length > 0
+         &&
+         (((storages[0].store.energy || 0) + (storages[0].store.L || 0)) / storages[0].storeCapacity) >= 0.75;
 };
 
 module.exports.priorities = [
@@ -20,7 +23,7 @@ module.exports.priorities = [
   },
   {
     role: 'storageCarrier',
-    amount: 2,
+    amount: 1,
     body: body({ carry: 3, move: 3 })
   },
   {
@@ -52,5 +55,10 @@ module.exports.priorities = [
     role: 'storageSpawnBuilder',
     globalAmount: 1,
     body: body({ carry: 12, move: 6, work: 2 })
-  }
+  },
+  {
+    role: 'storageUpgrader',
+    amount: 5,
+    body: body({ carry: 8, move: 4, work: 6 })
+  },
 ];

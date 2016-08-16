@@ -15,13 +15,13 @@ function getFind(range) {
   };
   if (range) {
     return creep => {
-      var energyContainers = creep.pos.findInRange(FIND_MY_STRUCTURES, range, opts);
+      var energyContainers = creep.pos.findInRange(FIND_STRUCTURES, range, opts);
       if (energyContainers.length > 0) {
         return energyContainers[0];
       }
     };
   }
-  return creep => creep.pos.findClosestByPath(FIND_MY_STRUCTURES, opts);
+  return creep => creep.pos.findClosestByPath(FIND_STRUCTURES, opts);
 }
 
 module.exports = (next, harvest, opts) => creep => {

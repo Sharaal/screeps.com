@@ -1,10 +1,12 @@
 'use strict';
 
+var body = require('./util.body');
+var harvestSourcePositions = require('./memory.harvestSourcePositions');
+
 module.exports.conditions = room => {
   return room.controller.level >= 1;
 };
 
-var body = require('./util.body');
 module.exports.priorities = [
   {
     role: 'sourceAllrounder',
@@ -18,7 +20,7 @@ module.exports.priorities = [
   },
   {
     role: 'sourceAllrounder',
-    amount: room => room.find(FIND_SOURCES).length * 5,
+    amount: room => harvestSourcePositions.getAmountByRoomName(room.name) * 2,
     body: body({ carry: 1, move: 1, work: 2 })
   }
 ];

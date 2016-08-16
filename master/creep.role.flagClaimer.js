@@ -3,7 +3,8 @@
 module.exports = {
   startActivity: 'flagClaimNeutralController',
   activities: {
-    'flagClaimNeutralController': require('./creep.activity.flagClaimNeutralController')('flagClaimNeutralController')
+    'flagClaimNeutralController': require('./creep.activity.flagClaimNeutralController')('suicide'),
+    'suicide':                    require('./creep.activity.suicide')
   },
   roomConditions: room => {
     var claimFlag = Game.flags.claim;

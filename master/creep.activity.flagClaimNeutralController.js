@@ -1,8 +1,6 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
-function find(creep) {
+module.exports = next => creep => {
   var claimFlag = Game.flags.claim;
   if (!claimFlag) {
     return;
@@ -11,17 +9,10 @@ function find(creep) {
     creep.moveTo(claimFlag);
     return;
   }
-  return creep.room.controller;
-}
-
-module.exports = next => creep => {
-  var claimController = memoryObject(creep, 'flagClaimNeutralController', find);
-  if (!claimController) {
-    return;
-  }
+  var claimController = creep.room.controller;
   if (creep.claimController(claimController) === ERR_NOT_IN_RANGE) {
     creep.moveTo(claimController);
-  } else {
-    return next;
-  }
+    return;
+  } 
+  return next;
 };

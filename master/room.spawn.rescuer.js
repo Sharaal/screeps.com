@@ -1,10 +1,13 @@
 'use strict';
 
+var body = require('./util.body');
+
 module.exports.conditions = room => {
-  return room.find(FIND_MY_CREEPS).length === 0;
+  return room.controller.level >= 1
+         &&
+         room.find(FIND_MY_CREEPS).length === 0;
 };
 
-var body = require('./util.body');
 module.exports.priorities = [
   {
     role: 'rescuer',
