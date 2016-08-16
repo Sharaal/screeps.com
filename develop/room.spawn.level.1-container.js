@@ -7,7 +7,7 @@ module.exports.conditions = room => {
   return room.controller.level >= 1
          &&
          room
-           .find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_CONTAINER })
+           .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_CONTAINER })
            .length > 0;
 };
 

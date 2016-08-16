@@ -9,7 +9,7 @@ module.exports.conditions = room => {
          room.energyCapacityAvailable >= 550
          &&
          room
-           .find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_CONTAINER })
+           .find(FIND_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_CONTAINER })
            .length > 0;
 };
 
