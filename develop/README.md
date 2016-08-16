@@ -42,20 +42,21 @@
     - flagClaimer: Move to the "claim" flag and claim the room. Only one 
       will be built if there is a flag 
       - amount: 1 (if there is a "claim" flag)
-    - storageBuilder: Draw energy from the energy storage and build a
-      construction site
+    - storageBuilder: Draw energy from the energy storage/container and 
+      build a construction site
       - amount: 1 (if there is a construction site)
-    - storageCarrier: Pick up energy or draw it from the energy storage
-      to transfer it to a spawn, extension, tower or energy storage
+    - storageCarrier: Pick up energy or draw it from the energy 
+      storage/container to transfer it to a spawn, extension, tower or 
+      energy storage
       - amount: Sources in the room * 2 
     - storageSourcer: Harvest the source, transfer the energy to a near 
-      energy storage or drop it
+      energy storage/container or drop it
       - amount: Sources in the room * 1 
     - storageSpawnBuilder: Draw energy from the energy storage, keep it
       in mind and build the spawn in a room besides the own
       - amount: 1 (if there is a spawn to built)
-    - storageUpgrader: Draw energy from the energy storage and upgrade
-      the controller
+    - storageUpgrader: Draw energy from the energy storage/container and 
+      upgrade the controller
       - amount: 1
   
   
