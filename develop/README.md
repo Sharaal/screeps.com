@@ -30,12 +30,27 @@
   
 #### Roles
 
-- Controller < 4: 
+- Controller <= 2: 
     - sourceAllrounder: Harvest a source and use the energy to transfer
       it to a spawn, extension or tower, build a structure or upgrade
       the controller
       - amount: Harvest positions on the room * 2 
     - sourceUpgrader: Harvest a source and upgrade the controller
+      - amount: 1
+    
+- Controller <= 4 with an energy container:
+    - storageBuilder: Draw energy from the energy container and build a 
+      construction site
+      - amount: 1 (if there is a construction site)
+    - storageCarrier: Pick up energy or draw it from the energy 
+      container to transfer it to a spawn, extension or tower
+      - amount: Sources in the room * 2 
+    - storageSourcer: Harvest the source, transfer the energy to a near 
+      energy container or drop it
+      - amount: Depends on the amount of sources and harvest source 
+      positions
+    - storageUpgrader: Draw energy from the energy container and upgrade
+      the controller
       - amount: 1
     
 - Controller >= 4 with an energy storage:
