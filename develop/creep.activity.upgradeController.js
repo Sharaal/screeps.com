@@ -1,5 +1,6 @@
 'use strict';
 
+var harvestSourcePositions = require('./memory.harvestSourcePositions');
 module.exports = (next, harvest, opts) => creep => {
   opts = opts || {};
   if (creep.carry.energy === 0) {
