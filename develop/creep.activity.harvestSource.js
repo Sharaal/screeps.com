@@ -27,5 +27,5 @@ module.exports = (next, empty) => creep => {
   if (!source || source.isEmpty()) {
     return empty;
   }
-  creep.moveToOr('harvest', source);
+  creep.moveToAnd('harvest', source);
 };

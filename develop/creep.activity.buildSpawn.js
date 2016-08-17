@@ -21,5 +21,5 @@ module.exports = (next, nearlyEmpty) => creep => {
   if (!spawn) {
     return next;
   }
-  creep.moveToOr('build', spawn);
+  creep.moveToAnd('build', spawn);
 };

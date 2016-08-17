@@ -12,5 +12,5 @@ module.exports = (next, empty) => creep => {
   if (!constructionSite) {
     return next;
   }
-  creep.moveToOr('build', constructionSite);
+  creep.moveToAnd('build', constructionSite);
 };

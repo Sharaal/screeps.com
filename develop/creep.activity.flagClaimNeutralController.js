@@ -7,7 +7,7 @@ module.exports = next => creep => {
       creep.moveTo(claimFlag);
       return;
     }
-    if (!creep.moveToOr('claimController', creep.room.controller)) {
+    if (!creep.moveToAnd('claimController', creep.room.controller)) {
       return;
     }
   }

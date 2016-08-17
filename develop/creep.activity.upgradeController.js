@@ -8,7 +8,7 @@ module.exports = (next, empty, opts) => creep => {
   if (opts.ticksToDowngrade && creep.room.controller.ticksToDowngrade >= opts.ticksToDowngrade) {
     return next;
   }
-  if (creep.moveToOr('upgradeController', creep.room.controller)) {
+  if (creep.moveToAnd('upgradeController', creep.room.controller)) {
     return next;
   }
 };

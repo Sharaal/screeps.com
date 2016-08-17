@@ -12,5 +12,5 @@ module.exports = (next, empty) => creep => {
   if (!droppedEnergy) {
     return empty;
   }
-  creep.moveToOr('pickup', droppedEnergy);
+  creep.moveToAnd('pickup', droppedEnergy);
 };

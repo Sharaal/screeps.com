@@ -21,5 +21,5 @@ module.exports = (next, empty) => creep => {
   if (!energyStorage) {
     return empty;
   }
-  creep.moveToOr('withdraw', [energyStorage, RESOURCE_ENERGY]);
+  creep.moveToAnd('withdraw', [energyStorage, RESOURCE_ENERGY]);
 };
