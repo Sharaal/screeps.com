@@ -60,5 +60,5 @@ module.exports.priorities = [
     role: 'storageUpgrader',
     amount: 5,
     body: body({ carry: 8, move: 4, work: 6 })
-  },
+  }
 ];
