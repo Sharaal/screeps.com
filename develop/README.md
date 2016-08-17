@@ -30,51 +30,25 @@
   
 #### Roles
 
-- Controller <= 2: 
-    - sourceAllrounder: Harvest a source and use the energy to transfer
-      it to a spawn, extension or tower, build a structure or upgrade
-      the controller
-      - amount: Harvest positions on the room * 2 
-    - sourceUpgrader: Harvest a source and upgrade the controller
-      - amount: 1
-    
-- Controller <= 4 with an energy container:
-    - storageBuilder: Draw energy from the energy container and build a 
-      construction site
-      - amount: 1 (if there is a construction site)
-    - storageCarrier: Pick up energy or draw it from the energy 
-      container to transfer it to a spawn, extension or tower
-      - amount: Sources in the room * 2 
-    - storageSourcer: Harvest the source, transfer the energy to a near 
-      energy container or drop it
-      - amount: Depends on the amount of sources and harvest source 
-      positions
-    - storageUpgrader: Draw energy from the energy container and upgrade
-      the controller
-      - amount: 1
-    
-- Controller >= 4 with an energy storage:
-    - flagClaimer: Move to the "claim" flag and claim the room. Only one 
-      will be built if there is a flag 
-      - amount: 1 (if there is a "claim" flag)
-    - storageBuilder: Draw energy from the energy storage/container and 
-      build a construction site
-      - amount: 1 (if there is a construction site)
-    - storageCarrier: Pick up energy or draw it from the energy 
-      storage/container to transfer it to a spawn, extension, tower or 
-      energy storage
-      - amount: Sources in the room * 2 
-    - storageSourcer: Harvest the source, transfer the energy to a near 
-      energy storage/container or drop it
-      - amount: Sources in the room * 1 
-    - storageSpawnBuilder: Draw energy from the energy storage, keep it
-      in mind and build the spawn in a room besides the own. To harvest
-      new energy the creep will use local dropped energy or harvest 
-      local sources
-      - amount: 1 (if there is a spawn to built)
-    - storageUpgrader: Draw energy from the energy storage/container and 
-      upgrade the controller
-      - amount: 1
+- carrier: Pick up energy or draw it from the energy container/storage 
+  to transfer it to a spawn, extension, tower or energy storage
+
+- flagClaimer: Move to the "claim" flag and claim the room. Only one 
+  will be built if there is a flag 
+
+- rescuer: Pick up energy, draw it from the energy container/storage or
+  harvest it from a source to rescue the controller or transfer it to a 
+  spawn, extension or tower
+
+- sourcer: Harvest the source, transfer the energy to a near energy 
+  storage/container or drop it
+
+- spawnBuilder: Draw energy from the energy storage, search and build 
+  the spawn in a room besides the own. To get new energy the creep will 
+  use dropped energy or harvest sources in the room of the spawn
+
+- worker: Draw energy from the energy storage/container and rescue the
+  controller, build a construction site or upgrade the controller
   
   
 #### Activities
@@ -151,6 +125,7 @@
    
 2. After claim the room create a spawn in that room besides an own room 
    able to build a storageSpawnBuilder
+   
   
 ## Towers
 
@@ -158,6 +133,7 @@
   - Attack a hostile creep
   - Repair a structure (only if energy > 50%)
   - Repair a wall (only if energy > 75%)
+  
   
 ## Structures
 
