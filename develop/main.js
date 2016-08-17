@@ -12,17 +12,12 @@ var roomController = require('./room.controller');
 var time = require('./util.time');
 
 var roles = {
-  'flagClaimer':         require('./creep.role.flagClaimer'),
-  'rescuer':             require('./creep.role.rescuer'),
-
-  'sourceAllrounder':    require('./creep.role.sourceAllrounder'),
-  'sourceUpgrader':      require('./creep.role.sourceUpgrader'),
-
-  'storageBuilder':      require('./creep.role.storageBuilder'),
-  'storageCarrier':      require('./creep.role.storageCarrier'),
-  'storageSourcer':      require('./creep.role.storageSourcer'),
-  'storageSpawnBuilder': require('./creep.role.storageSpawnBuilder'),
-  'storageUpgrader':     require('./creep.role.storageUpgrader')
+  'carrier':      require('./creep.role.carrier'),
+  'flagClaimer':  require('./creep.role.flagClaimer'),
+  'rescuer':      require('./creep.role.rescuer'),
+  'sourcer':      require('./creep.role.sourcer'),
+  'spawnBuilder': require('./creep.role.spawnBuilder'),
+  'worker':       require('./creep.role.worker')
 };
 
 module.exports.loop = () => {
