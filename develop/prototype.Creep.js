@@ -33,7 +33,7 @@ Creep.prototype.getMemoryObject = function (key, validate, find) {
   return object;
 };
 
-Creep.prototype.moveToOr = function (functionName, args) {
+Creep.prototype.moveToAnd = function (functionName, args) {
   if (!Array.isArray(args)) {
     args = [args];
   }
