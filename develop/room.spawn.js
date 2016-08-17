@@ -23,9 +23,9 @@ module.exports = roles => room => {
     return;
   }
 
-  var order;
+  var spawnOrder;
   _.each(highestLevel.priorities, priority => {
-    if (order) {
+    if (spawnOrder) {
       return;
     }
     if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
@@ -49,21 +49,21 @@ module.exports = roles => room => {
         return;
       }
     }
-    order = priority;
+    spawnOrder = priority;
   });
-  if (!order) {
+  if (!spawnOrder) {
     return;
   }
 
   var spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
-    if (!order) {
+    if (!spawnOrder) {
       return;
     }
-    var memory = { role: order.role, activity: roles[order.role].startActivity };
-    if (spawn.createCreep(transformBody(highestLevel.bodies[order.body]), undefined, memory) !== OK) {
+    var memory = { role: spawnOrder.role, activity: roles[spawnOrder.role].startActivity };
+    if (spawn.createCreep(transformBody(highestLevel.bodies[spawnOrder.body]), undefined, memory) !== OK) {
       return;
     }
-    order = undefined;
+    spawnOrder = undefined;
   });
 };

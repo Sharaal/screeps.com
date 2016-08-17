@@ -23,7 +23,7 @@ module.exports = room => {
     return;
   }
 
-  var orders = [];
+  var buildOrders = [];
   _.each(neededStructures, neededStructure => {
     var availableStructures = room.find(FIND_STRUCTURES, {
       filter: structure => structure.structureType === neededStructure.structureType
@@ -33,14 +33,14 @@ module.exports = room => {
     });
     var neededAmount = neededStructure.amount - (availableStructures.length + availableConstructionSites.length);
     if (neededAmount > 0) {
-      orders.push({ structureType: neededStructure.structureType, amount: neededAmount });
+      buildOrders.push({ structureType: neededStructure.structureType, amount: neededAmount });
     }
   });
 
-  if (orders.length) {
+  if (buildOrders.length) {
     console.log('------------------------------ ROOM BUILD ORDERS ------------------------------');
     console.log(room.name);
-    console.log(JSON.stringify(orders));
+    console.log(JSON.stringify(buildOrders));
     console.log('-------------------------------------------------------------------------------');
   }
 };
