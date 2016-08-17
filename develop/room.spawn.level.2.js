@@ -10,7 +10,7 @@ module.exports.conditions = room => {
 
 module.exports.bodies = {
   'sourcer': { carry: 1, move: 1, work: 4 },
-  'carrier': { carry: 3, move: 3 },
+  'carrier': { carry: 2, move: 2 },
   'worker':  { carry: 3, move: 2, work: 3 }
 };
 
@@ -51,6 +51,6 @@ module.exports.priorities = [
   },
   {
     role: 'worker',
-    amount: room => room.find(FIND_SOURCES).length
+    amount: room => room.find(FIND_SOURCES).length * 2
   }
 ];
