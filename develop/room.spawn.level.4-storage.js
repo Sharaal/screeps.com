@@ -7,9 +7,7 @@ module.exports.conditions = room => {
          &&
          room.energyCapacityAvailable >= 1300
          &&
-         room
-           .find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType == STRUCTURE_STORAGE })
-           .length > 0;
+         room.hasStorage();
 };
 
 module.exports.priorities = [

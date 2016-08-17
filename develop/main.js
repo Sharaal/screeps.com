@@ -1,6 +1,8 @@
 'use strict';
 
-require('./prototype.creep');
+require('./prototype.Creep');
+require('./prototype.Room');
+require('./prototype.StructureStorage');
 
 var creepController = require('./creep.controller');
 var garbageCollector = require('./garbageCollector');

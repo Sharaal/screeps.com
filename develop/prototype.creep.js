@@ -18,5 +18,7 @@ Creep.prototype.isEmpty = function (resource, rest) {
 };
 
 Creep.prototype.isFull = function () {
-  return this.carryCapacity > 0 && _.sum(creep.carry) === this.carryCapacity;
+  return this.carryCapacity > 0
+         &&
+         _.sum(this.carry) === this.carryCapacity;
 };

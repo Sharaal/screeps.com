@@ -3,16 +3,14 @@
 var body = require('./util.body');
 
 module.exports.conditions = room => {
-  var storages = room.find(FIND_MY_STRUCTURES, {
-    filter: structure => structure.structureType == STRUCTURE_STORAGE
-  });
+  var storage;
   return room.controller.level >= 4
          &&
          room.energyCapacityAvailable >= 1300
          &&
-         storages.length > 0
+         (storage = room.getStorage())
          &&
-         (((storages[0].store.energy || 0) + (storages[0].store.L || 0)) / storages[0].storeCapacity) >= 0.75;
+         storage.isFull(0.75);
 };
 
 module.exports.priorities = [
