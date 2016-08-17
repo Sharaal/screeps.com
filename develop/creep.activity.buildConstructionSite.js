@@ -1,7 +1,5 @@
 'use strict';
 
-var harvestSourcePositions = require('./memory.harvestSourcePositions');
-
 function find(creep) {
   return creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
 }
