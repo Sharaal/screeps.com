@@ -8,7 +8,7 @@ Creep.prototype.error = function (text, data) {
   }
 };
 
-Creep.prototype.getMemoryObject = function (key, validate, find) => {
+Creep.prototype.getMemoryObject = function (key, validate, find) {
   if (!find) {
     find = validate;
     validate = undefined;
