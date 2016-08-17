@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = needEnergy => creep => {
+module.exports = empty => creep => {
   creep.drop(RESOURCE_ENERGY);
-  return needEnergy;
+  return empty;
 };

@@ -19,13 +19,13 @@ function find(creep) {
   return sources[0];
 }
 
-module.exports = (next, needEnergy) => creep => {
+module.exports = (next, empty) => creep => {
   if (creep.isFull()) {
     return next;
   }
   var source = creep.getMemoryObject('harvestSource', find);
   if (!source || source.isEmpty()) {
-    return needEnergy;
+    return empty;
   }
   creep.moveToOr('harvest', source);
 };

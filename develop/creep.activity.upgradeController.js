@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = (next, needEnergy, opts) => creep => {
+module.exports = (next, empty, opts) => creep => {
   opts = opts || {};
   if (creep.isEmpty()) {
-    return needEnergy;
+    return empty;
   }
   if (opts.ticksToDowngrade && creep.room.controller.ticksToDowngrade >= opts.ticksToDowngrade) {
     return next;

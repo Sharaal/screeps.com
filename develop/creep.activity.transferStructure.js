@@ -30,9 +30,9 @@ function find(creep) {
   return findTransferExtensionOrSpawn(creep) || findTransferTower(creep);
 }
 
-module.exports = (next, needEnergy) => creep => {
+module.exports = (next, empty) => creep => {
   if (creep.isEmpty()) {
-    return needEnergy;
+    return empty;
   }
   var structure = creep.getMemoryObject('transferStructure', validate, find);
   if (!structure) {

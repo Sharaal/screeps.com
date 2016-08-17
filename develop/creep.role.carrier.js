@@ -1,13 +1,13 @@
 'use strict';
 
-var needEnergy = 'pickupDroppedEnergy';
+var empty = 'pickupDroppedEnergy';
 module.exports = {
-  startActivity: needEnergy,
+  startActivity: empty,
   activities: {
     'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('transferStructure',     'withdrawEnergyContainer'),
     'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('transferStructure',     'withdrawEnergyStorage'),
-    'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('transferStructure',     needEnergy),
-    'transferStructure':       require('./creep.activity.transferStructure')      ('transferEnergyStorage', needEnergy),
-    'transferEnergyStorage':   require('./creep.activity.transferEnergyStorage')  ('transferStructure',     needEnergy)
+    'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('transferStructure',     empty),
+    'transferStructure':       require('./creep.activity.transferStructure')      ('transferEnergyStorage', empty),
+    'transferEnergyStorage':   require('./creep.activity.transferEnergyStorage')  ('transferStructure',     empty)
   }
 };
