@@ -32,6 +32,7 @@ function find(creep) {
 
 module.exports = (next, empty) => creep => {
   if (creep.isEmpty()) {
+    creep.removeMemoryObject('transferStructure');
     return empty;
   }
   var structure = creep.getMemoryObject('transferStructure', validate, find);

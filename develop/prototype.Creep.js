@@ -8,6 +8,10 @@ Creep.prototype.error = function (text, data) {
   }
 };
 
+Creep.prototype.removeMemoryObject = function (key) {
+  delete this.memory[key];
+};
+
 Creep.prototype.getMemoryObject = function (key, validate, find) {
   if (!find) {
     find = validate;
