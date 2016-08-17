@@ -1,7 +1,5 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function validate(structure) {
   return structure.energy < structure.energyCapacity;
 }
@@ -36,7 +34,7 @@ module.exports = (next, harvest) => creep => {
   if (creep.isEmpty()) {
     return harvest;
   }
-  var structure = memoryObject(creep, 'transferStructure', validate, find);
+  var structure = creep.getMemoryObject('transferStructure', validate, find);
   if (!structure) {
     return next;
   }

@@ -8,6 +8,27 @@ Creep.prototype.error = function (text, data) {
   }
 };
 
+Creep.prototype.getMemoryObject = function (key, validate, find) => {
+  if (!find) {
+    find = validate;
+    validate = undefined;
+  }
+  var object;
+  if (!(this.memory[key])
+    ||
+    !(object = Game.getObjectById(this.memory[key]))
+    ||
+    !(validate && validate(object, this))) {
+    object = find(this);
+  }
+  if (object) {
+    this.memory[key] = object.id;
+  } else {
+    delete this.memory[key];
+  }
+  return object;
+};
+
 Creep.prototype.isEmpty = function (resource, rest) {
   if (typeof resource === 'number') {
     rest = resource;

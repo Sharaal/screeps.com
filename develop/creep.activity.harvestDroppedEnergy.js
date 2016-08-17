@@ -1,7 +1,5 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function find(creep) {
   return creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
 }
@@ -10,7 +8,7 @@ module.exports = (next, harvest) => creep => {
   if (creep.isFull()) {
     return next;
   }
-  var droppedEnergy = memoryObject(creep, 'harvestDroppedEnergy', find);
+  var droppedEnergy = creep.getMemoryObject('harvestDroppedEnergy', find);
   if (!droppedEnergy) {
     return harvest;
   }

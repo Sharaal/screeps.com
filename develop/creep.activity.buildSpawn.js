@@ -1,7 +1,5 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function find() {
   var spawn;
   _.each(Game.rooms, room => {
@@ -26,7 +24,7 @@ module.exports = next => creep => {
   if (creep.isEmpty(workParts.length * 5)) {
     return next;
   }
-  var spawn = memoryObject(creep, 'buildSpawn', find);
+  var spawn = creep.getMemoryObject('buildSpawn', find);
   if (!spawn) {
     return next;
   }

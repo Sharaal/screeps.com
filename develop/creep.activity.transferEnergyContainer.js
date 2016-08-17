@@ -1,7 +1,5 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function validate(energyContainer) {
   return ((energyContainer.store.energy || 0) + (energyContainer.store.L || 0)) < energyContainer.storeCapacity;
 }
@@ -29,7 +27,7 @@ module.exports = (next, harvest, opts) => creep => {
   if (creep.isEmpty()) {
     return harvest;
   }
-  var energyContainer = memoryObject(creep, 'transferEnergyContainer', validate, getFind(opts.range));
+  var energyContainer = creep.getMemoryObject('transferEnergyContainer', validate, getFind(opts.range));
   if (!energyContainer) {
     return next;
   }

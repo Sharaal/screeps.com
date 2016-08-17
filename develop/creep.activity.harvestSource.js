@@ -1,7 +1,6 @@
 'use strict';
 
 var harvestSourcePositions = require('./memory.harvestSourcePositions');
-var memoryObject = require('./util.memoryObject');
 
 function find(creep) {
   var sources = creep.room.find(FIND_SOURCES);
@@ -24,7 +23,7 @@ module.exports = (next, harvest) => creep => {
   if (creep.isFull()) {
     return next;
   }
-  var source = memoryObject(creep, 'harvestSource', find);
+  var source = creep.getMemoryObject('harvestSource', find);
   if (!source || source.energy === 0) {
     return harvest;
   }
