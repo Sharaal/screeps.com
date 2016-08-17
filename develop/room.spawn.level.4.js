@@ -1,7 +1,5 @@
 'use strict';
 
-var body = require('./util.body');
-
 module.exports.conditions = room => {
   return room.controller.level >= 4
          &&
@@ -9,9 +7,9 @@ module.exports.conditions = room => {
 };
 
 module.exports.bodies = {
-  'sourcer': body({ carry: 1, move: 1, work: 8 }),
-  'carrier': body({ carry: 3, move: 3 }),
-  'worker':  body({ carry: 3, move: 2, work: 3 })
+  'sourcer': { carry: 1, move: 1, work: 8 },
+  'carrier': { carry: 3, move: 3 },
+  'worker':  { carry: 3, move: 2, work: 3 }
 };
 
 module.exports.priorities = [

@@ -1,20 +1,14 @@
 'use strict';
 
-var body = require('./util.body');
+var level4 = require('./room.spawn.level.4');
 
 module.exports.conditions = room => {
-  return room.controller.level >= 4
-         &&
-         room.energyCapacityAvailable >= 1300
+  return level4.conditions(room)
          &&
          room.hasStorage()
 };
 
-module.exports.bodies = {
-  'sourcer': body({ carry: 1, move: 1, work: 8 }),
-  'carrier': body({ carry: 3, move: 3 }),
-  'worker':  body({ carry: 3, move: 2, work: 3 })
-};
+module.exports.bodies = level4.bodies;
 
 module.exports.priorities = [
   {

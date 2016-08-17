@@ -8,7 +8,7 @@ module.exports = {
     'harvestEnergyContainer': require('./creep.activity.harvestEnergyContainer')('rescueController',  'harvestDroppedEnergy'),
     'harvestDroppedEnergy':   require('./creep.activity.harvestDroppedEnergy')  ('rescueController',  'harvestSource'),
     'harvestSource':          require('./creep.activity.harvestSource')         ('rescueController',  harvest),
-    'rescueController':       require('./creep.activity.upgradeController')     ('transferStructure', harvest, { ticksToDowngrade: 3500 }),
+    'rescueController':       require('./creep.activity.upgradeController')     ('transferStructure', harvest, { ticksToDowngrade: 2500 }),
     'transferStructure':      require('./creep.activity.transferStructure')     ('upgradeController', harvest),
     'upgradeController':      require('./creep.activity.upgradeController')     ('upgradeController', harvest)
   }

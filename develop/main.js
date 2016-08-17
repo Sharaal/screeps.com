@@ -3,6 +3,7 @@
 require('./prototype.Creep');
 require('./prototype.Room');
 require('./prototype.RoomObject');
+require('./prototype.StructureTower');
 
 var creepController = require('./creep.controller');
 var garbageCollector = require('./garbageCollector');

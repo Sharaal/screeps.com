@@ -3,12 +3,6 @@
 function find() {
   var spawn;
   _.each(Game.rooms, room => {
-    if (spawn) {
-      return;
-    }
-    if (!room.controller.my) {
-      return;
-    }
     var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, { 
       filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
     });

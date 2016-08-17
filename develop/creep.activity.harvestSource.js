@@ -24,7 +24,7 @@ module.exports = (next, harvest) => creep => {
     return next;
   }
   var source = creep.getMemoryObject('harvestSource', find);
-  if (!source || source.energy === 0) {
+  if (!source || source.isEmpty()) {
     return harvest;
   }
   creep.moveToOr('harvest', source);
