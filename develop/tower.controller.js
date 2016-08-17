@@ -7,12 +7,12 @@ module.exports = tower => {
   if (tower.attackHostile()) {
     return;
   }
-  if (tower.isFull(0.5)) {
+  if (tower.isFull({ percentage: 0.5 })) {
     if (tower.repairStructure()) {
       return;
     }
   }
-  if (tower.isFull(0.75)) {
+  if (tower.isFull({ percentage: 0.75 })) {
     if (tower.repairWall()) {
       return;
     }

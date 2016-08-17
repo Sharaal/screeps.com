@@ -8,7 +8,7 @@ module.exports.conditions = room => {
          &&
          (storage = room.getStorage())
          &&
-         storage.isFull(0.75);
+         storage.isFull({ percentage: 0.75 });
 };
 
 module.exports.bodies = level4.bodies;
