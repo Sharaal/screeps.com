@@ -13,10 +13,10 @@ function find() {
   return spawn;
 }
 
-module.exports = next => creep => {
+module.exports = (next, needEnergy) => creep => {
   var workParts = creep.getActiveBodyparts(WORK);
   if (creep.isEmpty(workParts.length * 5)) {
-    return next;
+    return needEnergy;
   }
   var spawn = creep.getMemoryObject('buildSpawn', find);
   if (!spawn) {
