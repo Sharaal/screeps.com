@@ -28,33 +28,37 @@ module.exports = roles => room => {
     if (spawnOrder) {
       return;
     }
+
     if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
       return;
     }
-    if (priority.globalAmount) {
+
+    if (typeof priority.globalAmount === 'number') {
       var globalCreeps = _.filter(Game.creeps, creep => creep.memory.role === priority.role);
       if (globalCreeps.length >= priority.globalAmount) {
         return;
       }
     }
-    if (priority.amount) {
-      var amount;
-      if (typeof priority.amount === 'function') {
-        amount = priority.amount(room);
-      } else {
-        amount = priority.amount;
-      }
+
+    var amount;
+    if (typeof priority.amount === 'function') {
+      amount = priority.amount(room);
+    } else {
+      amount = priority.amount;
+    }
+    if (typeof amount === 'number') {
       var roomCreeps = room.find(FIND_MY_CREEPS, { filter: creep => creep.memory.role === priority.role });
       if (roomCreeps.length >= amount) {
         return;
       }
     }
+
     spawnOrder = priority;
   });
   if (!spawnOrder) {
     return;
   }
-  
+
   var spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
     if (!spawnOrder) {
