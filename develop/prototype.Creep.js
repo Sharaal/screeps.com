@@ -43,3 +43,14 @@ Creep.prototype.isFull = function () {
          &&
          _.sum(this.carry) === this.carryCapacity;
 };
+
+Creep.prototype.moveToOr = function (functionName, args) {
+  if (!Array.isArray(args)) {
+    args = [args];
+  }
+  if (this[functionName].apply(this, args) === ERR_NOT_IN_RANGE) {
+    this.moveTo(args[0]);
+  } else {
+    return true;
+  }
+};

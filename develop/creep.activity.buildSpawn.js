@@ -10,7 +10,7 @@ function find() {
       return;
     }
     var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, { 
-      filter: constructionSite => constructionSite.structureType == STRUCTURE_SPAWN
+      filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
     });
     if (spawns.length > 0) {
       spawn = spawns[0];
@@ -28,7 +28,5 @@ module.exports = next => creep => {
   if (!spawn) {
     return next;
   }
-  if (creep.build(spawn) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(spawn);
-  }
+  creep.moveToOr('build', spawn);
 };

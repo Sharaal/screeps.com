@@ -27,7 +27,5 @@ module.exports = (next, harvest) => creep => {
   if (!source || source.energy === 0) {
     return harvest;
   }
-  if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(source);
-  }
+  creep.moveToOr('harvest', source);
 };

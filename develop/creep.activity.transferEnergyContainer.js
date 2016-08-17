@@ -7,7 +7,7 @@ function validate(energyContainer) {
 function getFind(range) {
   var opts = {
     filter: structure =>
-      structure.structureType == STRUCTURE_CONTAINER
+      structure.structureType === STRUCTURE_CONTAINER
       &&
       _.sum(structure.store) < structure.storeCapacity
   };
@@ -31,7 +31,5 @@ module.exports = (next, harvest, opts) => creep => {
   if (!energyContainer) {
     return next;
   }
-  if (creep.transfer(energyContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(energyContainer);
-  }
+  creep.moveToOr('transfer', [energyContainer, RESOURCE_ENERGY]);
 };

@@ -10,9 +10,7 @@ module.exports = (next, harvest, opts) => creep => {
   if (opts.ticksToDowngrade && creep.room.controller.ticksToDowngrade >= opts.ticksToDowngrade) {
     return next;
   }
-  if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-    creep.moveTo(creep.room.controller);
-  } else {
+  if (creep.moveToOr('upgradeController', creep.room.controller)) {
     return next;
   }
 };

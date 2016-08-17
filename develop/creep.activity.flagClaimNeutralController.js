@@ -9,10 +9,8 @@ module.exports = next => creep => {
     creep.moveTo(claimFlag);
     return;
   }
-  var claimController = creep.room.controller;
-  if (creep.claimController(claimController) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(claimController);
+  if (!creep.moveToOr('claimController', creep.room.controller)) {
     return;
-  } 
+  }
   return next;
 };

@@ -26,10 +26,10 @@ module.exports = room => {
   var orders = [];
   _.each(neededStructures, neededStructure => {
     var availableStructures = room.find(FIND_STRUCTURES, {
-      filter: structure => structure.structureType == neededStructure.structureType
+      filter: structure => structure.structureType === neededStructure.structureType
     });
     var availableConstructionSites = room.find(FIND_CONSTRUCTION_SITES, {
-      filter: constructionSite => constructionSite.structureType == neededStructure.structureType
+      filter: constructionSite => constructionSite.structureType === neededStructure.structureType
     });
     var neededAmount = neededStructure.amount - (availableStructures.length + availableConstructionSites.length);
     if (neededAmount > 0) {

@@ -7,7 +7,7 @@ function validate(energyStorage) {
 function find(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
-      structure.structureType == STRUCTURE_STORAGE
+      structure.structureType === STRUCTURE_STORAGE
       &&
       structure.store.energy > 0
   });
@@ -21,7 +21,5 @@ module.exports = (next, harvest) => creep => {
   if (!energyStorage) {
     return harvest;
   }
-  if (creep.withdraw(energyStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-    creep.moveTo(energyStorage);
-  }
+  creep.moveToOr('withdraw', [energyStorage, RESOURCE_ENERGY]);
 };

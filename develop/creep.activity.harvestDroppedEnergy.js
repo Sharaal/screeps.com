@@ -12,7 +12,5 @@ module.exports = (next, harvest) => creep => {
   if (!droppedEnergy) {
     return harvest;
   }
-  if (creep.pickup(droppedEnergy) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(droppedEnergy);
-  }
+  creep.moveToOr('pickup', droppedEnergy);
 };

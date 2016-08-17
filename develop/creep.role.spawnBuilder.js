@@ -19,7 +19,7 @@ module.exports = {
         return;
       }
       var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {
-        filter: constructionSite => constructionSite.structureType == STRUCTURE_SPAWN
+        filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
       });
       if (spawns.length > 0) {
         spawn = spawns[0];

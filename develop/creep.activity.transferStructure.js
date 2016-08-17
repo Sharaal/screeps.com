@@ -8,9 +8,9 @@ function findTransferExtensionOrSpawn(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
       (
-        structure.structureType == STRUCTURE_EXTENSION
+        structure.structureType === STRUCTURE_EXTENSION
         ||
-        structure.structureType == STRUCTURE_SPAWN
+        structure.structureType === STRUCTURE_SPAWN
       )
       &&
       structure.energy < structure.energyCapacity
@@ -20,7 +20,7 @@ function findTransferExtensionOrSpawn(creep) {
 function findTransferTower(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
-      structure.structureType == STRUCTURE_TOWER
+      structure.structureType === STRUCTURE_TOWER
       &&
       structure.energy < structure.energyCapacity
   });
@@ -38,7 +38,5 @@ module.exports = (next, harvest) => creep => {
   if (!structure) {
     return next;
   }
-  if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(structure);
-  }
+  creep.moveToOr('transfer', [structure, RESOURCE_ENERGY]);
 };

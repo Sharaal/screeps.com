@@ -14,7 +14,5 @@ module.exports = (next, harvest) => creep => {
   if (!constructionSite) {
     return next;
   }
-  if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(constructionSite);
-  }
+  creep.moveToOr('build', constructionSite);
 };
