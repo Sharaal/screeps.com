@@ -1,10 +1,10 @@
 'use strict';
 
+var transformBody = require('./util.transformBody');
 var levels = [
   require('./room.spawn.level.1'),
-  require('./room.spawn.level.1-container'),
   require('./room.spawn.level.2'),
-  require('./room.spawn.level.2-container'),
+  require('./room.spawn.level.4'),
   require('./room.spawn.level.4-storage'),
   require('./room.spawn.level.4-storage-full'),
 
@@ -12,19 +12,19 @@ var levels = [
 ];
 
 module.exports = roles => room => {
-  var priorities;
+  var highestLevel;
   _.each(levels, level => {
     if (!level.conditions(room)) {
       return;
     }
-    priorities = level.priorities;
+    highestLevel = level;
   });
-  if (!priorities) {
+  if (!highestLevel) {
     return;
   }
 
   var order;
-  _.each(priorities, priority => {
+  _.each(highestLevel.priorities, priority => {
     if (order) {
       return;
     }
@@ -61,7 +61,7 @@ module.exports = roles => room => {
       return;
     }
     var memory = { role: order.role, activity: roles[order.role].startActivity };
-    if (spawn.createCreep(order.body, undefined, memory) !== OK) {
+    if (spawn.createCreep(transformBody(highestLevel.bodies[order.body]), undefined, memory) !== OK) {
       return;
     }
     order = undefined;

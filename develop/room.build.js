@@ -39,6 +39,7 @@ module.exports = room => {
 
   if (orders.length) {
     console.log('------------------------------ ROOM BUILD ORDERS ------------------------------');
+    console.log(room.name);
     console.log(JSON.stringify(orders));
     console.log('-------------------------------------------------------------------------------');
   }

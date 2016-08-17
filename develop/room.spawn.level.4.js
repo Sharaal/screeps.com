@@ -3,14 +3,9 @@
 var body = require('./util.body');
 
 module.exports.conditions = room => {
-  var storage;
   return room.controller.level >= 4
          &&
          room.energyCapacityAvailable >= 1300
-         &&
-         (storage = room.getStorage())
-         &&
-         storage.isFull(0.75);
 };
 
 module.exports.bodies = {
@@ -29,6 +24,10 @@ module.exports.priorities = [
     amount: 1
   },
   {
+    role: 'worker',
+    amount: 1
+  },
+  {
     role: 'sourcer',
     amount: room => room.find(FIND_SOURCES).length
   },
@@ -38,6 +37,6 @@ module.exports.priorities = [
   },
   {
     role: 'worker',
-    amount: undefined
+    amount: room => room.find(FIND_SOURCES).length
   }
 ];
