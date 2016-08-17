@@ -20,7 +20,7 @@ function find(creep) {
 }
 
 module.exports = (next, empty) => creep => {
-  if (creep.isFull()) {
+  if (creep.isFull({ restCapacity: creep.workParts() * HARVEST_POWER })) {
     return next;
   }
   var source = creep.getMemoryObject('harvestSource', find);
