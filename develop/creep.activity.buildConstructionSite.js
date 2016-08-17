@@ -14,12 +14,7 @@ module.exports = (next, harvest) => creep => {
   if (!constructionSite) {
     return next;
   }
-  var source = harvestSourcePositions.getSource(creep.pos);
-  if (source) {
-    creep.moveAwayFrom(source);
-  } else {
-    if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
-      creep.moveTo(constructionSite);
-    }
+  if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
+    creep.moveTo(constructionSite);
   }
 };
