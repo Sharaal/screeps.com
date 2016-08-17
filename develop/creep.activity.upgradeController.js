@@ -1,7 +1,6 @@
 'use strict';
 
 var harvestSourcePositions = require('./memory.harvestSourcePositions');
-var moveAwayFrom = require('./util.moveAwayFrom');
 
 module.exports = (next, harvest, opts) => creep => {
   opts = opts || {};
@@ -13,7 +12,7 @@ module.exports = (next, harvest, opts) => creep => {
   }
   var source = harvestSourcePositions.getSource(creep.pos);
   if (source) {
-    moveAwayFrom(creep, source);
+    creep.moveAwayFrom(source);
   } else {
     if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
       creep.moveTo(creep.room.controller);
