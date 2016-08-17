@@ -1,14 +1,14 @@
 'use strict';
 
-var harvest = 'harvestEnergyStorage';
+var needEnergy = 'withdrawEnergyStorage';
 module.exports = {
-  startActivity: harvest,
+  startActivity: needEnergy,
   activities: {
-    'harvestEnergyStorage':   require('./creep.activity.harvestEnergyStorage')  ('rescueController',      'harvestEnergyContainer'),
-    'harvestEnergyContainer': require('./creep.activity.harvestEnergyContainer')('rescueController',      'harvestDroppedEnergy'),
-    'harvestDroppedEnergy':   require('./creep.activity.harvestDroppedEnergy')  ('rescueController',      harvest),
-    'rescueController':       require('./creep.activity.upgradeController')     ('buildConstructionSite', harvest, { ticksToDowngrade: 3500 }),
-    'buildConstructionSite':  require('./creep.activity.buildConstructionSite') ('upgradeController',     harvest),
-    'upgradeController':      require('./creep.activity.upgradeController')     ('upgradeController',     harvest)
+    'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('rescueController',      'withdrawEnergyContainer'),
+    'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('rescueController',      'pickupDroppedEnergy'),
+    'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('rescueController',      needEnergy),
+    'rescueController':        require('./creep.activity.upgradeController')      ('buildConstructionSite', needEnergy, { ticksToDowngrade: 3500 }),
+    'buildConstructionSite':   require('./creep.activity.buildConstructionSite')  ('upgradeController',     needEnergy),
+    'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController',     needEnergy)
   }
 };

@@ -1,12 +1,12 @@
 'use strict';
 
-var harvest = 'harvestSource';
+var needEnergy = 'harvestSource';
 module.exports = {
-  startActivity: harvest,
+  startActivity: needEnergy,
   activities: {
-    'harvestSource':           require('./creep.activity.harvestSource')          ('transferEnergyStorage',   harvest),
-    'transferEnergyStorage':   require('./creep.activity.transferEnergyStorage')  ('transferEnergyContainer', harvest, { range: 3 }),
-    'transferEnergyContainer': require('./creep.activity.transferEnergyContainer')('dropEnergy',              harvest, { range: 3 }),
-    'dropEnergy':              require('./creep.activity.dropEnergy')             (harvest)
+    'harvestSource':           require('./creep.activity.harvestSource')          ('transferEnergyStorage',   needEnergy),
+    'transferEnergyStorage':   require('./creep.activity.transferEnergyStorage')  ('transferEnergyContainer', needEnergy, { range: 3 }),
+    'transferEnergyContainer': require('./creep.activity.transferEnergyContainer')('dropEnergy',              needEnergy, { range: 3 }),
+    'dropEnergy':              require('./creep.activity.dropEnergy')             (needEnergy)
   }
 };

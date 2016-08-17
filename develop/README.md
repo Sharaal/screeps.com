@@ -83,65 +83,65 @@
   and build it (if the creep stays on a harvest position of a source, it
   will first go away from it bevor start to build)
   - next if there is no more construction site
-  - harvest if energy of creep is empty
+  - needEnergy if energy of creep is empty
   
 - buildSpawn: Search a construction site which is a spawn, move to and 
   build it
   - next if there is no more construction site which is a spawn
-  - harvest if energy of creep is nearly empty
+  - needEnergy if energy of creep is nearly empty
   
 - dropEnergy: Drop all the energy of the creep
-  - harvest after dropping the energy
+  - needEnergy after dropping the energy
   
 - flagClaimNeutralController: Search the flag named "claim" move to it
   and claim the controller of that room
   - next if the controller is claimed
   
-- harvestDroppedEnergy: Search the next dropped energy, move to it and 
-  pick it up
-  - next if the energy of the creep is full
-  - harvest if there is no more dropped energy
-  
-- harvestEnergyContainer: Search the next container with energy 
-  available, move to it and draw energy
-  - next if the energy of the creep is full
-  - harvest if there is no more energy in a container
-  
-- harvestEnergyStorage: Search the next storage with energy available,
-  move to it and draw energy
-  - next if the energy of the creep is full
-  - harvest if there is no more energy in a storage
-  
 - harvestSource: Search a random source (and save it forever in the 
   creep memory to split the creeps depending on the amount of creeps and 
   harvest positions), move to it and harvest 
   - next if the energy of the creep is full
-  - harvest if there is no more energy in the source
+  - needEnergy if there is no more energy in the source
+  
+- pickupDroppedEnergy: Search the next dropped energy, move to it and 
+  pick it up
+  - next if the energy of the creep is full
+  - needEnergy if there is no more dropped energy
   
 - suicide: The creep suicide
   
 - transferEnergyContainer: Search the next container with store capacity 
   available, move to it and transfer energy
   - next if there is no more capacity in a container available
-  - harvest if energy of creep is empty
+  - needEnergy if energy of creep is empty
   - opts.range if only containers in a specific range should be used 
   
 - transferEnergyStorage: Search the next storage with store capacity 
   available, move to it and transfer energy
   - next if there is no more capacity in a storage available
-  - harvest if energy of creep is empty
+  - needEnergy if energy of creep is empty
   - opts.range if only storages in a specific range should be used 
   
 - transferStructure: Search the next structure (spawn/extension > tower) 
   with capacity available, move to it and transfer energy 
   - next if there is no more capacity in a structure available
-  - harvest if energy of creep is empty
+  - needEnergy if energy of creep is empty
   
 - upgradeController: Move to the room controller and upgrade it (if the 
   creep stays on a harvest position of a source, it will first go away 
   from it bevor start to upgrade)
   - next after the controller is upgraded one time
-  - harvest if energy of creep is empty
+  - needEnergy if energy of creep is empty
+  
+- withdrawEnergyContainer: Search the next container with energy 
+  available, move to it and draw energy
+  - next if the energy of the creep is full
+  - needEnergy if there is no more energy in a container
+  
+- withdrawEnergyStorage: Search the next storage with energy available,
+  move to it and draw energy
+  - next if the energy of the creep is full
+  - needEnergy if there is no more energy in a storage
   
   
 ### Claiming

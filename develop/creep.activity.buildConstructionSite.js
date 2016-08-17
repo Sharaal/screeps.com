@@ -4,9 +4,9 @@ function find(creep) {
   return creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
 }
 
-module.exports = (next, harvest) => creep => {
+module.exports = (next, needEnergy) => creep => {
   if (creep.isEmpty()) {
-    return harvest;
+    return needEnergy;
   }
   var constructionSite = creep.getMemoryObject('buildConstructionSite', find);
   if (!constructionSite) {

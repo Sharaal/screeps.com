@@ -22,10 +22,10 @@ function getFind(range) {
   return creep => creep.pos.findClosestByPath(FIND_MY_STRUCTURES, opts);
 }
 
-module.exports = (next, harvest, opts) => creep => {
+module.exports = (next, needEnergy, opts) => creep => {
   opts = opts || {};
   if (creep.isEmpty()) {
-    return harvest;
+    return needEnergy;
   }
   var energyStorage = creep.getMemoryObject('transferEnergyStorage', validate, getFind(opts.range));
   if (!energyStorage) {
