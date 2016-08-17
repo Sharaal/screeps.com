@@ -54,14 +54,14 @@ module.exports = roles => room => {
   if (!spawnOrder) {
     return;
   }
-
+  
   var spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
     if (!spawnOrder) {
       return;
     }
     var memory = { role: spawnOrder.role, activity: roles[spawnOrder.role].startActivity };
-    if (spawn.createCreep(transformBody(highestLevel.bodies[spawnOrder.body]), undefined, memory) !== OK) {
+    if (spawn.createCreep(transformBody(highestLevel.bodies[spawnOrder.role]), undefined, memory) !== OK) {
       return;
     }
     spawnOrder = undefined;
