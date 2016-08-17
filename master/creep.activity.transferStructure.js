@@ -1,30 +1,28 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function validate(structure) {
-  return structure.energy < structure.energyCapacity;
+  return !structure.isFull();
 }
 
 function findTransferExtensionOrSpawn(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
       (
-        structure.structureType == STRUCTURE_EXTENSION
+        structure.structureType === STRUCTURE_EXTENSION
         ||
-        structure.structureType == STRUCTURE_SPAWN
+        structure.structureType === STRUCTURE_SPAWN
       )
       &&
-      structure.energy < structure.energyCapacity
+      validate(structure)
   });
 }
 
 function findTransferTower(creep) {
   return creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure =>
-      structure.structureType == STRUCTURE_TOWER
+      structure.structureType === STRUCTURE_TOWER
       &&
-      structure.energy < structure.energyCapacity
+      validate(structure)
   });
 }
 
@@ -32,15 +30,14 @@ function find(creep) {
   return findTransferExtensionOrSpawn(creep) || findTransferTower(creep);
 }
 
-module.exports = (next, harvest) => creep => {
-  if (creep.carry.energy === 0) {
-    return harvest;
+module.exports = (next, empty) => creep => {
+  if (creep.isEmpty()) {
+    creep.removeMemoryObject('transferStructure');
+    return empty;
   }
-  var structure = memoryObject(creep, 'transferStructure', validate, find);
+  var structure = creep.getMemoryObject('transferStructure', validate, find);
   if (!structure) {
     return next;
   }
-  if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(structure);
-  }
+  creep.moveToAnd('transfer', [structure, RESOURCE_ENERGY]);
 };

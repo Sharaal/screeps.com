@@ -1,13 +1,11 @@
 'use strict';
 
 var harvestSourcePositions = require('./memory.harvestSourcePositions');
-var memoryObject = require('./util.memoryObject');
 
 function find(creep) {
   var sources = creep.room.find(FIND_SOURCES);
   if (sources.length === 0) {
-    creep.say('!');
-    console.log(`creep "${creep.name}" not found a source`);
+    creep.error('missing source');
     return;
   }
   sources = _.sortBy(sources,
@@ -21,15 +19,13 @@ function find(creep) {
   return sources[0];
 }
 
-module.exports = (next, harvest) => creep => {
-  if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
+module.exports = (next, empty) => creep => {
+  if (creep.isFull({ restCapacity: creep.getActiveBodyparts(WORK) * HARVEST_POWER })) {
     return next;
   }
-  var source = memoryObject(creep, 'harvestSource', find);
-  if (!source || source.energy === 0) {
-    return harvest;
+  var source = creep.getMemoryObject('harvestSource', find);
+  if (!source || source.isEmpty()) {
+    return empty;
   }
-  if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(source);
-  }
+  creep.moveToAnd('harvest', source);
 };

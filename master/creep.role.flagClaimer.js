@@ -7,7 +7,7 @@ module.exports = {
     'suicide':                    require('./creep.activity.suicide')
   },
   roomConditions: room => {
-    var claimFlag = Game.flags.claim;
+    var claimFlag = Game.flags['claim'];
     if (!claimFlag) {
       return;
     }

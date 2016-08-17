@@ -1,13 +1,15 @@
 'use strict';
 
-var harvest = 'harvestEnergyStorage';
+var empty = 'withdrawEnergyStorage';
 module.exports = {
-  startActivity: harvest,
+  startActivity: empty,
   activities: {
-    'harvestEnergyStorage':  require('./creep.activity.harvestEnergyStorage')('rescueController', 'harvestSource'),
-    'harvestSource':         require('./creep.activity.harvestSource')       ('rescueController',  harvest),
-    'rescueController':      require('./creep.activity.upgradeController')   ('transferStructure', harvest, { ticksToDowngrade: 3500 }),
-    'transferStructure':     require('./creep.activity.transferStructure')   ('upgradeController', harvest),
-    'upgradeController':     require('./creep.activity.upgradeController')   ('upgradeController', harvest)
+    'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('rescueController',  'withdrawEnergyContainer'),
+    'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('rescueController',  'pickupDroppedEnergy'),
+    'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('rescueController',  'harvestSource'),
+    'harvestSource':           require('./creep.activity.harvestSource')          ('rescueController',  empty),
+    'rescueController':        require('./creep.activity.upgradeController')      ('transferStructure', empty, { ticksToDowngrade: 2500 }),
+    'transferStructure':       require('./creep.activity.transferStructure')      ('upgradeController', empty),
+    'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController', empty)
   }
 };

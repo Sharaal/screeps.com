@@ -1,6 +1,6 @@
 'use strict';
 
-var currentVersion = 1;
+var currentVersion = 2;
 
 module.exports = roles => {
   Memory.version = Memory.version || 0;

@@ -1,6 +1,7 @@
 'use strict';
 
 var harvestSourcePositions = require('./memory.harvestSourcePositions');
+var openBuildOrders = require('./memory.openBuildOrders');
 
 module.exports = () => {
   for(var creepName in Memory.creeps) {
@@ -14,4 +15,5 @@ module.exports = () => {
     }
   }
   harvestSourcePositions.garbageCollector();
+  openBuildOrders.garbageCollector();
 };

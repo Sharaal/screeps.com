@@ -1,5 +1,6 @@
 'use strict';
 
+var openBuildOrders = require('./memory.openBuildOrders');
 var levels = [
   require('./room.build.level.1'),
   require('./room.build.level.2'),
@@ -23,23 +24,31 @@ module.exports = room => {
     return;
   }
 
-  var orders = [];
+  var newBuildOrders = [];
+  var buildOrders = [];
   _.each(neededStructures, neededStructure => {
     var availableStructures = room.find(FIND_STRUCTURES, {
-      filter: structure => structure.structureType == neededStructure.structureType
+      filter: structure => structure.structureType === neededStructure.structureType
     });
+    var amount = neededStructure.amount - availableStructures.length;
+    if (amount > 0) {
+      buildOrders.push({ structureType: neededStructure.structureType, amount: amount });
+    }
     var availableConstructionSites = room.find(FIND_CONSTRUCTION_SITES, {
-      filter: constructionSite => constructionSite.structureType == neededStructure.structureType
+      filter: constructionSite => constructionSite.structureType === neededStructure.structureType
     });
-    var neededAmount = neededStructure.amount - (availableStructures.length + availableConstructionSites.length);
-    if (neededAmount > 0) {
-      orders.push({ structureType: neededStructure.structureType, amount: neededAmount });
+    var newAmount = neededStructure.amount - (availableStructures.length + availableConstructionSites.length);
+    if (newAmount > 0) {
+      newBuildOrders.push({ structureType: neededStructure.structureType, amount: newAmount });
     }
   });
 
-  if (orders.length) {
-    console.log('------------------------------ ROOM BUILD ORDERS ------------------------------');
-    console.log(JSON.stringify(orders));
+  if (newBuildOrders.length) {
+    console.log('------------------------------ ROOM NEW BUILD ORDERS ------------------------------');
+    console.log(room.name);
+    console.log(JSON.stringify(newBuildOrders));
     console.log('-------------------------------------------------------------------------------');
   }
+
+  openBuildOrders.set(room.name, buildOrders);
 };

@@ -1,17 +1,16 @@
 'use strict';
 
-var level4 = require('./room.spawn.level.4');
-
 module.exports.conditions = room => {
-  var storage;
-  return level4.conditions(room)
+  return room.controller.level >= 4
          &&
-         (storage = room.getStorage())
-         &&
-         storage.isFull({ percentage: 0.75 });
+         room.energyCapacityAvailable >= 1300
 };
 
-module.exports.bodies = level4.bodies;
+module.exports.bodies = {
+  'sourcer': { carry: 1, move: 1, work: 8 },
+  'carrier': { carry: 3, move: 3 },
+  'worker':  { carry: 3, move: 2, work: 3 }
+};
 
 module.exports.priorities = [
   {
@@ -20,6 +19,10 @@ module.exports.priorities = [
   },
   {
     role: 'carrier',
+    amount: 1
+  },
+  {
+    role: 'worker',
     amount: 1
   },
   {
@@ -32,6 +35,6 @@ module.exports.priorities = [
   },
   {
     role: 'worker',
-    amount: undefined
+    amount: room => room.find(FIND_SOURCES).length
   }
 ];

@@ -1,17 +1,15 @@
 'use strict';
 
-var memoryObject = require('./util.memoryObject');
-
 function validate(energyContainer) {
-  return ((energyContainer.store.energy || 0) + (energyContainer.store.L || 0)) < energyContainer.storeCapacity;
+  return !energyContainer.isFull();
 }
 
 function getFind(range) {
   var opts = {
     filter: structure =>
-      structure.structureType == STRUCTURE_CONTAINER
+      structure.structureType === STRUCTURE_CONTAINER
       &&
-      ((structure.store.energy || 0) + (structure.store.L || 0)) < structure.storeCapacity
+      validate(structure)
   };
   if (range) {
     return creep => {
@@ -24,16 +22,14 @@ function getFind(range) {
   return creep => creep.pos.findClosestByPath(FIND_STRUCTURES, opts);
 }
 
-module.exports = (next, harvest, opts) => creep => {
+module.exports = (next, empty, opts) => creep => {
   opts = opts || {};
-  if (creep.carry.energy === 0) {
-    return harvest;
+  if (creep.isEmpty()) {
+    return empty;
   }
-  var energyContainer = memoryObject(creep, 'transferEnergyContainer', validate, getFind(opts.range));
+  var energyContainer = creep.getMemoryObject('transferEnergyContainer', validate, getFind(opts.range));
   if (!energyContainer) {
     return next;
   }
-  if (creep.transfer(energyContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    creep.moveTo(energyContainer);
-  }
+  creep.moveToAnd('transfer', [energyContainer, RESOURCE_ENERGY]);
 };
