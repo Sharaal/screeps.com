@@ -43,8 +43,3 @@ Creep.prototype.moveToOr = function (functionName, args) {
     return true;
   }
 };
-
-Creep.prototype.workParts = function () {
-  var workParts = this.getActiveBodyparts(WORK);
-  return workParts.length;
-}
