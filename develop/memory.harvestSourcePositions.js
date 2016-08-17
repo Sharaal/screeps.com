@@ -1,6 +1,13 @@
 'use strict';
 
+function init() {
+  if (!Memory.harvestSourcePositions) {
+    Memory.harvestSourcePositions = {};
+  }
+}
+
 module.exports.garbageCollector = () => {
+  init();
   for(var roomName in Memory.harvestSourcePositions) {
     if(!Game.rooms[roomName]) {
       delete Memory.harvestSourcePositions[roomName];
@@ -38,9 +45,7 @@ function getHarvestSourcePosition(roomName) {
 }
 
 function getHarvestSourcePositions(roomName) {
-  if (!Memory.harvestSourcePositions) {
-    Memory.harvestSourcePositions = {};
-  }
+  init();
   if (!Memory.harvestSourcePositions[roomName]) {
     Memory.harvestSourcePositions[roomName] = getHarvestSourcePosition(roomName);
   }
