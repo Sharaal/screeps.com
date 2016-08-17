@@ -26,7 +26,7 @@ function getFind(range) {
 
 module.exports = (next, harvest, opts) => creep => {
   opts = opts || {};
-  if (creep.carry.energy === 0) {
+  if (creep.isEmpty()) {
     return harvest;
   }
   var energyStorage = memoryObject(creep, 'transferEnergyStorage', validate, getFind(opts.range));

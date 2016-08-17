@@ -5,7 +5,7 @@ var moveAwayFrom = require('./util.moveAwayFrom');
 
 module.exports = (next, harvest, opts) => creep => {
   opts = opts || {};
-  if (creep.carry.energy === 0) {
+  if (creep.isEmpty()) {
     return harvest;
   }
   if (opts.ticksToDowngrade && creep.room.controller.ticksToDowngrade >= opts.ticksToDowngrade) {

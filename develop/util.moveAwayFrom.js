@@ -7,8 +7,7 @@ module.exports = (creep, object) => {
     directionTo = path[0].direction;
   }
   if (!directionTo) {
-    creep.say('!');
-    console.log(`creep "${creep.name}" don't find a path to object "${object.id}"`);
+    creep.error('missing path', { objectId: object.id });
     return;
   }
 
@@ -32,8 +31,7 @@ module.exports = (creep, object) => {
       break;
   }
   if (!directionAwayFrom) {
-    creep.say('!');
-    console.log(`creep "${creep.name}" has unknown directionTo "${directionTo}"`);
+    creep.error('unknown directionTo', { directionTo });
     return;
   }
 

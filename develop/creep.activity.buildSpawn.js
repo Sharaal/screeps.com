@@ -23,7 +23,7 @@ function find() {
 
 module.exports = next => creep => {
   var workParts = creep.getActiveBodyparts(WORK);
-  if (creep.carry.energy <= (workParts.length * 5)) {
+  if (creep.isEmpty(workParts.length * 5)) {
     return next;
   }
   var spawn = memoryObject(creep, 'buildSpawn', find);

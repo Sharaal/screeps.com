@@ -16,7 +16,7 @@ function find(creep) {
 }
 
 module.exports = (next, harvest) => creep => {
-  if (creep.carry.energy === creep.carryCapacity) {
+  if (creep.isFull()) {
     return next;
   }
   var energyContainer = memoryObject(creep, 'harvestEnergyContainer', validate, find);

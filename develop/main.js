@@ -1,5 +1,7 @@
 'use strict';
 
+require('./prototype.creep');
+
 var creepController = require('./creep.controller');
 var garbageCollector = require('./garbageCollector');
 var migration = require('./migration');

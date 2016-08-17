@@ -9,7 +9,7 @@ function find(creep) {
 }
 
 module.exports = (next, harvest) => creep => {
-  if (creep.carry.energy === 0) {
+  if (creep.isEmpty()) {
     return harvest;
   }
   var constructionSite = memoryObject(creep, 'buildConstructionSite', find);

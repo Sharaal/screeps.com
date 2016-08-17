@@ -6,8 +6,7 @@ var memoryObject = require('./util.memoryObject');
 function find(creep) {
   var sources = creep.room.find(FIND_SOURCES);
   if (sources.length === 0) {
-    creep.say('!');
-    console.log(`creep "${creep.name}" not found a source`);
+    creep.error('missing source');
     return;
   }
   sources = _.sortBy(sources,
@@ -22,7 +21,7 @@ function find(creep) {
 }
 
 module.exports = (next, harvest) => creep => {
-  if (creep.carry.energy > 0 && creep.carry.energy === creep.carryCapacity) {
+  if (creep.isFull()) {
     return next;
   }
   var source = memoryObject(creep, 'harvestSource', find);
