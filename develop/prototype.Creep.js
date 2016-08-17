@@ -29,21 +29,6 @@ Creep.prototype.getMemoryObject = function (key, validate, find) => {
   return object;
 };
 
-Creep.prototype.isEmpty = function (resource, rest) {
-  if (typeof resource === 'number') {
-    rest = resource;
-    resource = undefined;
-  }
-  resource = resource || RESOURCE_ENERGY;
-  return this.carry[resource] <= rest;
-};
-
-Creep.prototype.isFull = function () {
-  return this.carryCapacity > 0
-         &&
-         _.sum(this.carry) === this.carryCapacity;
-};
-
 Creep.prototype.moveToOr = function (functionName, args) {
   if (!Array.isArray(args)) {
     args = [args];

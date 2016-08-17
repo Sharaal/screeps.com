@@ -1,7 +1,7 @@
 'use strict';
 
 function validate(energyContainer) {
-  return _.sum(energyContainer.store) < energyContainer.storeCapacity;
+  return !energyContainer.isFull();
 }
 
 function getFind(range) {
@@ -9,7 +9,7 @@ function getFind(range) {
     filter: structure =>
       structure.structureType === STRUCTURE_CONTAINER
       &&
-      _.sum(structure.store) < structure.storeCapacity
+      validate(structure)
   };
   if (range) {
     return creep => {

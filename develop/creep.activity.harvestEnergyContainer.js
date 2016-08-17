@@ -1,7 +1,7 @@
 'use strict';
 
 function validate(energyContainer) {
-  return energyContainer.store.energy > 0;
+  return !energyContainer.isEmpty();
 }
 
 function find(creep) {
@@ -9,7 +9,7 @@ function find(creep) {
     filter: structure =>
       structure.structureType === STRUCTURE_CONTAINER
       &&
-      structure.store.energy > 0
+      validate(structure)
   });
 }
 

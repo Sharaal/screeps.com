@@ -1,7 +1,7 @@
 'use strict';
 
 function validate(structure) {
-  return structure.energy < structure.energyCapacity;
+  return !structure.isFull();
 }
 
 function findTransferExtensionOrSpawn(creep) {
@@ -13,7 +13,7 @@ function findTransferExtensionOrSpawn(creep) {
         structure.structureType === STRUCTURE_SPAWN
       )
       &&
-      structure.energy < structure.energyCapacity
+      validate(structure)
   });
 }
 
@@ -22,7 +22,7 @@ function findTransferTower(creep) {
     filter: structure =>
       structure.structureType === STRUCTURE_TOWER
       &&
-      structure.energy < structure.energyCapacity
+      validate(structure)
   });
 }
 

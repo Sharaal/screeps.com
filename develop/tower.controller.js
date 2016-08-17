@@ -5,16 +5,18 @@ var repairStructure = require('./tower.repairStructure');
 var repairWall = require('./tower.repairWall');
 
 module.exports = tower => {
+  if (tower.isEmpty()) {
+    return;
+  }
   if (attack(tower)) {
     return;
   }
-  var percentageEnergy = tower.energy / tower.energyCapacity;
-  if (percentageEnergy > 0.5) {
+  if (tower.isFull(0.5)) {
     if (repairStructure(tower)) {
       return;
     }
   }
-  if (percentageEnergy > 0.75) {
+  if (tower.isFull(0.75)) {
     if (repairWall(tower)) {
       return;
     }
