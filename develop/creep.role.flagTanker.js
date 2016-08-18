@@ -19,7 +19,7 @@ module.exports = {
       return;
     }
     return {
-      body: { tough: 45, move: 5 },
+      body: { tough: 48, move: 2 },
       mapAmount: 1
     };
   }
