@@ -8,11 +8,10 @@ Room.prototype.isHeavyUpgradeable =
     if (!openNeededStructures.isFinished(this.name)) {
       return;
     }
-    const storage = this.getStorage();
-    if (!storage) {
+    if (!this.storage) {
       return;
     }
-    return storage.isFull({ percentage: 0.75 });
+    return this.storage.isFull({ percentage: 0.75 });
   };
 
 Room.prototype.hasNeighboringSpawnConstructionSite =
@@ -38,11 +37,4 @@ Room.prototype.getNeighboringSpawnConstructionSite =
 Room.prototype.getSourcesAmount =
   function () {
     return sourcesAmounts.getSourcesAmount(this.name);
-  };
-
-Room.prototype.hasStorage =
-Room.prototype.getStorage =
-  function () {
-    const storages = this.find(FIND_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_STORAGE });
-    return storages[0];
   };
