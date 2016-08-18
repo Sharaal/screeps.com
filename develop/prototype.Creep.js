@@ -25,7 +25,7 @@ Creep.prototype.getMemoryObject =
       ||
       !(object = Game.getObjectById(this.memory[key]))
       ||
-      !(validate && validate(object, this))) {
+      (validate && !validate(object, this))) {
       object = find(this);
     }
     if (object) {
