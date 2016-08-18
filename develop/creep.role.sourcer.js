@@ -23,6 +23,7 @@ module.exports = {
       roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), 8 / workBodypartAmount);
     });
     return {
+      priority: availableRoomAmount => roomAmount / (availableRoomAmount || 1),
       body: { carry: 1, move: 1, work: workBodypartAmount },
       roomAmount: roomAmount
     };

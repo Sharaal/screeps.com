@@ -11,10 +11,6 @@ function transformBody(body) {
 module.exports = roles => room => {
   var spawnOrder;
   _.each(roles, (role, roleName) => {
-    if (spawnOrder) {
-      return;
-    }
-
     const spawn = role.spawn(room);
     if (!spawn) {
       return;
@@ -43,14 +39,33 @@ module.exports = roles => room => {
       }
     }
 
+    const roomCreeps = room.find(FIND_MY_CREEPS, opts);
+    const roomAmount = roomCreeps.length;
     if (spawn.roomAmount) {
-      const roomCreeps = room.find(FIND_MY_CREEPS, opts);
-      if (roomCreeps.length >= spawn.roomAmount) {
+      if (roomAmount >= spawn.roomAmount) {
         return;
       }
     }
 
+    let priority;
+    if (spawn.priority) {
+      if (typeof spawn.priority === 'function') {
+        priority = spawn.priority(roomAmount);
+      } else {
+        priority = spawn.priority;
+      }
+    }
+
+    if (spawnOrder
+        &&
+        spawnOrder.priority
+        &&
+        (!priority || priority <= spawnOrder.priority)) {
+      return;
+    }
+
     spawnOrder = {
+      priority: priority,
       body: transformBody(spawn.body),
       memory: { role: roleName, activity: Object.keys(role.activities)[0] }
     };

@@ -17,6 +17,7 @@ module.exports = {
       return;
     }
     return {
+      priority: Infinity,
       body: { carry: 1, move: 1, work: 1 },
       roomAmount: 1
     };

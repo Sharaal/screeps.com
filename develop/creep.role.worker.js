@@ -13,9 +13,10 @@ module.exports = {
   spawn: room => {
     let roomAmount;
     if (!room.isHeavyUpgradeable()) {
-      roomAmount = room.getSourcesAmount() * 2;
+      roomAmount = room.getSourcesAmount() * 3;
     }
     return {
+      priority: 1,
       body: { carry: 2, move: 1, work: 1 },
       roomAmount: roomAmount
     };
