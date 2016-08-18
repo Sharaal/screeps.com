@@ -5,7 +5,7 @@ const targetFlagName = 'tank target';
 
 module.exports = {
   activities: {
-    'moveToFlagRoom': require('./creep.activity.moveToFlagRoom')('moveToFlagRoom', { flagName: targetFlagName })
+    'moveToFlag': require('./creep.activity.moveToFlag')('moveToFlag', { flagName: targetFlagName })
   },
   spawn: room => {
     const flag = Game.flags[spawnFlagName];

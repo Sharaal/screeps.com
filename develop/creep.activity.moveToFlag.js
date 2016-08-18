@@ -6,7 +6,7 @@ module.exports = (next, opts) => creep => {
     creep.error('missing flag', { flagName: opts.flagName });
     return;
   }
-  if (!flag.room || flag.room.name !== creep.room.name) {
+  if (!flag.pos.inRangeTo(creep, 3)) {
     creep.moveTo(flag);
     return;
   }

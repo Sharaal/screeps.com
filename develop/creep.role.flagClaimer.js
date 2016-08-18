@@ -5,7 +5,7 @@ const targetFlagName = 'claim target';
 
 module.exports = {
   activities: {
-    'moveToFlagRoom':  require('./creep.activity.moveToFlagRoom') ('claimController', { flagName: targetFlagName }),
+    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', { flagName: targetFlagName }),
     'claimController': require('./creep.activity.claimController')('suicide'),
     'suicide':         require('./creep.activity.suicide')
   },
