@@ -20,6 +20,10 @@ module.exports.priorities = [
     amount: 1
   },
   {
+    role: 'worker',
+    amount: 1
+  },
+  {
     role: 'sourcer',
     amount: room => room.find(FIND_SOURCES).length
   },

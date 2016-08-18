@@ -35,6 +35,6 @@ module.exports.priorities = [
   },
   {
     role: 'worker',
-    amount: room => room.find(FIND_SOURCES).length
+    amount: room => room.find(FIND_SOURCES).length * 2
   }
 ];
