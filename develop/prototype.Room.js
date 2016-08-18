@@ -1,6 +1,19 @@
 'use strict';
 
+const openNeededStructures = require('./memory.openNeededStructures');
 const sourcesAmounts = require('./memory.sourcesAmounts');
+
+Room.prototype.isHeavyUpgradeable =
+  function () {
+    if (!openNeededStructures.isFinished(this.name)) {
+      return;
+    }
+    const storage = this.getStorage();
+    if (!storage) {
+      return;
+    }
+    return storage.isFull({ percentage: 0.75 });
+  };
 
 Room.prototype.hasNeighboringSpawnConstructionSite =
 Room.prototype.getNeighboringSpawnConstructionSite =

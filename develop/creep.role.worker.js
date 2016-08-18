@@ -2,7 +2,6 @@
 
 const empty = 'withdrawEnergyStorage';
 module.exports = {
-  startActivity: empty,
   activities: {
     'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('rescueController',      'withdrawEnergyContainer'),
     'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('rescueController',      'pickupDroppedEnergy'),
@@ -10,5 +9,15 @@ module.exports = {
     'rescueController':        require('./creep.activity.upgradeController')      ('buildConstructionSite', empty, { ticksToDowngrade: 2500 }),
     'buildConstructionSite':   require('./creep.activity.buildConstructionSite')  ('upgradeController',     empty),
     'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController',     empty)
+  },
+  spawn: room => {
+    let roomAmount;
+    if (!room.isHeavyUpgradeable()) {
+      roomAmount = room.getSourcesAmount() * 2;
+    }
+    return {
+      body: { carry: 2, move: 1, work: 1 },
+      roomAmount: roomAmount
+    };
   }
 };

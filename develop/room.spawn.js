@@ -1,72 +1,59 @@
 'use strict';
 
-const levels = [
-  require('./room.spawn.level.1'),
-  require('./room.spawn.level.2'),
-  require('./room.spawn.level.4'),
-  require('./room.spawn.level.4-storage'),
-  require('./room.spawn.level.4-storage-full'),
-
-  require('./room.spawn.rescuer')
-];
-
 function transformBody(body) {
-  let parts = [];
-  _.each(body, (amount, part) => {
-    parts = parts.concat(Array.apply({}, Array(amount)).map(() => part));
+  let bodyparts = [];
+  _.each(body, (bodypartAmount, bodypartName) => {
+    bodyparts = bodyparts.concat(Array.apply({}, Array(bodypartAmount)).map(() => bodypartName));
   });
-  return parts;
+  return bodyparts;
 };
 
 module.exports = roles => room => {
-  let highestLevel;
-  _.each(levels, level => {
-    if (!level.conditions(room)) {
-      return;
-    }
-    highestLevel = level;
-  });
-  if (!highestLevel) {
-    return;
-  }
-
-  let spawnOrder;
-  _.each(highestLevel.priorities, priority => {
+  var spawnOrder;
+  _.each(roles, (role, roleName) => {
     if (spawnOrder) {
       return;
     }
 
-    if (roles[priority.role].roomConditions && !roles[priority.role].roomConditions(room)) {
+    const spawn = role.spawn(room);
+    if (!spawn) {
       return;
     }
 
-    if (typeof priority.globalAmount === 'number') {
-      const globalCreeps = _.filter(Game.creeps, creep => creep.memory.role === priority.role);
-      if (globalCreeps.length >= priority.globalAmount) {
+    let costsToSpawn = 0;
+    _.each(spawn.body, (bodypartAmount, bodypartName) => {
+      costsToSpawn += BODYPART_COST[bodypartName];
+    });
+    if (costsToSpawn > room.energyCapacityAvailable) {
+      return;
+    }
+
+    const ticksToSpawn = _.sum(spawn.body) * CREEP_SPAWN_TIME;
+    const opts = {
+      filter: creep =>
+        creep.memory.role === roleName
+        &&
+        creep.ticksToLive >= ticksToSpawn
+    };
+
+    if (spawn.mapAmount) {
+      const mapCreeps = _.filter(Game.creeps, opts.filter);
+      if (mapCreeps.length >= spawn.mapAmount) {
         return;
       }
     }
 
-    let amount;
-    if (typeof priority.amount === 'function') {
-      amount = priority.amount(room);
-    } else {
-      amount = priority.amount;
-    }
-    if (typeof amount === 'number') {
-      const ticksToSpawn = _.sum(highestLevel.bodies[spawnOrder.role]) * CREEP_SPAWN_TIME;
-      const creeps = room.find(FIND_MY_CREEPS, {
-        filter: creep =>
-          creep.memory.role === priority.role
-          &&
-          creep.ticksToLive >= ticksToSpawn
-      });
-      if (creeps.length >= amount) {
+    if (spawn.roomAmount) {
+      const roomCreeps = room.find(FIND_MY_CREEPS, opts);
+      if (roomCreeps.length >= spawn.roomAmount) {
         return;
       }
     }
 
-    spawnOrder = priority;
+    spawnOrder = {
+      body: transformBody(spawn.body),
+      memory: { role: roleName, activity: Object.keys(role.activities)[0] }
+    };
   });
   if (!spawnOrder) {
     return;
@@ -77,8 +64,7 @@ module.exports = roles => room => {
     if (!spawnOrder) {
       return;
     }
-    const memory = { role: spawnOrder.role, activity: roles[spawnOrder.role].startActivity };
-    if (spawn.createCreep(transformBody(highestLevel.bodies[spawnOrder.role]), undefined, memory) !== OK) {
+    if (spawn.createCreep(spawnOrder.body, undefined, spawnOrder.memory) !== OK) {
       return;
     }
     spawnOrder = undefined;

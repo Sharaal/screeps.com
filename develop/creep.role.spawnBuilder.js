@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  startActivity: 'withdrawEnergyStorage',
   activities: {
     'withdrawEnergyStorage': require('./creep.activity.withdrawEnergyStorage')('buildSpawn',          'withdrawEnergyStorage'),
     'pickupDroppedEnergy':   require('./creep.activity.pickupDroppedEnergy')  ('buildSpawn',          'harvestSource'),
@@ -10,7 +9,13 @@ module.exports = {
     'rescueController':      require('./creep.activity.upgradeController')    ('pickupDroppedEnergy', 'pickupDroppedEnergy', { ticksToDowngrade: 2500 }),
     'upgradeController':     require('./creep.activity.upgradeController')    ('upgradeController',   'pickupDroppedEnergy')
   },
-  roomConditions: room => {
-    return room.hasNeighboringSpawnConstructionSite();
+  spawn: room => {
+    if (!room.hasNeighboringSpawnConstructionSite()) {
+      return;
+    }
+    return {
+      body: { carry: 10, move: 5, work: 1 },
+      mapAmount: 1
+    };
   }
 };
