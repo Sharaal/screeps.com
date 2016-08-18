@@ -4,8 +4,8 @@ const build = require('./room.build');
 const spawn = require('./room.spawn');
 const towerController = require('./tower.controller');
 
-module.exports = roles => room => {
-  if (Game.ticksToSleep(10)) {
+module.exports = (roles, ticksToSleep) => room => {
+  if (ticksToSleep(10)) {
     build(room);
     spawn(roles)(room);
   }

@@ -1,8 +1,8 @@
 'use strict';
 
-Game.ticksToSleep = ticks => {
+function ticksToSleep(ticks) {
   return Game.time % ticks === 0;
-};
+}
 
 require('./prototype.Creep');
 require('./prototype.Room');
@@ -17,9 +17,9 @@ const roomController = require('./room.controller');
 
 module.exports.loop = () => {
   migration(roles);
-  if (Game.ticksToSleep(100)) {
+  if (ticksToSleep(100)) {
     garbageCollector.garbageCollect();
   }
   _.each(Game.creeps, creepController(roles));
-  _.each(_.filter(Game.rooms, room => room.controller.my), roomController(roles));
+  _.each(_.filter(Game.rooms, room => room.controller.my), roomController(roles, ticksToSleep));
 };
