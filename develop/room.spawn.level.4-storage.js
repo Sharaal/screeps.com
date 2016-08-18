@@ -30,14 +30,5 @@ module.exports.priorities = [
   {
     role: 'carrier',
     amount: room => room.find(FIND_SOURCES).length * 2
-  },
-  {
-    role: 'worker',
-    amount: room => {
-      if (room.find(FIND_MY_CONSTRUCTION_SITES).length > 0) {
-        return 1;
-      }
-      return 0;
-    }
   }
 ];
