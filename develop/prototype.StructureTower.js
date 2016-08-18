@@ -1,6 +1,6 @@
 'use strict';
 
-StructureTower.prototype.attackHostile =
+StructureTower.prototype.attackHostileCreep =
   function () {
     const target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     if (target) {
