@@ -19,14 +19,14 @@ function find(creep) {
   return sources[0];
 }
 
-module.exports = (next, empty) => creep => {
+module.exports = (full, next) => creep => {
   const harvestAmount = creep.getActiveBodyparts(WORK) * HARVEST_POWER;
   if (creep.isFull({ restCapacity: harvestAmount })) {
-    return next;
+    return full;
   }
   const source = creep.getMemoryObject('harvestSource', find);
   if (!source || source.isEmpty()) {
-    return empty;
+    return next;
   }
   creep.moveToAnd('harvest', source);
 };
