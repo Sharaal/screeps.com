@@ -19,7 +19,7 @@ Room.prototype.hasNeighboringSpawnConstructionSite =
 Room.prototype.getNeighboringSpawnConstructionSite =
   function () {
     let spawn;
-    const exits = Game.map.describeExists(this.name);
+    const exits = Game.map.describeExits(this.name);
     _.each(exits, roomName => {
       const room = Game.rooms[roomName];
       if (!room || !room.controller.my) {

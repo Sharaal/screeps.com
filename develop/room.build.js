@@ -18,7 +18,7 @@ function getNeededStructures(room) {
   neededStructures.set(STRUCTURE_TOWER,     getNeededAmount(room, STRUCTURE_TOWER));
 
   neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, room.getSourcesAmount()));
-  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - structures[STRUCTURE_STORAGE]));
+  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - neededStructures.get(STRUCTURE_STORAGE)));
 
   return neededStructures;
 }

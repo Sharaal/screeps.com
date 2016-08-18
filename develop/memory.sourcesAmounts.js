@@ -17,7 +17,7 @@ garbageCollector.addGarbageCollector(() => {
   }
 });
 
-module.exports.getSourcesLength = roomName => {
+module.exports.getSourcesAmount = roomName => {
   init();
   if (typeof Memory.sourcesAmounts[roomName] !== 'number') {
     const room = Game.rooms[roomName];
