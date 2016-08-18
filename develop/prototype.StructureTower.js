@@ -1,7 +1,7 @@
 'use strict';
 
 StructureTower.prototype.attackHostile = function () {
-  var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+  const target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
   if (target) {
     this.attack(target);
     return true;
@@ -9,7 +9,7 @@ StructureTower.prototype.attackHostile = function () {
 };
 
 function getDamagedStructures(room, validate) {
-  var structures = room.find(FIND_STRUCTURES, {
+  const structures = room.find(FIND_STRUCTURES, {
     filter: structure =>
       validate(structure.structureType)
       &&
@@ -19,7 +19,7 @@ function getDamagedStructures(room, validate) {
 }
 
 function getMostDamagedStructure(room, validate) {
-  var structures = getDamagedStructures(room, validate);
+  let structures = getDamagedStructures(room, validate);
   if (structures.length > 0) {
     structures = _.sortBy(structures, structure => structure.hits);
     return structures[0];
@@ -27,7 +27,7 @@ function getMostDamagedStructure(room, validate) {
 }
 
 function repairMostDamagedStructure(room, validate) {
-  var structure = getMostDamagedStructure(room, validate);
+  const structure = getMostDamagedStructure(room, validate);
   if (structure) {
     this.repair(structure);
     return true;

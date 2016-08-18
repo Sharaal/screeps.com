@@ -8,7 +8,7 @@ module.exports = (full, next) => creep => {
   if (creep.isFull()) {
     return full;
   }
-  var droppedEnergy = creep.getMemoryObject('pickupDroppedEnergy', find);
+  const droppedEnergy = creep.getMemoryObject('pickupDroppedEnergy', find);
   if (!droppedEnergy) {
     return next;
   }

@@ -1,9 +1,9 @@
 'use strict';
 
-var build = require('./room.build');
-var spawn = require('./room.spawn');
-var time = require('./util.time');
-var tower = require('./room.tower');
+const build = require('./room.build');
+const spawn = require('./room.spawn');
+const time = require('./util.time');
+const tower = require('./room.tower');
 
 module.exports = roles => room => {
   if (!room.controller.my) {

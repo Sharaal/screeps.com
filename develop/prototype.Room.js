@@ -1,19 +1,19 @@
 'use strict';
 
 Room.prototype.hasStorage = Room.prototype.getStorage = function () {
-  var storages = this.find(FIND_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_STORAGE });
+  const storages = this.find(FIND_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_STORAGE });
   return storages[0];
 };
 
 Room.prototype.hasNeighboringSpawnConstructionSite = Room.prototype.getNeighboringSpawnConstructionSite = function () {
-  var spawn;
-  var exits = Game.map.describeExists(this.name);
+  let spawn;
+  const exits = Game.map.describeExists(this.name);
   _.each(exits, roomName => {
-    var room = Game.rooms[roomName];
+    const room = Game.rooms[roomName];
     if (!room || !room.controller.my) {
       return;
     }
-    var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {
+    const spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {
       filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
     });
     if (spawns.length > 0) {

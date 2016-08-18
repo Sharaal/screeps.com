@@ -23,8 +23,8 @@ RoomObject.prototype.isFull = function (opts) {
   opts.percentage = opts.percentage || 1;
   opts.restCapacity = opts.restCapacity || 0;
 
-  var amount;
-  var capacity;
+  let amount;
+  let capacity;
 
   if (this.carryCapacity > 0) {
     amount = _.sum(this.carry);

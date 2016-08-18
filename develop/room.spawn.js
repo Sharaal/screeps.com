@@ -1,7 +1,7 @@
 'use strict';
 
-var transformBody = require('./util.transformBody');
-var levels = [
+const transformBody = require('./util.transformBody');
+const levels = [
   require('./room.spawn.level.1'),
   require('./room.spawn.level.2'),
   require('./room.spawn.level.4'),
@@ -12,7 +12,7 @@ var levels = [
 ];
 
 module.exports = roles => room => {
-  var highestLevel;
+  let highestLevel;
   _.each(levels, level => {
     if (!level.conditions(room)) {
       return;
@@ -23,7 +23,7 @@ module.exports = roles => room => {
     return;
   }
 
-  var spawnOrder;
+  let spawnOrder;
   _.each(highestLevel.priorities, priority => {
     if (spawnOrder) {
       return;
@@ -34,20 +34,20 @@ module.exports = roles => room => {
     }
 
     if (typeof priority.globalAmount === 'number') {
-      var globalCreeps = _.filter(Game.creeps, creep => creep.memory.role === priority.role);
+      const globalCreeps = _.filter(Game.creeps, creep => creep.memory.role === priority.role);
       if (globalCreeps.length >= priority.globalAmount) {
         return;
       }
     }
 
-    var amount;
+    let amount;
     if (typeof priority.amount === 'function') {
       amount = priority.amount(room);
     } else {
       amount = priority.amount;
     }
     if (typeof amount === 'number') {
-      var roomCreeps = room.find(FIND_MY_CREEPS, { filter: creep => creep.memory.role === priority.role });
+      const roomCreeps = room.find(FIND_MY_CREEPS, { filter: creep => creep.memory.role === priority.role });
       if (roomCreeps.length >= amount) {
         return;
       }
@@ -59,12 +59,12 @@ module.exports = roles => room => {
     return;
   }
 
-  var spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
+  const spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
     if (!spawnOrder) {
       return;
     }
-    var memory = { role: spawnOrder.role, activity: roles[spawnOrder.role].startActivity };
+    const memory = { role: spawnOrder.role, activity: roles[spawnOrder.role].startActivity };
     if (spawn.createCreep(transformBody(highestLevel.bodies[spawnOrder.role]), undefined, memory) !== OK) {
       return;
     }

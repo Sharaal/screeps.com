@@ -5,13 +5,13 @@ require('./prototype.Room');
 require('./prototype.RoomObject');
 require('./prototype.StructureTower');
 
-var creepController = require('./creep.controller');
-var garbageCollector = require('./garbageCollector');
-var migration = require('./migration');
-var roomController = require('./room.controller');
-var time = require('./util.time');
+const creepController = require('./creep.controller');
+const garbageCollector = require('./garbageCollector');
+const migration = require('./migration');
+const roomController = require('./room.controller');
+const time = require('./util.time');
 
-var roles = {
+const roles = {
   'carrier':      require('./creep.role.carrier'),
   'flagClaimer':  require('./creep.role.flagClaimer'),
   'rescuer':      require('./creep.role.rescuer'),

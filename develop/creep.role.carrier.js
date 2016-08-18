@@ -1,6 +1,6 @@
 'use strict';
 
-var empty = 'pickupDroppedEnergy';
+const empty = 'pickupDroppedEnergy';
 module.exports = {
   startActivity: empty,
   activities: {

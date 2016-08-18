@@ -1,6 +1,6 @@
 'use strict';
 
-var empty = 'withdrawEnergyStorage';
+const empty = 'withdrawEnergyStorage';
 module.exports = {
   startActivity: empty,
   activities: {

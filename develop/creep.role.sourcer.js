@@ -1,6 +1,6 @@
 'use strict';
 
-var empty = 'harvestSource';
+const empty = 'harvestSource';
 module.exports = {
   startActivity: empty,
   activities: {

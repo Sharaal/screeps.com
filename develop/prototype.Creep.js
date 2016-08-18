@@ -17,7 +17,7 @@ Creep.prototype.getMemoryObject = function (key, validate, find) {
     find = validate;
     validate = undefined;
   }
-  var object;
+  let object;
   if (!(this.memory[key])
     ||
     !(object = Game.getObjectById(this.memory[key]))

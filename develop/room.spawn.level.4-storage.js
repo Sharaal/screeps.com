@@ -1,6 +1,6 @@
 'use strict';
 
-var level4 = require('./room.spawn.level.4');
+const level4 = require('./room.spawn.level.4');
 
 module.exports.conditions = room => {
   return level4.conditions(room)

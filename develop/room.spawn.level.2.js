@@ -38,7 +38,7 @@ module.exports.priorities = [
   {
     role: 'sourcer',
     amount: room => {
-      var amount = 0;
+      let amount = 0;
       _.each(room.find(FIND_SOURCES), source => {
         amount += Math.min(harvestSourcePositions.getAmountBySource(source), 2);
       });

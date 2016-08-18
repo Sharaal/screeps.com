@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = body => {
-  var parts = [];
+  let parts = [];
   _.each(body, (amount, part) => {
     parts = parts.concat(Array.apply({}, Array(amount)).map(() => part));
   });

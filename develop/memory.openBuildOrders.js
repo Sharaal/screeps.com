@@ -8,7 +8,7 @@ function init() {
 
 module.exports.garbageCollector = () => {
   init();
-  for(var roomName in Memory.openBuildOrders) {
+  for(let roomName in Memory.openBuildOrders) {
     if(!Game.rooms[roomName]) {
       delete Memory.openBuildOrders[roomName];
     }

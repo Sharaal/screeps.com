@@ -1,9 +1,9 @@
 'use strict';
 
-var openBuildOrders = require('./memory.openBuildOrders');
+const openBuildOrders = require('./memory.openBuildOrders');
 
 function getNeededAmount(room, structureType, maxNeededAmount) {
-  var controllerMaxAmount = CONTROLLER_STRUCTURES[structureType][room.controller.level];
+  const controllerMaxAmount = CONTROLLER_STRUCTURES[structureType][room.controller.level];
   if (maxNeededAmount) {
     Math.min(controllerMaxAmount, maxNeededAmount);
   }
@@ -11,13 +11,13 @@ function getNeededAmount(room, structureType, maxNeededAmount) {
 }
 
 function getNeededStructures(room) {
-  var neededStructures = new Map();
+  const neededStructures = new Map();
 
   neededStructures.set(STRUCTURE_SPAWN,     getNeededAmount(room, STRUCTURE_SPAWN));
   neededStructures.set(STRUCTURE_EXTENSION, getNeededAmount(room, STRUCTURE_EXTENSION));
   neededStructures.set(STRUCTURE_TOWER,     getNeededAmount(room, STRUCTURE_TOWER));
 
-  var sources = room.find(FIND_SOURCES);
+  const sources = room.find(FIND_SOURCES);
   neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, sources.length));
   neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, sources.length - structures[STRUCTURE_STORAGE]));
 
@@ -25,9 +25,9 @@ function getNeededStructures(room) {
 }
 
 function filterRoomObjects(room, neededStructures, FIND) {
-  var filteredNeededStructures = new Map();
+  const filteredNeededStructures = new Map();
   neededStructures.forEach((neededAmount, neededStructureType) => {
-    var availableRoomObjects = room.find(FIND, {
+    const availableRoomObjects = room.find(FIND, {
       filter: structure => structure.structureType === neededStructureType
     });
     neededAmount = neededAmount - availableRoomObjects.length;
@@ -47,7 +47,7 @@ function filterAvailableConstructionSites(room, neededStructures) {
 }
 
 module.exports = room => {
-  var neededStructures = getNeededStructures(room);
+  let neededStructures = getNeededStructures(room);
 
   neededStructures = filterAvailableStructures(room, neededStructures);
   openBuildOrders.set(room.name, neededStructures);

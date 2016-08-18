@@ -8,7 +8,7 @@ function init() {
 
 module.exports.garbageCollector = () => {
   init();
-  for(var roomName in Memory.harvestSourcePositions) {
+  for(let roomName in Memory.harvestSourcePositions) {
     if(!Game.rooms[roomName]) {
       delete Memory.harvestSourcePositions[roomName];
     }
@@ -16,19 +16,19 @@ module.exports.garbageCollector = () => {
 };
 
 function getHarvestSourcePosition(roomName) {
-  var harvestSourcePosition = {};
-  var room = Game.rooms[roomName];
+  const harvestSourcePosition = {};
+  const room = Game.rooms[roomName];
   if (room) {
-    var sources = room.find(FIND_SOURCES);
+    const sources = room.find(FIND_SOURCES);
     _.each(sources, source => {
       harvestSourcePosition[source.id] = 0;
-      var objects = room.lookAtArea(source.pos.y - 1, source.pos.x - 1, source.pos.y + 1, source.pos.x + 1);
+      const objects = room.lookAtArea(source.pos.y - 1, source.pos.x - 1, source.pos.y + 1, source.pos.x + 1);
       _.each([source.pos.y - 1, source.pos.y, source.pos.y + 1], y => {
         _.each([source.pos.x - 1, source.pos.x, source.pos.x + 1], x => {
           if (y === source.pos.y && x === source.pos.x) {
             return;
           }
-          var foundWall = false;
+          let foundWall = false;
           _.each(objects[y][x], object => {
             if (object.type === 'terrain' && object.terrain === 'wall') {
               foundWall = true;
