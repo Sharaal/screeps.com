@@ -11,7 +11,7 @@ function find(creep) {
   sources = _.sortBy(sources,
     source => {
       var creeps = creep.room.find(FIND_MY_CREEPS, {
-        filter: creep => creep.memory.source === source.id
+        filter: creep => creep.memory.harvestSource === source.id
       });
       return creeps.length / harvestSourcePositions.getAmountBySource(source);
     }
