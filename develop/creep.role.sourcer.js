@@ -3,6 +3,7 @@
 const harvestSourcePositions = require('./memory.harvestSourcePositions');
 
 const empty = 'harvestSource';
+
 module.exports = {
   activities: {
     'harvestSource':           require('./creep.activity.harvestSource')          ('transferEnergyStorage',   empty),

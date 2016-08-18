@@ -1,6 +1,7 @@
 'use strict';
 
 const empty = 'pickupDroppedEnergy';
+
 module.exports = {
   activities: {
     'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('transferStructure',     'withdrawEnergyContainer'),
