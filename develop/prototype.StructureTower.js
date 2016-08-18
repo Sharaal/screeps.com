@@ -8,30 +8,36 @@ StructureTower.prototype.attackHostile = function () {
   }
 };
 
-StructureTower.prototype.repairStructure = function () {
-  var structures = this.room.find(FIND_STRUCTURES, {
+function getDamagedStructures(room, validate) {
+  var structures = room.find(FIND_STRUCTURES, {
     filter: structure =>
-      structure.structureType !== STRUCTURE_WALL
+      validate(structure.structureType)
       &&
       structure.hits < structure.hitsMax
   });
+  return structures;
+}
+
+function getMostDamagedStructure(room, validate) {
+  var structures = getDamagedStructures(room, validate);
   if (structures.length > 0) {
     structures = _.sortBy(structures, structure => structure.hits);
-    this.repair(structures[0]);
+    return structures[0];
+  }
+}
+
+function repairMostDamagedStructure(room, validate) {
+  var structure = getMostDamagedStructure(room, validate);
+  if (structure) {
+    this.repair(structure);
     return true;
   }
+}
+
+StructureTower.prototype.repairStructure = function () {
+  return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL);
 };
 
 StructureTower.prototype.repairWall = function () {
-  var structures = this.room.find(FIND_STRUCTURES, {
-    filter: structure =>
-      structure.structureType === STRUCTURE_WALL
-      &&
-      structure.hits < structure.hitsMax
-  });
-  if (structures.length > 0) {
-    structures = _.sortBy(structures, structure => structure.hits);
-    this.repair(structures[0]);
-    return true;
-  }
+  return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL);
 };
