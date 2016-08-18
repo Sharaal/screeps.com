@@ -4,7 +4,7 @@ module.exports = tower => {
   if (tower.isEmpty()) {
     return;
   }
-  if (tower.attackHostile()) {
+  if (tower.attackHostileCreep()) {
     return;
   }
   if (tower.isFull({ percentage: 0.5 })) {

@@ -1,30 +1,25 @@
 'use strict';
 
+function ticksToSleep(ticks) {
+  return Game.time % ticks === 0;
+}
+
 require('./prototype.Creep');
 require('./prototype.Room');
 require('./prototype.RoomObject');
 require('./prototype.StructureTower');
 
-var creepController = require('./creep.controller');
-var garbageCollector = require('./garbageCollector');
-var migration = require('./migration');
-var roomController = require('./room.controller');
-var time = require('./util.time');
-
-var roles = {
-  'carrier':      require('./creep.role.carrier'),
-  'flagClaimer':  require('./creep.role.flagClaimer'),
-  'rescuer':      require('./creep.role.rescuer'),
-  'sourcer':      require('./creep.role.sourcer'),
-  'spawnBuilder': require('./creep.role.spawnBuilder'),
-  'worker':       require('./creep.role.worker')
-};
+const creepController = require('./creep.controller');
+const garbageCollector = require('./garbageCollector');
+const migration = require('./migration');
+const roles = require('./creep.roles');
+const roomController = require('./room.controller');
 
 module.exports.loop = () => {
   migration(roles);
-  if (time(100)) {
-    garbageCollector();
+  if (ticksToSleep(100)) {
+    garbageCollector.garbageCollect();
   }
   _.each(Game.creeps, creepController(roles));
-  _.each(Game.rooms, roomController(roles));
+  _.each(_.filter(Game.rooms, room => room.controller.my), roomController(roles, ticksToSleep));
 };

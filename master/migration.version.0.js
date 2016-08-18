@@ -1,6 +1,6 @@
 'use strict';
 
-var changeRoles = require('./util.migration.changeRoles');
+const changeRoles = require('./util.migration.changeRoles');
 
 module.exports = roles => {
   changeRoles(roles, 'carrier',                                    'storageCarrier');

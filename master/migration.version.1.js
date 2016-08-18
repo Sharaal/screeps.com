@@ -1,7 +1,7 @@
 'use strict';
 
-var changeRoles = require('./util.migration.changeRoles');
-var changeActivities = require('./util.migration.changeActivities');
+const changeRoles = require('./util.migration.changeRoles');
+const changeActivities = require('./util.migration.changeActivities');
 
 module.exports = roles => {
   changeRoles(roles, 'sourceAllrounder',    'rescuer');

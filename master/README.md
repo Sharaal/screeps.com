@@ -9,11 +9,8 @@
 - The room controller runs the spawn script only every 10 ticks to save
   CPU usage
   
-- Every room use the highest 'room.spawn.level-*' which fulfill the
-  conditions to determine how much and which creeps are needed
-  
-- Every role can have also dependencies must be fulfill to be needed 
-  (e.g. a builder is only needed if there are construction sites)
+- Every role defines the amount and the body of the needed creeps for 
+  every room
   
 - If there is a missing creep, one of the spawn structures will build it
 
@@ -23,9 +20,8 @@
 - A creep have a role which describes the chain of activities to do
 
 - A creep have one activity which he currently do. This activity runs
-  one time per tick. If its finished (activity script returns true) it
-  defines some scenarios to decide the next activity. The role describes 
-  which is the next actual activity to do in the different scenarios
+  one time per tick. If a run returns the name of the next activity it
+  will set to the creep
   
   
 #### Roles
@@ -140,11 +136,8 @@
 - The room controller runs the build script only every 10 ticks to save
   CPU usage
   
-- Every room use the highest 'room.build.level-*' which fulfill the
-  conditions to determine how much and which structures are needed
-  
-- If there is a missing structures, there will be outputted in the 
-  console
+- If there is a missing structures, depending on the controller level 
+  and the amount of sources, they will be outputted in the console
 
   
 # Ideas
@@ -161,12 +154,6 @@
   - Find out which positions on the map are good to use (extensions and
     towers near to the source, storage directly beside the source)
   - Build roads between the buildings
-
-- Automatically determine if its time to concentrate on leveling up the 
-  controller and if yes, build more worker to do it?
-  - If there is nothing anymore to build
-  - If there is nothing anymore to transfer energy (tower)
-  - Maybe only if the storage have a minimum of energy
   
 - Automatically "claim" functionality:
   - Activity "claim" which selects an adjoining room with a neutral

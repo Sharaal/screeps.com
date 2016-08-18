@@ -1,8 +1,7 @@
 'use strict';
 
-var empty = 'withdrawEnergyStorage';
+const empty = 'withdrawEnergyStorage';
 module.exports = {
-  startActivity: empty,
   activities: {
     'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('rescueController',  'withdrawEnergyContainer'),
     'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('rescueController',  'pickupDroppedEnergy'),
@@ -11,5 +10,16 @@ module.exports = {
     'rescueController':        require('./creep.activity.upgradeController')      ('transferStructure', empty, { ticksToDowngrade: 2500 }),
     'transferStructure':       require('./creep.activity.transferStructure')      ('upgradeController', empty),
     'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController', empty)
+  },
+  spawn: room => {
+    const creeps = room.find(FIND_MY_CREEPS);
+    if (creeps.length > 0) {
+      return;
+    }
+    return {
+      priority: Infinity,
+      body: { carry: 1, move: 1, work: 1 },
+      roomAmount: 1
+    };
   }
 };

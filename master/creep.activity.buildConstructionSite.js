@@ -8,7 +8,7 @@ module.exports = (next, empty) => creep => {
   if (creep.isEmpty()) {
     return empty;
   }
-  var constructionSite = creep.getMemoryObject('buildConstructionSite', find);
+  const constructionSite = creep.getMemoryObject('buildConstructionSite', find);
   if (!constructionSite) {
     return next;
   }

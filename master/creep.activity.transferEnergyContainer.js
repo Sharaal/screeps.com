@@ -5,7 +5,7 @@ function validate(energyContainer) {
 }
 
 function getFind(range) {
-  var opts = {
+  const opts = {
     filter: structure =>
       structure.structureType === STRUCTURE_CONTAINER
       &&
@@ -13,7 +13,7 @@ function getFind(range) {
   };
   if (range) {
     return creep => {
-      var energyContainers = creep.pos.findInRange(FIND_STRUCTURES, range, opts);
+      const energyContainers = creep.pos.findInRange(FIND_STRUCTURES, range, opts);
       if (energyContainers.length > 0) {
         return energyContainers[0];
       }
@@ -27,7 +27,7 @@ module.exports = (next, empty, opts) => creep => {
   if (creep.isEmpty()) {
     return empty;
   }
-  var energyContainer = creep.getMemoryObject('transferEnergyContainer', validate, getFind(opts.range));
+  const energyContainer = creep.getMemoryObject('transferEnergyContainer', validate, getFind(opts.range));
   if (!energyContainer) {
     return next;
   }

@@ -1,13 +1,13 @@
 'use strict';
 
-var currentVersion = 2;
+const VERSION = 3;
 
 module.exports = roles => {
   Memory.version = Memory.version || 0;
-  if (Memory.version === currentVersion) {
+  if (Memory.version === VERSION) {
     return;
   }
-  for (; Memory.version < currentVersion; ++Memory.version) {
+  for (; Memory.version < VERSION; ++Memory.version) {
     require(`./migration.version.${Memory.version}`)(roles);
   }
 };

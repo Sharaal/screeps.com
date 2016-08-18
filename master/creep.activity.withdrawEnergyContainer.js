@@ -13,13 +13,13 @@ function find(creep) {
   });
 }
 
-module.exports = (next, empty) => creep => {
+module.exports = (full, next) => creep => {
   if (creep.isFull()) {
-    return next;
+    return full;
   }
-  var energyContainer = creep.getMemoryObject('withdrawEnergyContainer', validate, find);
+  const energyContainer = creep.getMemoryObject('withdrawEnergyContainer', validate, find);
   if (!energyContainer) {
-    return empty;
+    return next;
   }
   creep.moveToAnd('withdraw', [energyContainer, RESOURCE_ENERGY]);
 };

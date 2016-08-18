@@ -1,17 +1,14 @@
 'use strict';
 
-var build = require('./room.build');
-var spawn = require('./room.spawn');
-var time = require('./util.time');
-var tower = require('./room.tower');
+const build = require('./room.build');
+const spawn = require('./room.spawn');
+const towerController = require('./tower.controller');
 
-module.exports = roles => room => {
-  if (!room.controller.my) {
-    return;
-  }
-  if (time(10)) {
+module.exports = (roles, ticksToSleep) => room => {
+  if (ticksToSleep(10)) {
     build(room);
     spawn(roles)(room);
   }
-  tower(room);
+  const towers = room.find(FIND_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_TOWER });
+  _.each(towers, towerController);
 };

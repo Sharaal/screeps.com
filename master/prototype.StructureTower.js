@@ -1,37 +1,46 @@
 'use strict';
 
-StructureTower.prototype.attackHostile = function () {
-  var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-  if (target) {
-    this.attack(target);
-    return true;
-  }
-};
+StructureTower.prototype.attackHostileCreep =
+  function () {
+    const target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (target) {
+      this.attack(target);
+      return true;
+    }
+  };
 
-StructureTower.prototype.repairStructure = function () {
-  var structures = this.room.find(FIND_STRUCTURES, {
+function getDamagedStructures(room, validate) {
+  const structures = room.find(FIND_STRUCTURES, {
     filter: structure =>
-      structure.structureType !== STRUCTURE_WALL
+      validate(structure.structureType)
       &&
       structure.hits < structure.hitsMax
   });
-  if (structures.length > 0) {
-    structures = _.sortBy(structures, structure => structure.hits);
-    this.repair(structures[0]);
-    return true;
-  }
-};
+  return structures;
+}
 
-StructureTower.prototype.repairWall = function () {
-  var structures = this.room.find(FIND_STRUCTURES, {
-    filter: structure =>
-      structure.structureType === STRUCTURE_WALL
-      &&
-      structure.hits < structure.hitsMax
-  });
+function getMostDamagedStructure(room, validate) {
+  let structures = getDamagedStructures(room, validate);
   if (structures.length > 0) {
     structures = _.sortBy(structures, structure => structure.hits);
-    this.repair(structures[0]);
+    return structures[0];
+  }
+}
+
+function repairMostDamagedStructure(room, validate, tower) {
+  const structure = getMostDamagedStructure(room, validate);
+  if (structure) {
+    tower.repair(structure);
     return true;
   }
-};
+}
+
+StructureTower.prototype.repairStructure =
+  function () {
+    return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL, this);
+  };
+
+StructureTower.prototype.repairWall =
+  function () {
+    return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL, this);
+  };

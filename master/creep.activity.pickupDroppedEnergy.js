@@ -4,13 +4,13 @@ function find(creep) {
   return creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
 }
 
-module.exports = (next, empty) => creep => {
+module.exports = (full, next) => creep => {
   if (creep.isFull()) {
-    return next;
+    return full;
   }
-  var droppedEnergy = creep.getMemoryObject('pickupDroppedEnergy', find);
+  const droppedEnergy = creep.getMemoryObject('pickupDroppedEnergy', find);
   if (!droppedEnergy) {
-    return empty;
+    return next;
   }
   creep.moveToAnd('pickup', droppedEnergy);
 };
