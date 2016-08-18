@@ -8,8 +8,8 @@ module.exports.conditions = room => {
 
 module.exports.bodies = {
   'sourcer': { carry: 1, move: 1, work: 8 },
-  'carrier': { carry: 3, move: 3 },
-  'worker':  { carry: 3, move: 2, work: 3 }
+  'carrier': { carry: 2, move: 1 },
+  'worker':  { carry: 1, move: 1, work: 1 }
 };
 
 module.exports.priorities = [
@@ -31,7 +31,7 @@ module.exports.priorities = [
   },
   {
     role: 'carrier',
-    amount: room => room.getSourcesAmount() * 2
+    amount: room => room.getSourcesAmount() * 3
   },
   {
     role: 'worker',

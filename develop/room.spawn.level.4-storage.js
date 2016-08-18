@@ -29,6 +29,6 @@ module.exports.priorities = [
   },
   {
     role: 'carrier',
-    amount: room => room.getSourcesAmount() * 2
+    amount: room => room.getSourcesAmount() * 3
   }
 ];
