@@ -2,11 +2,11 @@
 
 RoomObject.prototype.isEmpty = function (opts) {
   opts = opts || {};
-  opts.resource = opts.resource || RESOURCE_ENERGY;
+  opts.RESOURCE = opts.RESOURCE || RESOURCE_ENERGY;
   opts.restAmount = opts.restAmount || 0;
 
   if (this.carryCapacity > 0) {
-    return this.carry[opts.resource] <= opts.restAmount;
+    return this.carry[opts.RESOURCE] <= opts.restAmount;
   }
 
   if (this.energyCapacity > 0) {
@@ -14,7 +14,7 @@ RoomObject.prototype.isEmpty = function (opts) {
   }
 
   if (this.storeCapacity > 0) {
-    return this.store[opts.resource] <= opts.restAmount;
+    return this.store[opts.RESOURCE] <= opts.restAmount;
   }
 };
 
