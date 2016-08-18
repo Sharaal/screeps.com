@@ -6,10 +6,11 @@ module.exports = (oldActivity, newActivity) => {
       return;
     }
     creep.memory.activity = newActivity;
-    if (!creep.memory[oldActivity]) {
+    const value = creep.memory[oldActivity];
+    if (!value) {
       return;
     }
-    creep.memory[newActivity] = creep.memory[oldActivity];
+    creep.memory[newActivity] = value;
     delete creep.memory[oldActivity];
   });
 };
