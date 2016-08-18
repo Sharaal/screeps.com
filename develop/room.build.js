@@ -28,8 +28,7 @@ function filterRoomObjects(room, neededStructures, FIND) {
     const availableRoomObjects = room.find(FIND, {
       filter: structure => structure.structureType === neededStructureType
     });
-    neededAmount = Math.max(neededAmount - availableRoomObjects.length, 0);
-    return neededAmount;
+    neededStructures[neededStructureType] = Math.max(neededAmount - availableRoomObjects.length, 0);
   });
 }
 
