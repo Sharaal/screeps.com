@@ -18,5 +18,5 @@ module.exports.loop = () => {
     garbageCollector.garbageCollect();
   }
   _.each(Game.creeps, creepController(roles));
-  _.each(Game.rooms, roomController(roles));
+  _.each(_.filter(Game.rooms, room => room.controller.my), roomController(roles));
 };
