@@ -27,11 +27,11 @@ module.exports.priorities = [
   },
   {
     role: 'sourcer',
-    amount: room => room.find(FIND_SOURCES).length
+    amount: room => room.getSourcesAmount()
   },
   {
     role: 'carrier',
-    amount: room => room.find(FIND_SOURCES).length
+    amount: room => room.getSourcesAmount()
   },
   {
     role: 'sourcer',
@@ -45,10 +45,10 @@ module.exports.priorities = [
   },
   {
     role: 'carrier',
-    amount: room => room.find(FIND_SOURCES).length * 2
+    amount: room => room.getSourcesAmount() * 2
   },
   {
     role: 'worker',
-    amount: room => room.find(FIND_SOURCES).length * 2
+    amount: room => room.getSourcesAmount() * 2
   }
 ];

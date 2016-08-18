@@ -17,9 +17,8 @@ function getNeededStructures(room) {
   neededStructures.set(STRUCTURE_EXTENSION, getNeededAmount(room, STRUCTURE_EXTENSION));
   neededStructures.set(STRUCTURE_TOWER,     getNeededAmount(room, STRUCTURE_TOWER));
 
-  const sources = room.find(FIND_SOURCES);
-  neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, sources.length));
-  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, sources.length - structures[STRUCTURE_STORAGE]));
+  neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, room.getSourcesAmount()));
+  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - structures[STRUCTURE_STORAGE]));
 
   return neededStructures;
 }
@@ -56,7 +55,9 @@ module.exports = room => {
   if (neededStructures.length > 0) {
     console.log('------------------------------ ROOM NEEDED CONSTRUCTION SITES ------------------------------');
     console.log(room.name);
-    console.log(JSON.stringify(neededStructures));
+    neededStructures.forEach((neededAmount, neededStructureType) => {
+      console.log(neededStructureType, neededAmount);
+    });
     console.log('--------------------------------------------------------------------------------------------');
   }
 };

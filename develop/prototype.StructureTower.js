@@ -1,12 +1,13 @@
 'use strict';
 
-StructureTower.prototype.attackHostile = function () {
-  const target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-  if (target) {
-    this.attack(target);
-    return true;
-  }
-};
+StructureTower.prototype.attackHostile =
+  function () {
+    const target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (target) {
+      this.attack(target);
+      return true;
+    }
+  };
 
 function getDamagedStructures(room, validate) {
   const structures = room.find(FIND_STRUCTURES, {
@@ -34,10 +35,12 @@ function repairMostDamagedStructure(room, validate) {
   }
 }
 
-StructureTower.prototype.repairStructure = function () {
-  return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL);
-};
+StructureTower.prototype.repairStructure =
+  function () {
+    return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL);
+  };
 
-StructureTower.prototype.repairWall = function () {
-  return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL);
-};
+StructureTower.prototype.repairWall =
+  function () {
+    return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL);
+  };
