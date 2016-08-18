@@ -24,5 +24,5 @@ module.exports.setNeededStructures = (roomName, neededStructures) => {
 
 module.exports.isFinished = (roomName) => {
   init();
-  return Memory.openNeededStructures[roomName] && Memory.openNeededStructures[roomName].length === 0;
+  return Memory.openNeededStructures[roomName] && _.sum(Memory.openNeededStructures[roomName]) === 0;
 };

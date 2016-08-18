@@ -20,16 +20,16 @@ function getNeededStructures(room) {
   neededStructures[STRUCTURE_STORAGE]   = getNeededAmount(room, STRUCTURE_STORAGE, room.getSourcesAmount());
   neededStructures[STRUCTURE_CONTAINER] = getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - neededStructures[STRUCTURE_STORAGE]);
 
-  return _.filter(neededStructures, neededAmount => neededAmount);
+  return neededStructures;
 }
 
 function filterRoomObjects(room, neededStructures, FIND) {
-  return _.filter(neededStructures, (neededAmount, neededStructureType) => {
+  return _.each(neededStructures, (neededAmount, neededStructureType) => {
     const availableRoomObjects = room.find(FIND, {
       filter: structure => structure.structureType === neededStructureType
     });
-    neededAmount = neededAmount - availableRoomObjects.length;
-    return neededAmount > 0;
+    neededAmount = Math.max(neededAmount - availableRoomObjects.length, 0);
+    return neededAmount;
   });
 }
 
