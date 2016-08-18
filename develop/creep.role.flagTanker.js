@@ -12,10 +12,7 @@ module.exports = {
     if (!flag) {
       return;
     }
-    if (!flag.room) {
-      return;
-    }
-    if (room.name !== flag.room.name) {
+    if (!flag.room || room.name !== flag.room.name) {
       return;
     }
     return {

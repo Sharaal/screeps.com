@@ -14,10 +14,7 @@ module.exports = {
     if (!flag) {
       return;
     }
-    if (!flag.room) {
-      return;
-    }
-    if (room.name !== flag.room.name) {
+    if (!flag.room || room.name !== flag.room.name) {
       return;
     }
     const rooms = _.filter(Game.rooms, room => room.controller.my);
