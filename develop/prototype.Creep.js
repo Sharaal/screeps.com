@@ -47,3 +47,8 @@ Creep.prototype.moveToAnd =
       return true;
     }
   };
+
+Creep.prototype.getWorkAmount =
+  function (POWER) {
+    return this.getActiveBodyparts(WORK) * POWER;
+  };
