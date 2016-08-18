@@ -2,13 +2,13 @@
 
 const build = require('./room.build');
 const spawn = require('./room.spawn');
-const time = require('./util.time');
-const tower = require('./room.tower');
+const towerController = require('./tower.controller');
 
 module.exports = roles => room => {
-  if (time(10)) {
+  if (Game.ticksToSleep(10)) {
     build(room);
     spawn(roles)(room);
   }
-  tower(room);
+  const towers = room.find(FIND_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_TOWER });
+  _.each(towers, towerController);
 };
