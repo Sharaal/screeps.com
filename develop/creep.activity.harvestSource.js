@@ -20,7 +20,8 @@ function find(creep) {
 }
 
 module.exports = (next, empty) => creep => {
-  if (creep.isFull({ restCapacity: creep.getActiveBodyparts(WORK) * HARVEST_POWER })) {
+  const harvestAmount = creep.getActiveBodyparts(WORK) * HARVEST_POWER;
+  if (creep.isFull({ restCapacity: harvestAmount })) {
     return next;
   }
   const source = creep.getMemoryObject('harvestSource', find);

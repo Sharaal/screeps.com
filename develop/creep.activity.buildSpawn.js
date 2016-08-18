@@ -5,7 +5,8 @@ function find(creep) {
 }
 
 module.exports = (next, nearlyEmpty) => creep => {
-  if (creep.isEmpty({ restAmount: creep.getActiveBodyparts(WORK) * BUILD_POWER })) {
+  const buildAmount = creep.getActiveBodyparts(WORK) * BUILD_POWER;
+  if (creep.isEmpty({ restAmount: buildAmount })) {
     return nearlyEmpty;
   }
   const spawn = creep.getMemoryObject('buildSpawn', find);
