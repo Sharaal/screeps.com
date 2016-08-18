@@ -53,7 +53,7 @@ module.exports = room => {
   openBuildOrders.set(room.name, neededStructures);
 
   neededStructures = filterAvailableConstructionSites(room, neededStructures);
-  if (neededStructures.length) {
+  if (neededStructures.length > 0) {
     console.log('------------------------------ ROOM NEEDED CONSTRUCTION SITES ------------------------------');
     console.log(room.name);
     console.log(JSON.stringify(neededStructures));
