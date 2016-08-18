@@ -8,17 +8,9 @@ require('./prototype.StructureTower');
 const creepController = require('./creep.controller');
 const garbageCollector = require('./garbageCollector');
 const migration = require('./migration');
+const roles = require('./creep.roles');
 const roomController = require('./room.controller');
 const time = require('./util.time');
-
-const roles = {
-  'carrier':      require('./creep.role.carrier'),
-  'flagClaimer':  require('./creep.role.flagClaimer'),
-  'rescuer':      require('./creep.role.rescuer'),
-  'sourcer':      require('./creep.role.sourcer'),
-  'spawnBuilder': require('./creep.role.spawnBuilder'),
-  'worker':       require('./creep.role.worker')
-};
 
 module.exports.loop = () => {
   migration(roles);
