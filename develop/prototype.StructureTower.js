@@ -27,20 +27,20 @@ function getMostDamagedStructure(room, validate) {
   }
 }
 
-function repairMostDamagedStructure(room, validate) {
+function repairMostDamagedStructure(room, validate, tower) {
   const structure = getMostDamagedStructure(room, validate);
   if (structure) {
-    this.repair(structure);
+    tower.repair(structure);
     return true;
   }
 }
 
 StructureTower.prototype.repairStructure =
   function () {
-    return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL);
+    return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL, this);
   };
 
 StructureTower.prototype.repairWall =
   function () {
-    return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL);
+    return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL, this);
   };
