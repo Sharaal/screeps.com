@@ -54,8 +54,14 @@ module.exports = roles => room => {
       amount = priority.amount;
     }
     if (typeof amount === 'number') {
-      const roomCreeps = room.find(FIND_MY_CREEPS, { filter: creep => creep.memory.role === priority.role });
-      if (roomCreeps.length >= amount) {
+      const ticksToSpawn = _.sum(highestLevel.bodies[spawnOrder.role]) * CREEP_SPAWN_TIME;
+      const creeps = room.find(FIND_MY_CREEPS, {
+        filter: creep =>
+          creep.memory.role === priority.role
+          &&
+          creep.ticksToLive >= ticksToSpawn
+      });
+      if (creeps.length >= amount) {
         return;
       }
     }
