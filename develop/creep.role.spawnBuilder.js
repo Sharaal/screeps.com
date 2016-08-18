@@ -11,21 +11,6 @@ module.exports = {
     'upgradeController':     require('./creep.activity.upgradeController')    ('upgradeController',   'pickupDroppedEnergy')
   },
   roomConditions: room => {
-    var spawn;
-    _.each(Game.rooms, room => {
-      var spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {
-        filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
-      });
-      if (spawns.length > 0) {
-        spawn = spawns[0];
-      }
-    });
-    if (!spawn) {
-      return;
-    }
-    if (!_.find(Game.map.describeExits(room.name), room => room.name === spawn.room.name)) {
-      return;
-    }
-    return true;
+    return room.hasNeighboringSpawnConstructionSite();
   }
 };
