@@ -15,12 +15,11 @@ module.exports = {
     if (!flag.room) {
       return;
     }
-    const exits = Game.map.describeExits(room.name);
-    if (!_.find(exits, roomName => roomName === flag.room.name)) {
+    if (room.name !== flag.room.name) {
       return;
     }
     return {
-      body: { tough: 49, move: 1 },
+      body: { tough: 45, move: 5 },
       mapAmount: 1
     };
   }

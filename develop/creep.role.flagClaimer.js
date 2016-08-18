@@ -14,15 +14,14 @@ module.exports = {
     if (!flag) {
       return;
     }
-    const rooms = _.filter(Game.rooms, room => room.controller.my);
-    if (rooms.length >= Game.gcl.level) {
-      return;
-    }
     if (!flag.room) {
       return;
     }
-    const exits = Game.map.describeExits(room.name);
-    if (!_.find(exits, roomName => roomName === flag.room.name)) {
+    if (room.name !== flag.room.name) {
+      return;
+    }
+    const rooms = _.filter(Game.rooms, room => room.controller.my);
+    if (rooms.length >= Game.gcl.level) {
       return;
     }
     return {
