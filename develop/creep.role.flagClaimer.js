@@ -15,7 +15,8 @@ module.exports = {
     if (rooms.length >= Game.gcl.level) {
       return;
     }
-    if (!_.find(Game.map.describeExits(room.name), room => room.name === claimFlag.room.name)) {
+    const exits = Game.map.describeExits(room.name);
+    if (!_.find(exits, roomName => roomName === claimFlag.room.name)) {
       return;
     }
     return true;
