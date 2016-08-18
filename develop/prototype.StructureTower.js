@@ -37,10 +37,26 @@ function repairMostDamagedStructure(room, validate, tower) {
 
 StructureTower.prototype.repairStructure =
   function () {
-    return repairMostDamagedStructure(this.room, structureType => structureType !== STRUCTURE_WALL, this);
+    return repairMostDamagedStructure(
+      this.room,
+      structureType =>
+        [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) === -1,
+      this
+    );
   };
 
 StructureTower.prototype.repairWall =
   function () {
-    return repairMostDamagedStructure(this.room, structureType => structureType === STRUCTURE_WALL, this);
+    if (!this.room.storage) {
+      return;
+    }
+    if (!this.room.storage.isFull({ percentage: 0.1 })) {
+      return;
+    }
+    return repairMostDamagedStructure(
+      this.room,
+      structureType =>
+        [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) !== -1,
+      this
+    );
   };
