@@ -1,6 +1,6 @@
 'use strict';
 
-const openBuildOrders = require('./memory.openBuildOrders');
+const openNeededStructures = require('./memory.openNeededStructures');
 
 function getNeededAmount(room, structureType, maxNeededAmount) {
   const controllerMaxAmount = CONTROLLER_STRUCTURES[structureType][room.controller.level];
@@ -49,7 +49,7 @@ module.exports = room => {
   let neededStructures = getNeededStructures(room);
 
   neededStructures = filterAvailableStructures(room, neededStructures);
-  openBuildOrders.set(room.name, neededStructures);
+  openNeededStructures.set(room.name, neededStructures);
 
   neededStructures = filterAvailableConstructionSites(room, neededStructures);
   if (neededStructures.length > 0) {
