@@ -11,41 +11,39 @@ function getNeededAmount(room, structureType, maxNeededAmount) {
 }
 
 function getNeededStructures(room) {
-  var neededStructures = {};
-  neededStructures[STRUCTURE_SPAWN]     = getNeededAmount(room, STRUCTURE_SPAWN);
-  neededStructures[STRUCTURE_EXTENSION] = getNeededAmount(room, STRUCTURE_EXTENSION);
-  neededStructures[STRUCTURE_TOWER]     = getNeededAmount(room, STRUCTURE_TOWER);
-  neededStructures[STRUCTURE_STORAGE]   = getNeededAmount(room, STRUCTURE_STORAGE, room.find(FIND_SOURCES).length);
-  neededStructures[STRUCTURE_CONTAINER] = getNeededAmount(room, STRUCTURE_CONTAINER, room.find(FIND_SOURCES).length - structures[STRUCTURE_STORAGE]);
+  var neededStructures = new Map();
+
+  neededStructures.set(STRUCTURE_SPAWN,     getNeededAmount(room, STRUCTURE_SPAWN));
+  neededStructures.set(STRUCTURE_EXTENSION, getNeededAmount(room, STRUCTURE_EXTENSION));
+  neededStructures.set(STRUCTURE_TOWER,     getNeededAmount(room, STRUCTURE_TOWER));
+
+  var sources = room.find(FIND_SOURCES);
+  neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, sources.length));
+  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, sources.length - structures[STRUCTURE_STORAGE]));
+
   return neededStructures;
 }
 
-function filterAvailableStructures(room, neededStructures) {
-  var filteredNeededStructures = {};
-  _.each(neededStructures, (neededAmount, neededStructureType) => {
-    var availableStructures = room.find(FIND_STRUCTURES, {
+function filterRoomObjects(room, neededStructures, FIND) {
+  var filteredNeededStructures = new Map();
+  neededStructures.forEach((neededAmount, neededStructureType) => {
+    var availableRoomObjects = room.find(FIND, {
       filter: structure => structure.structureType === neededStructureType
     });
-    neededAmount = neededAmount - availableStructures.length;
+    neededAmount = neededAmount - availableRoomObjects.length;
     if (neededAmount > 0) {
-      filteredNeededStructures[neededStructureType] = neededAmount;
+      filteredNeededStructures.set(neededStructureType, neededAmount);
     }
   });
   return filteredNeededStructures;
 }
 
+function filterAvailableStructures(room, neededStructures) {
+  return filterRoomObjects(room, neededStructures, FIND_STRUCTURES);
+}
+
 function filterAvailableConstructionSites(room, neededStructures) {
-  var filteredNeededStructures = {};
-  _.each(neededStructures, (neededAmount, neededStructureType) => {
-    var availableConstructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
-      filter: constructionSite => constructionSite.structureType === neededStructureType
-    });
-    neededAmount = neededAmount - availableConstructionSites.length;
-    if (neededAmount > 0) {
-      filteredNeededStructures[neededStructureType] = neededAmount;
-    }
-  });
-  return filteredNeededStructures;
+  return filterRoomObjects(room, neededStructures, FIND_MY_CONSTRUCTION_SITES);
 }
 
 module.exports = room => {
@@ -55,7 +53,7 @@ module.exports = room => {
   openBuildOrders.set(room.name, neededStructures);
 
   neededStructures = filterAvailableConstructionSites(room, neededStructures);
-  if (Object.keys(neededStructures).length) {
+  if (neededStructures.length) {
     console.log('------------------------------ ROOM NEEDED CONSTRUCTION SITES ------------------------------');
     console.log(room.name);
     console.log(JSON.stringify(neededStructures));
