@@ -4,37 +4,33 @@ const openNeededStructures = require('./memory.openNeededStructures');
 
 function getNeededAmount(room, structureType, maxNeededAmount) {
   const controllerMaxAmount = CONTROLLER_STRUCTURES[structureType][room.controller.level];
-  if (maxNeededAmount) {
-    Math.min(controllerMaxAmount, maxNeededAmount);
+  if (typeof maxNeededAmount === 'number') {
+    return Math.min(controllerMaxAmount, maxNeededAmount);
   }
   return controllerMaxAmount;
 }
 
 function getNeededStructures(room) {
-  const neededStructures = new Map();
+  const neededStructures = {};
 
-  neededStructures.set(STRUCTURE_SPAWN,     getNeededAmount(room, STRUCTURE_SPAWN));
-  neededStructures.set(STRUCTURE_EXTENSION, getNeededAmount(room, STRUCTURE_EXTENSION));
-  neededStructures.set(STRUCTURE_TOWER,     getNeededAmount(room, STRUCTURE_TOWER));
+  neededStructures[STRUCTURE_SPAWN]     = getNeededAmount(room, STRUCTURE_SPAWN);
+  neededStructures[STRUCTURE_EXTENSION] = getNeededAmount(room, STRUCTURE_EXTENSION);
+  neededStructures[STRUCTURE_TOWER]     = getNeededAmount(room, STRUCTURE_TOWER);
 
-  neededStructures.set(STRUCTURE_STORAGE,   getNeededAmount(room, STRUCTURE_STORAGE, room.getSourcesAmount()));
-  neededStructures.set(STRUCTURE_CONTAINER, getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - neededStructures.get(STRUCTURE_STORAGE)));
+  neededStructures[STRUCTURE_STORAGE]   = getNeededAmount(room, STRUCTURE_STORAGE, room.getSourcesAmount());
+  neededStructures[STRUCTURE_CONTAINER] = getNeededAmount(room, STRUCTURE_CONTAINER, room.getSourcesAmount() - neededStructures[STRUCTURE_STORAGE]);
 
-  return neededStructures;
+  return _.filter(neededStructures, neededAmount => neededAmount);
 }
 
 function filterRoomObjects(room, neededStructures, FIND) {
-  const filteredNeededStructures = new Map();
-  neededStructures.forEach((neededAmount, neededStructureType) => {
+  return _.filter(neededStructures, (neededAmount, neededStructureType) => {
     const availableRoomObjects = room.find(FIND, {
       filter: structure => structure.structureType === neededStructureType
     });
     neededAmount = neededAmount - availableRoomObjects.length;
-    if (neededAmount > 0) {
-      filteredNeededStructures.set(neededStructureType, neededAmount);
-    }
+    return neededAmount > 0;
   });
-  return filteredNeededStructures;
 }
 
 function filterAvailableStructures(room, neededStructures) {
@@ -49,13 +45,13 @@ module.exports = room => {
   let neededStructures = getNeededStructures(room);
 
   neededStructures = filterAvailableStructures(room, neededStructures);
-  openNeededStructures.set(room.name, neededStructures);
+  openNeededStructures.setNeededStructures(room.name, neededStructures);
 
   neededStructures = filterAvailableConstructionSites(room, neededStructures);
-  if (neededStructures.length > 0) {
+  if (_.sum(neededStructures) > 0) {
     console.log('------------------------------ ROOM NEEDED CONSTRUCTION SITES ------------------------------');
     console.log(room.name);
-    neededStructures.forEach((neededAmount, neededStructureType) => {
+    _.each(neededStructures, (neededAmount, neededStructureType) => {
       console.log(neededStructureType, neededAmount);
     });
     console.log('--------------------------------------------------------------------------------------------');
