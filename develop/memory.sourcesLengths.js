@@ -1,19 +1,21 @@
 'use strict';
 
+const garbageCollector = require('./garbageCollector');
+
 function init() {
   if (!Memory.sourcesLengths) {
     Memory.sourcesLengths = {};
   }
 }
 
-module.exports.garbageCollector = () => {
+garbageCollector.addGarbageCollector(() => {
   init();
   for(let roomName in Memory.sourcesLengths) {
     if(!Game.rooms[roomName]) {
       delete Memory.sourcesLengths[roomName];
     }
   }
-};
+});
 
 module.exports.getSourcesLength = roomName => {
   init();

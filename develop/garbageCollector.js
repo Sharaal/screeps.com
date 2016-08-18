@@ -1,21 +1,28 @@
 'use strict';
 
-const harvestSourcePositions = require('./memory.harvestSourcePositions');
-const openBuildOrders = require('./memory.openBuildOrders');
-const sourcesLengths = require('./memory.sourcesLengths');
+const garbageCollectors = [
+  () => {
+    for(let creepName in Memory.creeps) {
+      if(!Game.creeps[creepName]) {
+        delete Memory.creeps[creepName];
+      }
+    }
+  },
+  () => {
+    for (let spawnName in Memory.spawns) {
+      if (!Game.spawns[spawnName]) {
+        delete Memory.spawns[spawnName];
+      }
+    }
+  }
+];
 
-module.exports = () => {
-  for(let creepName in Memory.creeps) {
-    if(!Game.creeps[creepName]) {
-      delete Memory.creeps[creepName];
-    }
+module.exports.addGarbageCollector = garbageCollector => {
+  garbageCollectors.push(garbageCollector);
+};
+
+module.exports.garbageCollect = () => {
+  for (let garbageCollector of garbageCollectors) {
+    garbageCollector();
   }
-  for (let spawnName in Memory.spawns) {
-    if (!Game.spawns[spawnName]) {
-      delete Memory.spawns[spawnName];
-    }
-  }
-  harvestSourcePositions.garbageCollector();
-  openBuildOrders.garbageCollector();
-  sourcesLengths.garbageCollector();
 };

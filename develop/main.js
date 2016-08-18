@@ -23,7 +23,7 @@ const roles = {
 module.exports.loop = () => {
   migration(roles);
   if (time(100)) {
-    garbageCollector();
+    garbageCollector.garbageCollect();
   }
   _.each(Game.creeps, creepController(roles));
   _.each(Game.rooms, roomController(roles));

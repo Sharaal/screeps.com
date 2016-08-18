@@ -1,19 +1,21 @@
 'use strict';
 
+const garbageCollector = require('./garbageCollector');
+
 function init() {
   if (!Memory.harvestSourcePositions) {
     Memory.harvestSourcePositions = {};
   }
 }
 
-module.exports.garbageCollector = () => {
+garbageCollector.addGarbageCollector(() => {
   init();
   for(let roomName in Memory.harvestSourcePositions) {
     if(!Game.rooms[roomName]) {
       delete Memory.harvestSourcePositions[roomName];
     }
   }
-};
+});
 
 function getHarvestSourcePosition(roomName) {
   const harvestSourcePosition = {};

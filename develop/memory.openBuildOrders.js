@@ -1,19 +1,21 @@
 'use strict';
 
+const garbageCollector = require('./garbageCollector');
+
 function init() {
   if (!Memory.openBuildOrders) {
     Memory.openBuildOrders = {};
   }
 }
 
-module.exports.garbageCollector = () => {
+garbageCollector.addGarbageCollector(() => {
   init();
   for(let roomName in Memory.openBuildOrders) {
     if(!Game.rooms[roomName]) {
       delete Memory.openBuildOrders[roomName];
     }
   }
-};
+});
 
 module.exports.set = (roomName, buildOrders) => {
   init();
