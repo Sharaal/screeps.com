@@ -9,30 +9,20 @@ StructureTower.prototype.attackHostileCreep =
     }
   };
 
-function getDamagedStructures(room, validate) {
-  const structures = room.find(FIND_STRUCTURES, {
+function repairMostDamagedStructure(room, validate, tower) {
+  let structures = room.find(FIND_STRUCTURES, {
     filter: structure =>
       validate(structure.structureType)
       &&
       structure.hits < structure.hitsMax
   });
-  return structures;
-}
-
-function getMostDamagedStructure(room, validate) {
-  let structures = getDamagedStructures(room, validate);
-  if (structures.length > 0) {
-    structures = _.sortBy(structures, structure => structure.hits);
-    return structures[0];
+  if (structures.length === 0) {
+    return;
   }
-}
-
-function repairMostDamagedStructure(room, validate, tower) {
-  const structure = getMostDamagedStructure(room, validate);
-  if (structure) {
-    tower.repair(structure);
-    return true;
-  }
+  structures = _.sortBy(structures, structure => structure.hits);
+  const structure = structures[0];
+  tower.repair(structure);
+  return true;
 }
 
 StructureTower.prototype.repairStructure =
@@ -47,16 +37,26 @@ StructureTower.prototype.repairStructure =
 
 StructureTower.prototype.repairWall =
   function () {
-    if (!this.room.storage) {
-      return;
-    }
-    if (!this.room.storage.isFull({ percentage: 0.1 })) {
-      return;
-    }
     return repairMostDamagedStructure(
       this.room,
       structureType =>
         [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) !== -1,
       this
     );
+  };
+
+StructureTower.prototype.rescueRampart =
+  function () {
+    let structures = this.room.find(FIND_STRUCTURES, {
+      filter: structure =>
+        structure.structureType === STRUCTURE_RAMPART
+        &&
+        structure.ticksToDecay <= 10
+    });
+    if (structures.length === 0) {
+      return;
+    }
+    const structure = structures[0];
+    this.repair(structure);
+    return true;
   };
