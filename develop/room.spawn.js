@@ -1,6 +1,5 @@
 'use strict';
 
-const transformBody = require('./util.transformBody');
 const levels = [
   require('./room.spawn.level.1'),
   require('./room.spawn.level.2'),
@@ -10,6 +9,14 @@ const levels = [
 
   require('./room.spawn.rescuer')
 ];
+
+function transformBody(body) {
+  let parts = [];
+  _.each(body, (amount, part) => {
+    parts = parts.concat(Array.apply({}, Array(amount)).map(() => part));
+  });
+  return parts;
+};
 
 module.exports = roles => room => {
   let highestLevel;
