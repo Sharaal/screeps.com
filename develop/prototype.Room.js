@@ -42,5 +42,11 @@ Room.prototype.getNeighboringSpawnConstructionSite =
 
 Room.prototype.getSourcesAmount =
   function () {
-    return sourcesAmounts.getSourcesAmount(this.name);
+    let sourcesAmount;
+    if (this.hasFlag(/^source/)) {
+      sourcesAmount = 1;
+    } else {
+      sourcesAmount = sourcesAmounts.getSourcesAmount(this.name);
+    }
+    return sourcesAmount;
   };
