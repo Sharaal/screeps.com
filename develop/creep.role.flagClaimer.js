@@ -1,20 +1,13 @@
 'use strict';
 
-const spawnFlagName = 'claim spawn';
-const targetFlagName = 'claim target';
-
 module.exports = {
   activities: {
-    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', { flagName: targetFlagName }),
+    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', { flagName: 'claim target' }),
     'claimController': require('./creep.activity.claimController')('suicide'),
     'suicide':         require('./creep.activity.suicide')
   },
   spawn: room => {
-    const flag = Game.flags[spawnFlagName];
-    if (!flag) {
-      return;
-    }
-    if (!flag.room || room.name !== flag.room.name) {
+    if (!room.hasFlag(/^claim spawn/)) {
       return;
     }
     const rooms = _.filter(Game.rooms, room => room.controller.my);

@@ -2,7 +2,14 @@
 
 const harvestSourcePositions = require('./memory.harvestSourcePositions');
 
-function find(creep) {
+function findBySourceFlag(creep) {
+  const flag = creep.room.getFlag(/^source/);
+  if (flag) {
+    return flag.pos.findClosestByRange(FIND_SOURCES);
+  }
+}
+
+function findByCreepDistribution(creep) {
   let sources = creep.room.find(FIND_SOURCES);
   if (sources.length === 0) {
     creep.error('missing source');
@@ -17,6 +24,10 @@ function find(creep) {
     }
   );
   return sources[0];
+}
+
+function find(creep) {
+  return findBySourceFlag(creep) || findByCreepDistribution(creep);
 }
 
 module.exports = (full, next) => creep => {

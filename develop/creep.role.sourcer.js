@@ -19,10 +19,20 @@ module.exports = {
     if (room.energyCapacityAvailable >= 1150) {
       body = { carry: 2, move: 1, work: 10 };
     }
+
+    let sources;
+    const flag = room.getFlag(/^source/);
+    if (flag) {
+      sources = [flag.pos.findClosestByRange(FIND_SOURCES)];
+    } else {
+      sources = room.find(FIND_SOURCES);
+    }
+
     let roomAmount = 0;
-    _.each(room.find(FIND_SOURCES), source => {
+    _.each(sources, source => {
       roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), 8 / body.work);
     });
+
     return {
       priority: availableRoomAmount => roomAmount / (availableRoomAmount || 1),
       body: body,

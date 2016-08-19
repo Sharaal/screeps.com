@@ -11,7 +11,13 @@ module.exports = {
     'transferEnergyStorage':   require('./creep.activity.transferEnergyStorage')  ('transferStructure',     empty)
   },
   spawn: room => {
-    const roomAmount = room.getSourcesAmount() * 3;
+    let sourcesAmount;
+    if (room.hasFlag(/^source/)) {
+      sourcesAmount = 1;
+    } else {
+      sourcesAmount = room.getSourcesAmount();
+    }
+    const roomAmount = sourcesAmount * 3;
     return {
       priority: availableRoomAmount => roomAmount / (availableRoomAmount || 1),
       body: { carry: 2, move: 1 },
