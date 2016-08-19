@@ -3,6 +3,15 @@
 const openNeededStructures = require('./memory.openNeededStructures');
 const sourcesAmounts = require('./memory.sourcesAmounts');
 
+Room.prototype.hasFlag =
+Room.prototype.getFlag =
+  function (flagNameRegex) {
+    const flags = this.find(FIND_FLAGS, { filter: flag => flagNameRegex.test(flag.name) });
+    if (flags.length > 0) {
+      return flags[0];
+    }
+  };
+
 Room.prototype.isHeavyUpgradeable =
   function () {
     if (!openNeededStructures.isFinished(this.name)) {
@@ -33,5 +42,11 @@ Room.prototype.getNeighboringSpawnConstructionSite =
 
 Room.prototype.getSourcesAmount =
   function () {
-    return sourcesAmounts.getSourcesAmount(this.name);
+    let sourcesAmount;
+    if (this.hasFlag(/^source/)) {
+      sourcesAmount = 1;
+    } else {
+      sourcesAmount = sourcesAmounts.getSourcesAmount(this.name);
+    }
+    return sourcesAmount;
   };

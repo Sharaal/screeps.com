@@ -12,20 +12,30 @@ module.exports = {
     'dropEnergy':              require('./creep.activity.dropEnergy')             (empty)
   },
   spawn: room => {
-    let workBodypartAmount = 2;
+    let body = { carry: 1, move: 1, work: 2 };
     if (room.energyCapacityAvailable >= 500) {
-      workBodypartAmount = 4;
+      body = { carry: 1, move: 1, work: 4 };
     }
-    if (room.energyCapacityAvailable >= 900) {
-      workBodypartAmount = 8;
+    if (room.energyCapacityAvailable >= 1150) {
+      body = { carry: 2, move: 1, work: 10 };
     }
+
+    let sources;
+    const flag = room.getFlag(/^source/);
+    if (flag) {
+      sources = [flag.pos.findClosestByRange(FIND_SOURCES)];
+    } else {
+      sources = room.find(FIND_SOURCES);
+    }
+
     let roomAmount = 0;
-    _.each(room.find(FIND_SOURCES), source => {
-      roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), 8 / workBodypartAmount);
+    _.each(sources, source => {
+      roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), 8 / body.work);
     });
+
     return {
       priority: availableRoomAmount => roomAmount / (availableRoomAmount || 1),
-      body: { carry: 1, move: 1, work: workBodypartAmount },
+      body: body,
       roomAmount: roomAmount
     };
   }

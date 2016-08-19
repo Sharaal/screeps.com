@@ -14,7 +14,7 @@ module.exports = {
   },
   spawn: room => {
     const creeps = room.find(FIND_MY_CREEPS);
-    if (creeps.length > 0) {
+    if (creeps.length > 0 && room.controller.ticksToDowngrade >= 2500) {
       return;
     }
     return {

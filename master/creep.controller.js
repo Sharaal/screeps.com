@@ -9,6 +9,9 @@ module.exports = roles => creep => {
     creep.error('unknown role', { role: creep.memory.role });
     return;
   }
+  if (role.disableNotifyWhenAttacked) {
+    creep.notifyWhenAttacked(false);
+  }
   const activity = role.activities[creep.memory.activity];
   if (!activity) {
     creep.error('unknown activity', { activity: creep.memory.activity, role: creep.memory.role });

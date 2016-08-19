@@ -29,8 +29,12 @@
 - carrier: Pick up energy or draw it from the energy container/storage 
   to transfer it to a spawn, extension, tower or energy storage
 
-- flagClaimer: Move to the "claim" flag and claim the room. Only one 
-  will be built if there is a flag 
+- flagAttacker: Will be built in the room with the "attack spawn" flat, 
+  move to the "attack target" flag and attack hostile towers, creeps,
+  spawns and structures
+  
+- flagClaimer: Will be built in the room with the "claim spawn" flat, 
+  move to the "claim target" flag and claim the neutral controller
 
 - rescuer: Pick up energy, draw it from the energy container/storage or
   harvest it from a source to rescue the controller or transfer it to a 
@@ -49,6 +53,10 @@
   
 #### Activities
 
+- attackHostile: Search and attack the closest hostile tower, creep, 
+  spawn or structure 
+  - next if there is no more hostile target
+
 - buildConstructionSite: Search the closest construction site, move to 
   and build it (if the creep stays on a harvest position of a source, it
   will first go away from it bevor start to build)
@@ -60,23 +68,25 @@
   - next if there is no more construction site which is a spawn
   - nearlyEmpty if energy of creep is nearly empty
   
+- claimController: claim the neutral controller in the room
+  - next if the controller is claimed
+  
 - dropEnergy: Drop all the energy of the creep
   - empty after dropping the energy
-  
-- flagClaimNeutralController: Search the flag named "claim" move to it
-  and claim the controller of that room
-  - next if the controller is claimed
   
 - harvestSource: Search a random source (and save it forever in the 
   creep memory to split the creeps depending on the amount of creeps and 
   harvest positions), move to it and harvest 
-  - next if the energy of the creep is full
-  - empty if there is no more energy in the source
+  - full if the energy of the creep is full
+  - next if there is no more energy in the source
+  
+- moveToFlag: Move into the range of the flag with the given name
+  - next if the creep is in range of the flag
   
 - pickupDroppedEnergy: Search the next dropped energy, move to it and 
   pick it up
-  - next if the energy of the creep is full
-  - empty if there is no more dropped energy
+  - full if the energy of the creep is full
+  - next if there is no more dropped energy
   
 - suicide: The creep suicide
   
@@ -105,30 +115,43 @@
   
 - withdrawEnergyContainer: Search the next container with energy 
   available, move to it and draw energy
-  - next if the energy of the creep is full
-  - empty if there is no more energy in a container
+  - full if the energy of the creep is full
+  - next if there is no more energy in a container
   
 - withdrawEnergyStorage: Search the next storage with energy available,
   move to it and draw energy
-  - next if the energy of the creep is full
-  - empty if there is no more energy in a storage
+  - full if the energy of the creep is full
+  - next if there is no more energy in a storage
   
   
 ### Claiming
 
-1. Set a flag named "claim" in a neutral room besides an own room able
-   to build a flagClaimer
+1. Set a flag named "claim spawn" in the room which should built the
+   flagClaimer 
    
-2. After claim the room create a spawn in that room besides an own room 
-   able to build a storageSpawnBuilder
+2. Set a flag named "claim target" in the room which should 
+   be claimed 
+   
+3. After claim the neutral controller of the room, create a spawn and a 
+   room besides which is able to build a spawnBuilder will build it
+  
+  
+### Attacking
+
+1. Set a flag named "attack spawn" in the room which should built the
+   flagAttacker 
+
+2. Set a flag named "attack target" in the room which 
+   should be attacked
    
   
 ## Towers
 
 - A tower decides in every tick the best thing to do in this order:
   - Attack a hostile creep
-  - Repair a structure (only if energy > 50%)
-  - Repair a wall (only if energy > 75%)
+  - Repair a structure (only if tower energy >= 50%)
+  - Repair a rampart/wall (only if tower energy >= 75% and storage 
+    energy >= 75%)
   
   
 ## Structures
@@ -138,29 +161,3 @@
   
 - If there is a missing structures, depending on the controller level 
   and the amount of sources, they will be outputted in the console
-
-  
-# Ideas
-
-- Add "renew" functionality:
-  - Finish implementation of the "renew" activity, run it for creeps, 
-    which are currently besides the spawn
-  - Creeps which can't be rebuild (body larger as the room can build)
-    should go always to the spawn to "renew" 
-
-- Automatically building structures possible?
-  - Find out which structures are buildable (extensions, towers, 
-    storage) depending on the room controller level
-  - Find out which positions on the map are good to use (extensions and
-    towers near to the source, storage directly beside the source)
-  - Build roads between the buildings
-  
-- Automatically "claim" functionality:
-  - Activity "claim" which selects an adjoining room with a neutral
-    controller and move to / claim it
-  - Role "claim" with condition only to build if the gcl is higher as
-    the amount of own rooms including to count the creeps which are
-    already on the way to claim and only if there is an adjoining room
-    with a neutral controller
-  - Add the role to all room spawn level which have enough energy to
-    build a creep with "claim" and "move" body parts
