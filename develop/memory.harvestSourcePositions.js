@@ -48,7 +48,7 @@ function getHarvestSourcePosition(roomName) {
 
 function getHarvestSourcePositions(roomName) {
   init();
-  if (!Memory.harvestSourcePositions[roomName]) {
+  if (roomName === 'sim' || !Memory.harvestSourcePositions[roomName]) {
     Memory.harvestSourcePositions[roomName] = getHarvestSourcePosition(roomName);
   }
   return Memory.harvestSourcePositions[roomName];

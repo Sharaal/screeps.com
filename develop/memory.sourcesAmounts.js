@@ -19,7 +19,7 @@ garbageCollector.addGarbageCollector(() => {
 
 module.exports.getSourcesAmount = roomName => {
   init();
-  if (typeof Memory.sourcesAmounts[roomName] !== 'number') {
+  if (roomName === 'sim' || typeof Memory.sourcesAmounts[roomName] !== 'number') {
     const room = Game.rooms[roomName];
     if(room) {
       Memory.sourcesAmounts[roomName] = room.find(FIND_SOURCES).length;
