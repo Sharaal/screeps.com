@@ -51,7 +51,7 @@ StructureTower.prototype.rescueRampart =
       filter: structure =>
         structure.structureType === STRUCTURE_RAMPART
         &&
-        structure.ticksToDecay <= 10
+        structure.hits <= RAMPART_DECAY_AMOUNT
     });
     if (structures.length === 0) {
       return;

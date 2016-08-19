@@ -14,7 +14,7 @@ module.exports = tower => {
   }
   if (tower.isFull({ percentage: 0.75 })
       &&
-      (tower.room.storage && tower.room.storage.isFull({ percentage: 0.1 }))) {
+      (tower.room.storage && tower.room.storage.isFull({ percentage: 0.75 }))) {
     if (tower.repairWall()) {
       return;
     }
