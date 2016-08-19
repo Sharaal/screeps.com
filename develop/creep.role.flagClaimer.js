@@ -22,7 +22,7 @@ module.exports = {
       return;
     }
     return {
-      body: { claim: 1, move: 3 },
+      body: { claim: 1, move: 1 },
       mapAmount: 1
     };
   }
