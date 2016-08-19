@@ -8,10 +8,7 @@ Room.prototype.isHeavyUpgradeable =
     if (!openNeededStructures.isFinished(this.name)) {
       return;
     }
-    if (!this.storage) {
-      return;
-    }
-    return this.storage.isFull({ percentage: 0.75 });
+    return this.storage && this.storage.isFull({ percentage: 0.75 });
   };
 
 Room.prototype.hasNeighboringSpawnConstructionSite =

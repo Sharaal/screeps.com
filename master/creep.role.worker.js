@@ -1,6 +1,7 @@
 'use strict';
 
 const empty = 'withdrawEnergyStorage';
+
 module.exports = {
   activities: {
     'withdrawEnergyStorage':   require('./creep.activity.withdrawEnergyStorage')  ('rescueController',      'withdrawEnergyContainer'),
