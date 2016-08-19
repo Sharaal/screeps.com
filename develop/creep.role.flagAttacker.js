@@ -17,7 +17,8 @@ module.exports = {
       return;
     }
     return {
-      body: { attack: 5, move: 5 }
+      body: { attack: 5, move: 5 },
+      disableNotifyWhenAttacked: true
     };
   }
 };
