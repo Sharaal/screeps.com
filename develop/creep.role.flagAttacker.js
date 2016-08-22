@@ -2,7 +2,8 @@
 
 module.exports = {
   activities: {
-    'moveToFlag':    require('./creep.activity.moveToFlag')   ('attackHostile', { flagName: 'attack target' }),
+    'moveToFlag':    require('./creep.activity.moveToFlag')   ('attackHostile', 'attackWall', { flagName: 'attack target' }),
+    'attackWall':    require('./creep.activity.attackWall')   ('moveToFlag'),
     'attackHostile': require('./creep.activity.attackHostile')('moveToFlag')
   },
   spawn: room => {

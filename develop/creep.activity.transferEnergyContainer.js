@@ -27,7 +27,7 @@ module.exports = (next, empty, opts) => creep => {
   if (creep.isEmpty()) {
     return empty;
   }
-  const energyContainer = creep.getMemoryObject('transferEnergyContainer', validate, getFind(opts.range));
+  const energyContainer = creep.getMemoryObject('transferEnergyContainer', getFind(opts.range), { validate: validate });
   if (!energyContainer) {
     return next;
   }

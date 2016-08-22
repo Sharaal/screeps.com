@@ -2,7 +2,7 @@
 
 module.exports = {
   activities: {
-    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', { flagName: 'claim target' }),
+    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', 'moveToFlag', { flagName: 'claim target' }),
     'claimController': require('./creep.activity.claimController')('suicide'),
     'suicide':         require('./creep.activity.suicide')
   },
