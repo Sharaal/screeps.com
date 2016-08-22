@@ -29,8 +29,7 @@ StructureTower.prototype.repairStructure =
   function () {
     return repairMostDamagedStructure(
       this.room,
-      structureType =>
-        [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) === -1,
+      structureType => [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) === -1,
       this
     );
   };
@@ -39,8 +38,7 @@ StructureTower.prototype.repairWall =
   function () {
     return repairMostDamagedStructure(
       this.room,
-      structureType =>
-        [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) !== -1,
+      structureType => [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structureType) !== -1,
       this
     );
   };
