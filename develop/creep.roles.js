@@ -4,6 +4,7 @@ module.exports = {
   'carrier':      require('./creep.role.carrier'),
   'flagAttacker': require('./creep.role.flagAttacker'),
   'flagClaimer':  require('./creep.role.flagClaimer'),
+  'neighboringSourcer':  require('./creep.role.neighboringSourcer'),
   'rescuer':      require('./creep.role.rescuer'),
   'sourcer':      require('./creep.role.sourcer'),
   'spawnBuilder': require('./creep.role.spawnBuilder'),
