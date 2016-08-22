@@ -20,6 +20,11 @@ Room.prototype.isHeavyUpgradeable =
     return this.storage && this.storage.isFull({ percentage: 0.75 });
   };
 
+Room.prototype.isMy =
+  function () {
+    return this.controller && this.controller.my;
+  };
+
 Room.prototype.hasNeighboringSpawnConstructionSite =
 Room.prototype.getNeighboringSpawnConstructionSite =
   function () {
@@ -27,7 +32,7 @@ Room.prototype.getNeighboringSpawnConstructionSite =
     const exits = Game.map.describeExits(this.name);
     _.each(exits, roomName => {
       const room = Game.rooms[roomName];
-      if (!room || !room.controller.my) {
+      if (!room || !room.isMy()) {
         return;
       }
       const spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {

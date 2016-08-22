@@ -10,7 +10,7 @@ module.exports = {
     if (!room.hasFlag(/^claim spawn/)) {
       return;
     }
-    const rooms = _.filter(Game.rooms, room => room.controller.my);
+    const rooms = _.filter(Game.rooms, room => room.isMy());
     if (rooms.length >= Game.gcl.level) {
       return;
     }

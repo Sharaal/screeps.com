@@ -7,7 +7,7 @@ function find(creep) {
 }
 
 module.exports = next => creep => {
-  if (creep.room.controller && creep.room.controller.my) {
+  if (creep.room.isMy()) {
     return next;
   }
   const wall = creep.getMemoryObject('attackWall', find, { disableFindAgain: true });
