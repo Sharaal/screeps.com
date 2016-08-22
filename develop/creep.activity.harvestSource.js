@@ -3,7 +3,7 @@
 const harvestSourcePositions = require('./memory.harvestSourcePositions');
 
 function findBySourceFlag(creep) {
-  const flag = creep.room.getFlag(/^source/);
+  const flag = creep.room.getFlag(creep.memory.flagName || /^source/);
   if (flag) {
     return flag.pos.findClosestByRange(FIND_SOURCES);
   }
