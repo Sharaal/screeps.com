@@ -30,8 +30,9 @@
   to transfer it to a spawn, extension, tower or energy storage
 
 - flagAttacker: Will be built in the room with the "attack spawn" flat, 
-  move to the "attack target" flag and attack hostile towers, creeps,
-  spawns and structures
+  move to the "attack target" flag (destroys ramparts/walls if they 
+  block the way) and attack hostile towers, creeps, spawns and 
+  structures
   
 - flagClaimer: Will be built in the room with the "claim spawn" flat, 
   move to the "claim target" flag and claim the neutral controller
@@ -56,6 +57,10 @@
 - attackHostile: Search and attack the closest hostile tower, creep, 
   spawn or structure 
   - next if there is no more hostile target
+
+- attackHostile: Search and attack the closest rampart/wall and attack 
+  it
+  - next if there is no rampart/wall or one is destroyed
 
 - buildConstructionSite: Search the closest construction site, move to 
   and build it (if the creep stays on a harvest position of a source, it
@@ -82,6 +87,7 @@
   
 - moveToFlag: Move into the range of the flag with the given name
   - next if the creep is in range of the flag
+  - noPath if there is no path from the creep to the flag
   
 - pickupDroppedEnergy: Search the next dropped energy, move to it and 
   pick it up
