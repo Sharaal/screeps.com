@@ -11,6 +11,7 @@ module.exports = {
       return;
     }
     const spawns = [];
+    const exits = Game.map.describeExits(room.name);
     _.each(exits, roomName => {
       if (Game.rooms[roomName] && Game.rooms[roomName].isMy()) {
         return;
