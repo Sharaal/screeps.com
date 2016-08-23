@@ -25,6 +25,12 @@ Room.prototype.isMy =
     return this.controller && this.controller.my;
   };
 
+Room.prototype.isMyReserved =
+  function () {
+    const username = Game.spawns[Object.keys(Game.spawns)[0]].owner.username;
+    return this.controller && this.controller.reservation && this.controller.reservation.username === username;
+  };
+
 Room.prototype.hasNeighboringSpawnConstructionSite =
 Room.prototype.getNeighboringSpawnConstructionSite =
   function () {
