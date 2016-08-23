@@ -35,7 +35,7 @@ module.exports = (next, empty) => creep => {
     creep.removeMemoryObject('transferStructure');
     return empty;
   }
-  const structure = creep.getMemoryObject('transferStructure', validate, find);
+  const structure = creep.getMemoryObject('transferStructure', find, { validate: validate });
   if (!structure) {
     return next;
   }

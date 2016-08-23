@@ -29,12 +29,21 @@
 - carrier: Pick up energy or draw it from the energy container/storage 
   to transfer it to a spawn, extension, tower or energy storage
 
-- flagAttacker: Will be built in the room with the "attack spawn" flat, 
-  move to the "attack target" flag and attack hostile towers, creeps,
-  spawns and structures
+- flagAttacker: Will be built in the room with the "attack spawn ..." 
+  flag, move to the "attack target" flag (destroys ramparts/walls if 
+  they block the way) and attack hostile towers, creeps, spawns and 
+  structures
   
-- flagClaimer: Will be built in the room with the "claim spawn" flat, 
+- flagClaimer: Will be built in the room with the "claim spawn" flag, 
   move to the "claim target" flag and claim the neutral controller
+  
+- neighboringSourcer: Move to the flag "source ..." in the adjacent 
+  room, harvest the source and transfer the energy back to the own 
+  storage
+  
+- neighboringSourcer: Move to the flag "source ..." in the adjacent 
+  room, harvest the source and transfer the energy back to the own 
+  storage
 
 - rescuer: Pick up energy, draw it from the energy container/storage or
   harvest it from a source to rescue the controller or transfer it to a 
@@ -56,6 +65,10 @@
 - attackHostile: Search and attack the closest hostile tower, creep, 
   spawn or structure 
   - next if there is no more hostile target
+
+- attackHostile: Search and attack the closest rampart/wall and attack 
+  it
+  - next if there is no rampart/wall or one is destroyed
 
 - buildConstructionSite: Search the closest construction site, move to 
   and build it (if the creep stays on a harvest position of a source, it
@@ -82,11 +95,15 @@
   
 - moveToFlag: Move into the range of the flag with the given name
   - next if the creep is in range of the flag
+  - noPath if there is no path from the creep to the flag
   
 - pickupDroppedEnergy: Search the next dropped energy, move to it and 
   pick it up
   - full if the energy of the creep is full
   - next if there is no more dropped energy
+  
+- reserveController: reserve the neutral controller in the room
+  - next if the controller is reserved one time
   
 - suicide: The creep suicide
   
@@ -138,11 +155,18 @@
   
 ### Attacking
 
-1. Set a flag named "attack spawn" in the room which should built the
-   flagAttacker 
+1. Set a flag named "attack spawn ..." in all rooms which should built 
+   the flagAttacker 
 
 2. Set a flag named "attack target" in the room which 
    should be attacked
+   
+   
+### Harvesting adjacent rooms
+
+- Set a flag named "reserve ..." at every controller to reserve it
+   
+- Set a flag named "source ..." at every source should be harvest
    
   
 ## Towers

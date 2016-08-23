@@ -17,7 +17,18 @@ Room.prototype.isHeavyUpgradeable =
     if (!openNeededStructures.isFinished(this.name)) {
       return;
     }
-    return this.storage && this.storage.isFull({ percentage: 0.75 });
+    return this.storage && this.storage.isFull({ percentage: 0.5 });
+  };
+
+Room.prototype.isMy =
+  function () {
+    return this.controller && this.controller.my;
+  };
+
+Room.prototype.isMyReserved =
+  function () {
+    const username = Game.spawns[Object.keys(Game.spawns)[0]].owner.username;
+    return this.controller && this.controller.reservation && this.controller.reservation.username === username;
   };
 
 Room.prototype.hasNeighboringSpawnConstructionSite =
@@ -27,7 +38,7 @@ Room.prototype.getNeighboringSpawnConstructionSite =
     const exits = Game.map.describeExits(this.name);
     _.each(exits, roomName => {
       const room = Game.rooms[roomName];
-      if (!room || !room.controller.my) {
+      if (!room || !room.isMy()) {
         return;
       }
       const spawns = room.find(FIND_MY_CONSTRUCTION_SITES, {

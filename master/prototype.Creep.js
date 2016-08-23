@@ -15,17 +15,20 @@ Creep.prototype.removeMemoryObject =
   };
 
 Creep.prototype.getMemoryObject =
-  function (key, validate, find) {
-    if (!find) {
-      find = validate;
-      validate = undefined;
-    }
+  function (key, find, opts) {
+    opts = opts || {};
     let object;
     if (!(this.memory[key])
       ||
-      !(object = Game.getObjectById(this.memory[key]))
-      ||
-      (validate && !validate(object, this))) {
+      (
+        (
+          !(object = Game.getObjectById(this.memory[key]))
+          ||
+          (opts.validate && !opts.validate(object, this))
+        )
+        && !opts.disableFindAgain
+      )
+    ) {
       object = find(this);
     }
     if (object) {

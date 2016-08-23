@@ -2,7 +2,7 @@
 
 module.exports = {
   activities: {
-    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', { flagName: 'claim target' }),
+    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', 'moveToFlag', { flagName: 'claim target' }),
     'claimController': require('./creep.activity.claimController')('suicide'),
     'suicide':         require('./creep.activity.suicide')
   },
@@ -10,7 +10,7 @@ module.exports = {
     if (!room.hasFlag(/^claim spawn/)) {
       return;
     }
-    const rooms = _.filter(Game.rooms, room => room.controller.my);
+    const rooms = _.filter(Game.rooms, room => room.isMy());
     if (rooms.length >= Game.gcl.level) {
       return;
     }
