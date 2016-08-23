@@ -18,7 +18,7 @@ module.exports = {
       if (room.energyCapacityAvailable >= 1000) {
         body = { carry: 8, move: 4, work: 4 };
       }
-      roomAmount = room.getSourcesAmount() * 10;
+      roomAmount = room.getSourcesAmount() * 6;
     } else {
       roomAmount = room.getSourcesAmount() * 3;
     }

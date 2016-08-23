@@ -17,7 +17,7 @@ Room.prototype.isHeavyUpgradeable =
     if (!openNeededStructures.isFinished(this.name)) {
       return;
     }
-    return this.storage && this.storage.isFull({ percentage: 0.75 });
+    return this.storage && this.storage.isFull({ percentage: 0.5 });
   };
 
 Room.prototype.isMy =
