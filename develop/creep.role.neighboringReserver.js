@@ -18,7 +18,7 @@ module.exports = {
         }
         spawns.push({
           body: { move: 1, claim: 1 },
-          mapAmount: 1,
+          mapAmount: 2,
           memory: { flagName: flag.name },
           filter: creep => creep.memory.flagName === flag.name
         });
