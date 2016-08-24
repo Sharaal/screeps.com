@@ -22,7 +22,7 @@ module.exports = {
           return;
         }
         let mapAmount = 5;
-        if (neighboringRoom && neighboringRoom.isMyReserved()) {
+        if (neighboringRoom && neighboringRoom.hasMyReservation()) {
           mapAmount = 10;
         }
         spawns.push({
