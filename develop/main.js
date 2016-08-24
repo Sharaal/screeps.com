@@ -25,8 +25,8 @@ module.exports.loop = () => {
   _.each(_.filter(Game.rooms, room => room.isMy()), roomController(roles, ticksToSleep));
   if (ticksToSleep(100)) {
     _.each(Game.rooms, room => {
-        harvestSourceAmount.show(room);
-        harvestSourceAmount.remove(room);
+      harvestSourceAmount.show(room);
+      harvestSourceAmount.remove(room);
     });
   }
 };
