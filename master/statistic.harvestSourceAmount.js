@@ -12,12 +12,14 @@ module.exports.save = (creep, source, workAmount) => {
 module.exports.show = room => {
   if (room.hasFlag(/^show statistics/)) {
     _.each(room.find(FIND_SOURCES), source => {
-      if (!Memory.harvestSourceAmount[source.id]) {
+      const entries = Memory.harvestSourceAmount[source.id];
+      if (!entries || !entries[0] || entries[0].time > Game.time - 1500) {
         return;
       }
       const harvestSourceAmount = Memory.harvestSourceAmount[source.id]
-        .filter(entry => entry.tick > Game.time - 1500)
-        .reduce((entryA, entryB) => entryA.amount + entryB.amount);
+        .filter(entry => entry.time > Game.time - 1500)
+        .map(entry => entry.amount)
+        .reduce((amountA, amountB) => amountA + amountB, 0);
       console.log(`${source.id} harvestSourceAmount: ${harvestSourceAmount}`);
     });
   }
