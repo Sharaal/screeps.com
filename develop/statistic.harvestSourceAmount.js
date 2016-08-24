@@ -16,11 +16,14 @@ module.exports.show = room => {
       if (!entries || !entries[0] || entries[0].time > Game.time - 1500) {
         return;
       }
-      const harvestSourceAmount = Memory.harvestSourceAmount[source.id]
-        .filter(entry => entry.time > Game.time - 1500)
+      const currentEntries = entries.filter(entry => entry.time > Game.time - 1500);
+
+      const harvestSourceAmount = currentEntries
         .map(entry => entry.amount)
         .reduce((amountA, amountB) => amountA + amountB, 0);
       console.log(`${source.id} harvestSourceAmount: ${harvestSourceAmount}`);
+
+      Memory.harvestSourceAmount[source.id] = currentEntries;
     });
   }
 };
