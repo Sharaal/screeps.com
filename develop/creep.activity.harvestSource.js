@@ -1,5 +1,6 @@
 'use strict';
 
+const harvestSourceAmount = require('./statistic.harvestSourceAmount');
 const harvestSourcePositions = require('./memory.harvestSourcePositions');
 
 function findBySourceFlag(creep) {
@@ -36,12 +37,15 @@ function find(creep) {
 }
 
 module.exports = (full, next) => creep => {
-  if (creep.isFull({ restCapacity: creep.getWorkAmount(HARVEST_POWER) })) {
+  const workAmount = creep.getWorkAmount(HARVEST_POWER);
+  if (creep.isFull({ restCapacity: workAmount })) {
     return full;
   }
   const source = creep.getMemoryObject('harvestSource', find);
   if (!source || source.isEmpty()) {
     return next;
   }
-  creep.moveToAnd('harvest', source);
+  if (creep.moveToAnd('harvest', source)) {
+    harvestSourceAmount.save(creep, source, workAmount);
+  }
 };
