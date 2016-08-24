@@ -7,8 +7,11 @@ module.exports = tower => {
   if (tower.attackHostileCreep()) {
     return;
   }
+  if (tower.rescueRampart()) {
+    return;
+  }
   if (tower.isFull({ percentage: 0.5 })) {
-    if (tower.rescueRampart() || tower.repairStructure()) {
+    if (tower.repairStructure()) {
       return;
     }
   }
