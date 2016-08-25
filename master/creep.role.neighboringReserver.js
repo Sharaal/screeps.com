@@ -17,14 +17,19 @@ module.exports = {
         if (flag.pos.roomName !== roomName || !/^reserve/.test(flag.name)) {
           return;
         }
-        let mapAmount = 2;
-        const reservation = neighboringRoom.getMyReservation();
-        if (reservation && reservation.ticksToEnd >= 1000) {
-          mapAmount = 1;
+        let claimParts = 2;
+        if (room.energyCapacityAvailable < 1250) {
+          claimParts = 1;
+        }
+        if (neighboringRoom) {
+          const reservation = neighboringRoom.getMyReservation();
+          if (reservation && reservation.ticksToEnd >= 1000) {
+            claimParts = 1;
+          }
         }
         spawns.push({
-          body: { move: 1, claim: 1 },
-          mapAmount: mapAmount,
+          body: { move: 1, claim: claimParts },
+          mapAmount: 1,
           memory: { flagName: flag.name },
           filter: creep => creep.memory.flagName === flag.name
         });
