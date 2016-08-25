@@ -21,9 +21,9 @@ module.exports = {
         if (flag.pos.roomName !== roomName || !/^source/.test(flag.name)) {
           return;
         }
-        let mapAmount = 5;
+        let mapAmount = 3;
         if (neighboringRoom && neighboringRoom.hasMyReservation()) {
-          mapAmount = 10;
+          mapAmount = 6;
         }
         spawns.push({
           body: { carry: 3, move: 2, work: 1 },
