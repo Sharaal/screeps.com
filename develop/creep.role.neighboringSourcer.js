@@ -26,7 +26,7 @@ module.exports = {
           mapAmount = 10;
         }
         spawns.push({
-          body: { carry: 1, move: 1, work: 2 },
+          body: { carry: 3, move: 2, work: 1 },
           mapAmount: mapAmount,
           memory: { flagName: flag.name, transferEnergyStorage: room.storage.id },
           filter: creep => creep.memory.flagName === flag.name
