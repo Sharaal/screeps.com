@@ -23,7 +23,7 @@ function findHostileStructures(creep) {
 }
 
 function find(creep) {
-  return findHostileTower(creep) || findHostileCreep(creep) || findHostileSpawn(creep) || findHostileStructures(creep);
+  return findHostileTower(creep) || findHostileSpawn(creep) || findHostileCreep(creep) || findHostileStructures(creep);
 }
 
 module.exports = next => creep => {
