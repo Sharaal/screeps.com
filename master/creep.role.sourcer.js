@@ -12,6 +12,10 @@ module.exports = {
     'dropEnergy':              require('./creep.activity.dropEnergy')             (empty)
   },
   spawn: room => {
+    if (room.hasFlag(/spawn builder target/)) {
+      return;
+    }
+    
     let body = { carry: 1, move: 1, work: 2 };
     if (room.energyCapacityAvailable >= 500) {
       body = { carry: 1, move: 1, work: 4 };

@@ -12,7 +12,15 @@ module.exports = {
     'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController',     empty)
   },
   spawn: room => {
+    if (room.hasFlag(/spawn builder target/)) {
+      return;
+    }
+    
     let body = { carry: 2, move: 1, work: 1 };
+    if (room.energyCapacityAvailable >= 500) {
+      body = { carry: 4, move: 2, work: 2 };
+    }
+    
     let roomAmount;
     if (room.isHeavyUpgradeable()) {
       if (room.energyCapacityAvailable >= 1000) {
@@ -20,8 +28,12 @@ module.exports = {
       }
       roomAmount = room.getSourcesAmount() * 6;
     } else {
+      roomAmount = room.getSourcesAmount() * 5;
+    }
+    if (room.hasFlag(/spawn builder spawn/)) {
       roomAmount = room.getSourcesAmount() * 3;
     }
+    
     return {
       priority: 1,
       body: body,

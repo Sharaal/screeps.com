@@ -2,9 +2,8 @@
 
 module.exports = {
   activities: {
-    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', 'moveToFlag', { flagName: 'claim target' }),
-    'claimController': require('./creep.activity.claimController')('suicide'),
-    'suicide':         require('./creep.activity.suicide')
+    'moveToFlag':      require('./creep.activity.moveToFlag')     ('claimController', 'moveToFlag', { flagName: /^claim target/ }),
+    'claimController': require('./creep.activity.claimController')('moveToFlag')
   },
   spawn: room => {
     if (!room.hasFlag(/^claim spawn/)) {

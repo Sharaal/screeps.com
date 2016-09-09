@@ -9,8 +9,7 @@ module.exports = {
     'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('rescueController',  'harvestSource'),
     'harvestSource':           require('./creep.activity.harvestSource')          ('rescueController',  empty),
     'rescueController':        require('./creep.activity.upgradeController')      ('transferStructure', empty, { ticksToDowngrade: 2500 }),
-    'transferStructure':       require('./creep.activity.transferStructure')      ('upgradeController', empty),
-    'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController', empty)
+    'transferStructure':       require('./creep.activity.transferStructure')      ('rescueController',  empty)
   },
   spawn: room => {
     const creeps = room.find(FIND_MY_CREEPS);
