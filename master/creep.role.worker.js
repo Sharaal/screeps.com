@@ -28,7 +28,7 @@ module.exports = {
       }
       roomAmount = room.getSourcesAmount() * 6;
     } else {
-      roomAmount = room.getSourcesAmount() * 5;
+      roomAmount = room.getSourcesAmount() * 4;
     }
     if (room.hasFlag(/spawn builder spawn/)) {
       roomAmount = room.getSourcesAmount() * 3;

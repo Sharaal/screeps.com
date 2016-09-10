@@ -11,9 +11,8 @@ module.exports = {
       return;
     }
     return {
-      body: { attack: 3, move: 3, tough: 5 },
-      disableNotifyWhenAttacked: true,
-      priority: Infinity
+      body: { attack: 3, move: 3 },
+      disableNotifyWhenAttacked: true
     };
   }
 };
