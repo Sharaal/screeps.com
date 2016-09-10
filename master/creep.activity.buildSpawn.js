@@ -1,7 +1,10 @@
 'use strict';
 
 function find(creep) {
-  return creep.room.getNeighboringSpawnConstructionSite() || creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
+  return creep.room.getNeighboringSpawnConstructionSite() || 
+         creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
+           filter: constructionSite => constructionSite.structureType === STRUCTURE_SPAWN
+         });
 }
 
 module.exports = (next, nearlyEmpty) => creep => {
