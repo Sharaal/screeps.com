@@ -7,7 +7,7 @@ module.exports = {
     'pickupDroppedEnergy':   require('./creep.activity.pickupDroppedEnergy')  ('buildSpawn',            'harvestSource'),
     'harvestSource':         require('./creep.activity.harvestSource')        ('buildSpawn',            'pickupDroppedEnergy'),
     'buildSpawn':            require('./creep.activity.buildSpawn')           ('transferStructure',     'rescueController'),
-    'rescueController':      require('./creep.activity.upgradeController')    ('pickupDroppedEnergy',   'pickupDroppedEnergy', { ticksToDowngrade: 2500 }),
+    'rescueController':      require('./creep.activity.upgradeController')    ('pickupDroppedEnergy',   'pickupDroppedEnergy', { ticksToDowngrade: 3500 }),
     'transferStructure':     require('./creep.activity.transferStructure')    ('buildConstructionSite', 'pickupDroppedEnergy'),
     'buildConstructionSite': require('./creep.activity.buildConstructionSite')('upgradeController',     'pickupDroppedEnergy'),
     'upgradeController':     require('./creep.activity.upgradeController')    ('upgradeController',     'pickupDroppedEnergy')
