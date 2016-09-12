@@ -17,11 +17,11 @@ module.exports = {
     }
     
     let body = { carry: 1, move: 1, work: 2 };
-    if (room.energyCapacityAvailable >= 500) {
-      body = { carry: 1, move: 1, work: 4 };
+    if (room.energyCapacityAvailable >= 550) {
+      body = { carry: 1, move: 2, work: 4 };
     }
-    if (room.energyCapacityAvailable >= 1150) {
-      body = { carry: 2, move: 1, work: 10 };
+    if (room.energyCapacityAvailable >= 1350) {
+      body = { carry: 2, move: 5, work: 10 };
     }
 
     let sources;
