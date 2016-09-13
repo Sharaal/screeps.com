@@ -11,7 +11,7 @@ module.exports = {
     'upgradeController':       require('./creep.activity.upgradeController')      ('upgradeController', empty)
   },
   spawn: room => {
-    const structures = creep.room.find(FIND_STRUCTURES, {
+    const structures = room.find(FIND_STRUCTURES, {
       filter: structure =>
         [STRUCTURE_RAMPART, STRUCTURE_WALL].indexOf(structure.structureType) !== -1
         &&
