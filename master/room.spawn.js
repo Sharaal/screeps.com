@@ -9,6 +9,7 @@ function transformBody(body) {
 };
 
 module.exports = roles => room => {
+    
   var spawnOrder;
   _.each(roles, (role, roleName) => {
     let spawns = role.spawn(room);
@@ -82,7 +83,7 @@ module.exports = roles => room => {
   if (!spawnOrder) {
     return;
   }
-
+  
   const spawns = room.find(FIND_MY_STRUCTURES, { filter: structure => structure.structureType === STRUCTURE_SPAWN });
   _.each(spawns, spawn => {
     if (!spawnOrder) {

@@ -8,12 +8,12 @@ module.exports = {
     'withdrawEnergyContainer': require('./creep.activity.withdrawEnergyContainer')('rescueController',  'pickupDroppedEnergy'),
     'pickupDroppedEnergy':     require('./creep.activity.pickupDroppedEnergy')    ('rescueController',  'harvestSource'),
     'harvestSource':           require('./creep.activity.harvestSource')          ('rescueController',  empty),
-    'rescueController':        require('./creep.activity.upgradeController')      ('transferStructure', empty, { ticksToDowngrade: 3500 }),
+    'rescueController':        require('./creep.activity.upgradeController')      ('transferStructure', empty, { ticksToDowngrade: 2500 }),
     'transferStructure':       require('./creep.activity.transferStructure')      ('rescueController',  empty)
   },
   spawn: room => {
     const creeps = room.find(FIND_MY_CREEPS);
-    if (creeps.length > 0 && room.controller.ticksToDowngrade >= 3500) {
+    if (creeps.length > 0 && room.controller.ticksToDowngrade >= 2500) {
       return;
     }
     return {
