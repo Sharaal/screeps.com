@@ -10,7 +10,12 @@ function find(creep) {
   if (structures.length === 0) {
     return;
   }
-  structures = _.sortBy(structures, structure => structure.hits);
+  structures = _.sortBy(structures, structure => {
+    if (structure.structureType === STRUCTURE_WALL) {
+      return structure.hits - 1;
+    }
+    return structure.hits;
+  });
   return structures[0];
 }
 
