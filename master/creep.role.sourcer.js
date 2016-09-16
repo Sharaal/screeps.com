@@ -20,8 +20,8 @@ module.exports = {
     if (room.energyCapacityAvailable >= 550) {
       body = { carry: 1, move: 2, work: 4 };
     }
-    if (room.energyCapacityAvailable >= 1350) {
-      body = { carry: 2, move: 5, work: 10 };
+    if (room.energyCapacityAvailable >= 1300) {
+      body = { carry: 2, move: 4, work: 10 };
     }
 
     let sources;
@@ -34,7 +34,7 @@ module.exports = {
 
     let roomAmount = 0;
     _.each(sources, source => {
-      roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), 8 / body.work);
+      roomAmount += Math.min(harvestSourcePositions.getAmountBySource(source), Math.ceil(8 / body.work));
     });
 
     return {
